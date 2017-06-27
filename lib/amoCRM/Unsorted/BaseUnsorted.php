@@ -5,6 +5,10 @@ namespace amoCRM\Unsorted;
 use amoCRM\Exceptions\RuntimeException;
 use amoCRM\Exceptions\ValidateException;
 
+/**
+ * Class BaseUnsorted
+ * @package amoCRM\Unsorted
+ */
 abstract class BaseUnsorted
 {
     /** @var string */
@@ -66,6 +70,9 @@ abstract class BaseUnsorted
         return $result;
     }
 
+    /**
+     * @throws ValidateException
+     */
     protected function validateSource()
     {
         $source = $this->getSource();
@@ -90,6 +97,9 @@ abstract class BaseUnsorted
         $this->_source = $source;
     }
 
+    /**
+     * @throws ValidateException
+     */
     protected function validateSourceUid()
     {
         $source_uid = $this->getSourceUid();
@@ -114,6 +124,9 @@ abstract class BaseUnsorted
         $this->_source_uid = $source_uid;
     }
 
+    /**
+     * @throws ValidateException
+     */
     protected function validateSourceData()
     {
         $source_data = $this->getSourceData();
@@ -145,6 +158,9 @@ abstract class BaseUnsorted
         $this->_source_data = $source_data;
     }
 
+    /**
+     * @throws ValidateException
+     */
     protected function validateData()
     {
         $data = $this->getData();
