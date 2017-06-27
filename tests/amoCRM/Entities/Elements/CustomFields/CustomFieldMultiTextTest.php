@@ -87,4 +87,9 @@ class CustomFieldMultiTextTest extends TestCase
 
         $this->assertEquals(['id' => $this->_default_id, 'values' => $values], $cf->toAmo());
     }
+
+    public function testGetEnums()
+    {
+        $this->assertEquals($this->_default_enums, $this->buildMock()->getEnums());
+    }
 }
