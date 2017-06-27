@@ -1,0 +1,23 @@
+<phpunit
+        bootstrap="bootstrap.php"
+        backupGlobals="true"
+        backupStaticAttributes="false"
+        stopOnError="false"
+        stopOnFailure="false"
+        stopOnIncomplete="false"
+        stopOnSkipped="false"
+        verbose="true">
+    <testsuites>
+        <testsuite name="PHP API Client amoCRM">
+            <directory>amoCRM</directory>
+            <directory>HTTP</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../lib/amoCRM</directory>
+            <directory suffix=".php">../lib/HTTP</directory>
+        </whitelist>
+    </filter>
+</phpunit>

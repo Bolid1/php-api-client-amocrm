@@ -1,0 +1,25 @@
+{
+  "name": "Bolid1/php-api-client-amocrm",
+  "description": "Client for amoCRM API",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Valery Vargin",
+      "email": "VDVUGaD@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.0"
+  },
+  "require-dev": {
+    "php": ">=7.0.0",
+    "phpunit/phpunit": "6.2.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "amoCRM\\": "lib/amoCRM/",
+      "HTTP\\": "lib/HTTP/"
+    }
+  }
+}
