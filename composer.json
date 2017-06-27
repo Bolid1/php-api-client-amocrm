@@ -1,6 +1,7 @@
 {
-  "name": "Bolid1/php-api-client-amocrm",
+  "name": "bolid1/php-api-client-amocrm",
   "description": "Client for amoCRM API",
+  "homepage": "https://github.com/Bolid1/php-api-client-amocrm",
   "minimum-stability": "stable",
   "license": "MIT",
   "authors": [
