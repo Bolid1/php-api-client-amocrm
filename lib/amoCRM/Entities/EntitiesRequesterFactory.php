@@ -6,16 +6,16 @@ use amoCRM\Exceptions\InvalidArgumentException;
 use amoCRM\Interfaces\Requester;
 
 /**
- * Class EntitiesRequesterFabric
+ * Class EntitiesRequesterFactory
  * @package amoCRM\Entities
  */
-final class EntitiesRequesterFabric
+final class EntitiesRequesterFactory
 {
     /** @var Requester */
     private $_requester;
 
     /**
-     * RequesterFabric constructor.
+     * RequesterFactory constructor.
      * @param Requester $requester
      */
     public function __construct(Requester $requester)
