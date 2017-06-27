@@ -216,6 +216,14 @@ final class BaseElementTest extends TestCase
         $this->assertEquals(['tags' => implode(',', $tags)], $stub->toAmo());
     }
 
+    public function testRemoveTagDoNothing()
+    {
+        $stub = $this->buildMock();
+        $this->assertEquals([], $stub->toAmo());
+        $stub->removeTag('foo');
+        $this->assertEquals([], $stub->toAmo());
+    }
+
     public function testAddEmptyTagDoNothing()
     {
         $stub = $this->buildMock();
