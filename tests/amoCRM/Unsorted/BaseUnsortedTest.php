@@ -28,10 +28,9 @@ final class BaseUnsortedTest extends TestCase
 
     public function testSetSource()
     {
-        $data = 'some source';
         $unsorted = $this->buildMock();
-        $unsorted->setSource($data);
-        $this->assertEquals($data, $unsorted->getSource());
+        $unsorted->setSource($this->_example['source']);
+        $this->assertEquals($this->_example['source'], $unsorted->getSource());
     }
 
     /**
@@ -50,18 +49,23 @@ final class BaseUnsortedTest extends TestCase
 
     public function testSetSourceUid()
     {
-        $data = 'some data';
         $unsorted = $this->buildMock();
-        $unsorted->setSourceUid($data);
-        $this->assertEquals($data, $unsorted->getSourceUid());
+        $unsorted->setSourceUid($this->_example['source_uid']);
+        $this->assertEquals($this->_example['source_uid'], $unsorted->getSourceUid());
     }
 
     public function testSetSourceData()
     {
-        $data = ['some data'];
         $unsorted = $this->buildMock();
-        $unsorted->setSourceData($data);
-        $this->assertEquals($data, $unsorted->getSourceData());
+        $unsorted->setSourceData($this->_example['source_data']);
+        $this->assertEquals($this->_example['source_data'], $unsorted->getSourceData());
+    }
+
+    public function testSetSourceDataByKey()
+    {
+        $unsorted = $this->buildMock();
+        $unsorted->setSourceData($this->_example['source_data']);
+        $this->assertEquals($this->_example['source_data']['foo'], $unsorted->getSourceData('foo'));
     }
 
     public function testToAmo()

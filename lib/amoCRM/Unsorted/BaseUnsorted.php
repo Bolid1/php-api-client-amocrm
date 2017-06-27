@@ -123,11 +123,18 @@ abstract class BaseUnsorted
     }
 
     /**
+     * @param string [$key=NULL]
+     *
      * @return array
      */
-    public function getSourceData()
+    public function getSourceData($key = null)
     {
-        return $this->_source_data;
+        $result = $this->_source_data;
+        if (isset($key)) {
+            $result = isset($result[$key]) ? $result[$key] : null;
+        }
+
+        return $result;
     }
 
     /**
