@@ -3,6 +3,7 @@
 namespace amoCRM\Unsorted;
 
 use amoCRM\Exceptions\RuntimeException;
+use amoCRM\Exceptions\ValidateException;
 
 abstract class BaseUnsorted
 {
@@ -50,6 +51,10 @@ abstract class BaseUnsorted
      */
     public function toAmo()
     {
+        $this->validateSource();
+        $this->validateSourceUid();
+        $this->validateSourceData();
+        $this->validateData();
 
         $result = [
             'source' => $this->getSource(),
@@ -58,17 +63,15 @@ abstract class BaseUnsorted
             'data' => $this->getData(),
         ];
 
-        if (empty($result['data']['leads'][0]['name'])) {
-            throw new RuntimeException('Can\'t create unsorted without at least one lead');
-        }
-
-        foreach ($result as $key => $value) {
-            if (empty($value)) {
-                throw new RuntimeException(sprintf('Key "%s" must be not empty', $key));
-            }
-        }
-
         return $result;
+    }
+
+    protected function validateSource()
+    {
+        $source = $this->getSource();
+        if (empty($source)) {
+            throw new ValidateException('Source can\'t be empty');
+        }
     }
 
     /**
@@ -87,6 +90,14 @@ abstract class BaseUnsorted
         $this->_source = $source;
     }
 
+    protected function validateSourceUid()
+    {
+        $source_uid = $this->getSourceUid();
+        if (empty($source_uid)) {
+            throw new ValidateException('Source Uid can\'t be empty');
+        }
+    }
+
     /**
      * @return string
      */
@@ -103,6 +114,14 @@ abstract class BaseUnsorted
         $this->_source_uid = $source_uid;
     }
 
+    protected function validateSourceData()
+    {
+        $source_data = $this->getSourceData();
+        if (empty($source_data)) {
+            throw new ValidateException('Source Data can\'t be empty');
+        }
+    }
+
     /**
      * @return array
      */
@@ -117,6 +136,18 @@ abstract class BaseUnsorted
     public function setSourceData(array $source_data)
     {
         $this->_source_data = $source_data;
+    }
+
+    protected function validateData()
+    {
+        $data = $this->getData();
+        if (empty($data)) {
+            throw new ValidateException('Data can\'t be empty');
+        }
+
+        if (empty($data['leads'][0]['name'])) {
+            throw new ValidateException('Can\'t create unsorted without at least one lead');
+        }
     }
 
     /**

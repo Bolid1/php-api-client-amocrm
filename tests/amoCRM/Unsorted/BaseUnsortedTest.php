@@ -78,24 +78,39 @@ final class BaseUnsortedTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\RuntimeException
+     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedExceptionMessage Data can't be empty
+     */
+    public function testToAmoThrowValidateExceptionEmptyData()
+    {
+        $unsorted = $this->buildMock();
+        $unsorted->setSource($this->_example['source']);
+        $unsorted->setSourceUid($this->_example['source_uid']);
+        $unsorted->setSourceData($this->_example['source_data']);
+
+        $this->assertEquals($this->_example, $unsorted->toAmo());
+    }
+
+    /**
+     * @expectedException \amoCRM\Exceptions\ValidateException
      * @expectedExceptionMessage Can't create unsorted without at least one lead
      */
-    public function testToAmoThrowRuntimeExceptionNoLead()
+    public function testToAmoThrowValidateExceptionEmptyLeadName()
     {
         $unsorted = $this->buildMock();
         $unsorted->setSource($this->_example['source']);
         $unsorted->setSourceUid($this->_example['source_uid']);
         $unsorted->setSourceData($this->_example['source_data']);
+        $unsorted->addLead(['date_create' => time()]);
 
         $this->assertEquals($this->_example, $unsorted->toAmo());
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\RuntimeException
-     * @expectedExceptionMessage Key "source" must be not empty
+     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedExceptionMessage Source can't be empty
      */
-    public function testToAmoThrowRuntimeExceptionEmptySource()
+    public function testToAmoThrowValidateExceptionEmptySource()
     {
         $unsorted = $this->buildMock();
         $unsorted->setSourceUid($this->_example['source_uid']);
@@ -106,10 +121,10 @@ final class BaseUnsortedTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\RuntimeException
-     * @expectedExceptionMessage Key "source_uid" must be not empty
+     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedExceptionMessage Source Uid can't be empty
      */
-    public function testToAmoThrowRuntimeExceptionEmptySourceUid()
+    public function testToAmoThrowValidateExceptionEmptySourceUid()
     {
         $unsorted = $this->buildMock();
         $unsorted->setSource($this->_example['source']);
@@ -120,10 +135,10 @@ final class BaseUnsortedTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\RuntimeException
-     * @expectedExceptionMessage Key "source_data" must be not empty
+     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedExceptionMessage Source Data can't be empty
      */
-    public function testToAmoThrowRuntimeExceptionEmptySourceData()
+    public function testToAmoThrowValidateExceptionEmptySourceData()
     {
         $unsorted = $this->buildMock();
         $unsorted->setSource($this->_example['source']);
