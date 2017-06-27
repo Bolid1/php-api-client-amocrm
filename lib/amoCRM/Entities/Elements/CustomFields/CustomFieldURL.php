@@ -2,6 +2,10 @@
 
 namespace amoCRM\Entities\Elements\CustomFields;
 
-class CustomFieldURL extends CustomFieldText
+/**
+ * Class CustomFieldURL
+ * @package amoCRM\Entities\Elements\CustomFields
+ */
+final class CustomFieldURL extends CustomFieldText
 {
 }
