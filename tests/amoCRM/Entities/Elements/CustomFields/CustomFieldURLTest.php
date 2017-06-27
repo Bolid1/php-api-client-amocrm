@@ -3,15 +3,15 @@
 namespace Tests\amoCRM\Entities\Elements\CustomFields;
 
 use amoCRM\Entities\Elements\CustomFields\BaseCustomField;
-use amoCRM\Entities\Elements\CustomFields\CustomFieldUrl;
+use amoCRM\Entities\Elements\CustomFields\CustomFieldURL;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class CustomFieldUrlTest
+ * Class CustomFieldURLTest
  * @package Tests\amoCRM\Entities\Elements\CustomFields
- * @covers \amoCRM\Entities\Elements\CustomFields\CustomFieldUrl
+ * @covers \amoCRM\Entities\Elements\CustomFields\CustomFieldURL
  */
-class CustomFieldUrlTest extends TestCase
+class CustomFieldURLTest extends TestCase
 {
     /** @var integer */
     private $_default_id = 25;
@@ -20,13 +20,13 @@ class CustomFieldUrlTest extends TestCase
     {
         $this->assertInstanceOf(
             BaseCustomField::class,
-            new CustomFieldUrl($this->_default_id)
+            new CustomFieldURL($this->_default_id)
         );
     }
 
     public function testSetValueToAmo()
     {
-        $cf = new CustomFieldUrl($this->_default_id);
+        $cf = new CustomFieldURL($this->_default_id);
         $value = 'my.url.com';
 
         $cf->setValue($value);
