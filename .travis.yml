@@ -8,10 +8,10 @@ before_script:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install --dev --no-interaction
 script:
-  - mkdir -p test/output/report
+  - mkdir -p tests/output/report
   - composer test
 after_script:
-  - php vendor/bin/coveralls
+  - php vendor/bin/coveralls -v
 notifications:
   email:
     recipients: VDVUGaD@gmail.com
