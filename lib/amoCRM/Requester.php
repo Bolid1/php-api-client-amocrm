@@ -49,7 +49,7 @@ final class Requester implements Interfaces\Requester
      */
     public function get($path, $query = null)
     {
-        $this->ensureCurlInitialized();
+        $this->checkHasAuth();
         $curl_result = $this->_curl->request('get', $this->buildPath($path), [
             RequestOptions::QUERY => $query,
             RequestOptions::COOKIES => true,
@@ -62,20 +62,15 @@ final class Requester implements Interfaces\Requester
      * If cookie not initialized, initialize it
      * @throws Exceptions\RuntimeException if auth failed
      */
-    private function ensureCurlInitialized()
+    private function checkHasAuth()
     {
         if (isset($this->_auth)) {
             return;
         }
 
-        $this->_auth = false;
+        $this->_auth = true;
         $query = ['type' => 'json'] + $this->_user->getCredentialsAsArray();
-        $auth_result = $this->get('/private/api/auth.php', $query);
-        $this->_auth = !empty($auth_result['auth']);
-
-        if ($this->_auth === false) {
-            throw new Exceptions\RuntimeException('Auth failed');
-        }
+        $this->get('/private/api/auth.php', $query);
     }
 
     /**
@@ -93,13 +88,14 @@ final class Requester implements Interfaces\Requester
      *
      * @param ResponseInterface $curl_result
      * @return array
+     * @throws Exceptions\AuthFailed
      */
     private function extractResponse(ResponseInterface $curl_result)
     {
         $http_code = $curl_result->getStatusCode();
 
         if (in_array($http_code, [401, 403], true)) {
-            $this->_auth = false;
+            throw new Exceptions\AuthFailed('Auth failed', $http_code);
         }
 
         $result = $http_code === 204 ? [] : json_decode((string)$curl_result->getBody(), true);
@@ -118,7 +114,7 @@ final class Requester implements Interfaces\Requester
      */
     public function post($path, $data, $query = null)
     {
-        $this->ensureCurlInitialized();
+        $this->checkHasAuth();
         $curl_result = $this->_curl->request('post', $this->buildPath($path), [
             RequestOptions::QUERY => $query,
             RequestOptions::FORM_PARAMS => $data,

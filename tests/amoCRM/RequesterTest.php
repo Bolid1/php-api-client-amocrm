@@ -81,7 +81,7 @@ final class RequesterTest extends TestCase
     public function testExceptionOnAuthFailed()
     {
         $response = $this->createMock(ResponseInterface::class);
-        $response->method('getStatusCode')->willReturn(200);
+        $response->method('getStatusCode')->willReturn(401);
         $response->method('getBody')->willReturn('{"response":{"auth":false},"server_time":1498126390}');
         /** @var ResponseInterface $response */
 
@@ -91,6 +91,28 @@ final class RequesterTest extends TestCase
         /** @var ClientInterface $curl */
         $requester = new Requester($this->_account, $this->_user, $curl);
 
+        $requester->get('/private/api/auth.php', ['type' => 'json']);
+    }
+
+    /**
+     * @expectedException \amoCRM\Exceptions\RuntimeException
+     */
+    public function testExceptionOnAuthLost()
+    {
+        $response = $this->createMock(ResponseInterface::class);
+        $response->method('getStatusCode')->willReturn(200, 401);
+        $auth_success = '{"response":{"auth":true},"server_time":1498126390}';
+        $auth_failed = '{"response":{"auth":false},"server_time":1498126390}';
+        $response->method('getBody')->willReturn($auth_success, $auth_failed);
+        /** @var ResponseInterface $response */
+
+        $curl = $this->createMock(ClientInterface::class);
+        $curl->method('request')->willReturn($response);
+
+        /** @var ClientInterface $curl */
+        $requester = new Requester($this->_account, $this->_user, $curl);
+
+        // Now will return 401 and auth must be lost
         $requester->get('/private/api/auth.php', ['type' => 'json']);
     }
 }
