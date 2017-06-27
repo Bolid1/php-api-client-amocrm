@@ -63,4 +63,12 @@ final class BaseCustomFieldTest extends TestCase
     {
         $this->buildMock(-1);
     }
+
+    /**
+     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     */
+    public function testSetIdThrowInvalidArgumentZero()
+    {
+        $this->buildMock(0);
+    }
 }
