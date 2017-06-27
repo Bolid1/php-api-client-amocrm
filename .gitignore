@@ -1,6 +1,9 @@
-# JetBrains PHPStorm IDE
+### JetBrains PHPStorm IDE
 /.idea/
 
 ### Composer
 /vendor/
 composer.lock
+
+### Tests
+/tests/output

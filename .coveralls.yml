@@ -1,0 +1,8 @@
+#.coveralls.yml
+
+src_dir: lib/
+
+# single file
+coverage_clover: tests/output/clover.xml
+
+json_path: tests/output/coveralls-upload.json

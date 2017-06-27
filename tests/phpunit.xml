@@ -14,10 +14,14 @@
         </testsuite>
     </testsuites>
 
+    <logging>
+        <log type='coverage-html' target='output/report'/>
+        <log type='coverage-clover' target='output/clover.xml'/>
+    </logging>
+
     <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../lib/amoCRM</directory>
-            <directory suffix=".php">../lib/HTTP</directory>
+        <whitelist>
+            <directory>./../lib</directory>
         </whitelist>
     </filter>
 </phpunit>
