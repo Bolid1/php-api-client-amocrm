@@ -5,9 +5,9 @@ namespace Tests\amoCRM;
 use amoCRM\Interfaces\Account;
 use amoCRM\Interfaces\User;
 use amoCRM\Requester;
-use HTTP\CurlResult;
-use HTTP\Interfaces\Curl;
+use GuzzleHttp\ClientInterface;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class RequesterTest
@@ -41,34 +41,38 @@ final class RequesterTest extends TestCase
 
     public function testSendGetRequest()
     {
-        $response = '{"response":{"auth":true},"server_time":1498126390}';
-        $expected = new CurlResult($response, ['http_code' => 200]);
+        $response = $this->createMock(ResponseInterface::class);
+        $response->method('getStatusCode')->willReturn(200);
+        $response->method('getBody')->willReturn('{"response":{"auth":true},"server_time":1498126390}');
+        /** @var ResponseInterface $response */
 
-        $curl = $this->createMock(Curl::class);
-        $curl->method('get')->willReturn($expected);
-        $curl->method('post')->willThrowException(new \RuntimeException('No need post'));
+        $curl = $this->createMock(ClientInterface::class);
+        $curl->method('request')->willReturn($response);
 
-        /** @var Curl $curl */
+        /** @var ClientInterface $curl */
         $requester = new Requester($this->_account, $this->_user, $curl);
 
         $result = $requester->get('/private/api/auth.php', ['type' => 'json']);
-        $this->assertEquals($expected->getBodyFromJSON('response'), $result);
+        $expected = json_decode($response->getBody(), true);
+        $this->assertEquals($expected['response'], $result);
     }
 
     public function testSendPostRequest()
     {
-        $response = '{"response":{"auth":true},"server_time":1498126390}';
-        $expected = new CurlResult($response, ['http_code' => 200]);
+        $response = $this->createMock(ResponseInterface::class);
+        $response->method('getStatusCode')->willReturn(200);
+        $response->method('getBody')->willReturn('{"response":{"auth":true},"server_time":1498126390}');
+        /** @var ResponseInterface $response */
 
-        $curl = $this->createMock(Curl::class);
-        $curl->method('get')->willReturn($expected);
-        $curl->method('post')->willReturn($expected);
+        $curl = $this->createMock(ClientInterface::class);
+        $curl->method('request')->willReturn($response);
 
-        /** @var Curl $curl */
+        /** @var ClientInterface $curl */
         $requester = new Requester($this->_account, $this->_user, $curl);
 
         $result = $requester->post('/private/api/auth.php', ['type' => 'json']);
-        $this->assertEquals($expected->getBodyFromJSON('response'), $result);
+        $expected = json_decode($response->getBody(), true);
+        $this->assertEquals($expected['response'], $result);
     }
 
     /**
@@ -76,17 +80,17 @@ final class RequesterTest extends TestCase
      */
     public function testExceptionOnAuthFailed()
     {
-        $response = '{"response":{"auth":false},"server_time":1498126390}';
-        $expected = new CurlResult($response, ['http_code' => 200]);
+        $response = $this->createMock(ResponseInterface::class);
+        $response->method('getStatusCode')->willReturn(200);
+        $response->method('getBody')->willReturn('{"response":{"auth":false},"server_time":1498126390}');
+        /** @var ResponseInterface $response */
 
-        $curl = $this->createMock(Curl::class);
-        $curl->method('get')->willReturn($expected);
-        $curl->method('post')->willThrowException(new \RuntimeException('No need post'));
+        $curl = $this->createMock(ClientInterface::class);
+        $curl->method('request')->willReturn($response);
 
-        /** @var Curl $curl */
+        /** @var ClientInterface $curl */
         $requester = new Requester($this->_account, $this->_user, $curl);
 
-        $result = $requester->get('/private/api/auth.php', ['type' => 'json']);
-        $this->assertEquals($expected->getBodyFromJSON('response'), $result);
+        $requester->get('/private/api/auth.php', ['type' => 'json']);
     }
 }

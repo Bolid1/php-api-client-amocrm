@@ -14,7 +14,8 @@
     "test": "phpunit --configuration tests/phpunit.xml"
   },
   "require": {
-    "php": ">=5.5.0"
+    "php": ">=5.6.25",
+    "guzzlehttp/guzzle": "6.3.0"
   },
   "require-dev": {
     "php": ">=7.0.0",

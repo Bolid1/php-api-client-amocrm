@@ -2,8 +2,9 @@
 
 namespace amoCRM;
 
-use HTTP\Interfaces\Curl;
-use HTTP\Interfaces\CurlResult;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\RequestOptions;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class Requester
@@ -19,45 +20,23 @@ final class Requester implements Interfaces\Requester
     /** @var Interfaces\User */
     private $_user;
 
-    /** @var Curl */
+    /** @var ClientInterface */
     private $_curl;
 
-    /** @var string */
-    private $_cookie_file = null;
+    /** @var boolean */
+    private $_auth;
 
     /**
      * Requester constructor.
      * @param Interfaces\Account $account
      * @param Interfaces\User $user
-     * @param Curl $curl
+     * @param ClientInterface $curl
      */
-    public function __construct(Interfaces\Account $account, Interfaces\User $user, Curl $curl)
+    public function __construct(Interfaces\Account $account, Interfaces\User $user, ClientInterface $curl)
     {
         $this->_account = $account;
         $this->_user = $user;
         $this->_curl = $curl;
-    }
-
-    /**
-     * При дестрое класса необходимо почистить за собой хранилище печенек
-     */
-    function __destruct()
-    {
-        $this->destroy_cookie();
-    }
-
-    /**
-     * Destroy cookie file
-     */
-    private function destroy_cookie()
-    {
-        if (!empty($this->_cookie_file)) {
-            if (file_exists($this->_cookie_file)) {
-                unlink($this->_cookie_file);
-            }
-        }
-
-        unset($this->_cookie_file);
     }
 
     /**
@@ -71,7 +50,10 @@ final class Requester implements Interfaces\Requester
     public function get($path, $query = null)
     {
         $this->ensureCurlInitialized();
-        $curl_result = $this->_curl->get($this->buildPath($path), $query);
+        $curl_result = $this->_curl->request('get', $this->buildPath($path), [
+            RequestOptions::QUERY => $query,
+            RequestOptions::COOKIES => true,
+        ]);
 
         return $this->extractResponse($curl_result);
     }
@@ -82,32 +64,18 @@ final class Requester implements Interfaces\Requester
      */
     private function ensureCurlInitialized()
     {
-        if (!empty($this->_cookie_file)) {
+        if (isset($this->_auth)) {
             return;
         }
 
-        $this->_cookie_file = $this->buildCookiePath();
-        $this->_curl->setCookie($this->_cookie_file);
-
+        $this->_auth = false;
         $query = ['type' => 'json'] + $this->_user->getCredentialsAsArray();
         $auth_result = $this->get('/private/api/auth.php', $query);
+        $this->_auth = !empty($auth_result['auth']);
 
-        if (empty($auth_result['auth'])) {
+        if ($this->_auth === false) {
             throw new Exceptions\RuntimeException('Auth failed');
         }
-    }
-
-    /**
-     * Build cookie path
-     *
-     * @return string
-     */
-    private function buildCookiePath()
-    {
-        $md5 = md5($this->_user->getCredentials() . $this->_account->getAddress());
-        $base_path = defined('TMP_DIR') ? TMP_DIR : __DIR__ . '/';
-
-        return $base_path . $md5 . '_' . time() . '.cookie';
     }
 
     /**
@@ -123,18 +91,18 @@ final class Requester implements Interfaces\Requester
     /**
      * Prepare API response
      *
-     * @param CurlResult $curl_result
+     * @param ResponseInterface $curl_result
      * @return array
      */
-    private function extractResponse(CurlResult $curl_result)
+    private function extractResponse(ResponseInterface $curl_result)
     {
-        $http_code = $curl_result->getInfo('http_code');
+        $http_code = $curl_result->getStatusCode();
 
         if (in_array($http_code, [401, 403], true)) {
-            $this->destroy_cookie();
+            $this->_auth = false;
         }
 
-        $result = $http_code === 204 ? [] : $curl_result->getBodyFromJSON();
+        $result = $http_code === 204 ? [] : json_decode((string)$curl_result->getBody(), true);
 
         return isset($result['response']) ? $result['response'] : $result;
     }
@@ -151,7 +119,11 @@ final class Requester implements Interfaces\Requester
     public function post($path, $data, $query = null)
     {
         $this->ensureCurlInitialized();
-        $curl_result = $this->_curl->post($this->buildPath($path), $data, $query);
+        $curl_result = $this->_curl->request('post', $this->buildPath($path), [
+            RequestOptions::QUERY => $query,
+            RequestOptions::FORM_PARAMS => $data,
+            RequestOptions::COOKIES => true,
+        ]);
 
         return $this->extractResponse($curl_result);
     }
