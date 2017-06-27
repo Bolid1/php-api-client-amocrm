@@ -123,9 +123,9 @@ abstract class BaseUnsorted
     }
 
     /**
-     * @param string [$key=NULL]
+     * @param string [$key=null]
      *
-     * @return array
+     * @return array|mixed|null
      */
     public function getSourceData($key = null)
     {
