@@ -52,14 +52,13 @@ final class Requester implements Interfaces\Requester
         $this->checkHasAuth();
         $curl_result = $this->_curl->request('get', $this->buildPath($path), [
             RequestOptions::QUERY => $query,
-            RequestOptions::COOKIES => true,
         ]);
 
         return $this->extractResponse($curl_result);
     }
 
     /**
-     * If cookie not initialized, initialize it
+     * If auth not initialized, initialize it
      * @throws Exceptions\RuntimeException if auth failed
      */
     private function checkHasAuth()
@@ -118,7 +117,6 @@ final class Requester implements Interfaces\Requester
         $curl_result = $this->_curl->request('post', $this->buildPath($path), [
             RequestOptions::QUERY => $query,
             RequestOptions::FORM_PARAMS => $data,
-            RequestOptions::COOKIES => true,
         ]);
 
         return $this->extractResponse($curl_result);

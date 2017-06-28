@@ -3,6 +3,7 @@
 namespace amoCRM;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\RequestOptions;
 
 /**
@@ -22,7 +23,7 @@ final class RequesterFactory
         $account = new Account($subdomain);
         $user = new User($login, $api_key);
         $curl = new Client([
-            RequestOptions::COOKIES => true,
+            RequestOptions::COOKIES => new CookieJar,
             RequestOptions::HEADERS => [
                 'User-Agent' => 'amoCRM-PHP-API-client/0.5.0',
             ],
