@@ -33,6 +33,16 @@ abstract class CustomFieldMultiText extends BaseCustomField
         return $this->_enums;
     }
 
+    /**
+     * Return available enums of current field
+     *
+     * @return array
+     */
+    public function getDefaultEnum()
+    {
+        return reset($this->_enums);
+    }
+
     public function addValue($enum, $value)
     {
         $enum_upper = strtoupper($enum);

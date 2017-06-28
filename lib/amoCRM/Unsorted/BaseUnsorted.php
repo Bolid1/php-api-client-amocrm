@@ -20,9 +20,9 @@ abstract class BaseUnsorted
     private $_source_data;
     /** @var array */
     private $_data = [
-		Elements\Lead::TYPE_MANY => [],
-		Elements\Contact::TYPE_MANY => [],
-		'companies' => [],
+        Elements\Lead::TYPE_MANY => [],
+        Elements\Contact::TYPE_MANY => [],
+        'companies' => [],
     ];
 
     /**
@@ -62,10 +62,10 @@ abstract class BaseUnsorted
         $this->validateData();
 
         $result = [
-            'source' => $this->getSource(),
-            'source_uid' => $this->getSourceUid(),
-            'source_data' => $this->getSourceData(),
-            'data' => $this->getData(),
+            'source' => $this->getSourceToAmo(),
+            'source_uid' => $this->getSourceUidToAmo(),
+            'source_data' => $this->getSourceDataToAmo(),
+            'data' => $this->getDataToAmo(),
         ];
 
         return $result;
@@ -180,5 +180,37 @@ abstract class BaseUnsorted
     public function getData()
     {
         return array_filter($this->_data);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getSourceToAmo()
+    {
+        return $this->getSource();
+    }
+
+    /**
+     * @return string
+     */
+    protected function getSourceUidToAmo()
+    {
+        return $this->getSourceUid();
+    }
+
+    /**
+     * @return array
+     */
+    protected function getSourceDataToAmo()
+    {
+        return $this->getSourceData();
+    }
+
+    /**
+     * @return array
+     */
+    protected function getDataToAmo()
+    {
+        return $this->getData();
     }
 }

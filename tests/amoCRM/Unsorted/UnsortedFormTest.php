@@ -3,8 +3,9 @@
 namespace Tests\amoCRM\Unsorted;
 
 use amoCRM\Entities\Elements;
-use amoCRM\Unsorted\UnsortedForm;
 use PHPUnit\Framework\TestCase;
+use amoCRM\Unsorted\UnsortedForm;
+use amoCRM\Unsorted\UnsortedFormFields\FormFieldFactory;
 
 /**
  * Class UnsortedFormTest
@@ -21,30 +22,23 @@ final class UnsortedFormTest extends TestCase
                 'name_1' => [
                     'type' => 'text',
                     'id' => 'name',
-                    'element_type' => '1',
+                    'element_type' => 1,
                     'name' => 'ФИО',
                     'value' => '0c0gaCbr0',
                 ],
                 '61237_1' => [
                     'type' => 'multitext',
                     'id' => '61237',
-                    'element_type' => '1',
+                    'element_type' => 1,
                     'name' => 'Телефон',
                     'value' => ['odhgPM'],
                 ],
                 '61239_1' => [
                     'type' => 'multitext',
                     'id' => '61239',
-                    'element_type' => '1',
+                    'element_type' => 1,
                     'name' => 'Email',
                     'value' => ['jGHVE9@7nTX.YmgGIlVzi.xWK.org',],
-                ],
-                'note_2' => [
-                    'type' => 'text',
-                    'id' => 'note',
-                    'element_type' => '2',
-                    'name' => 'Примечание',
-                    'value' => 'fTYLaUlMj9TiA',
                 ],
             ],
             'form_id' => 180724,
@@ -62,7 +56,6 @@ final class UnsortedFormTest extends TestCase
             Elements\Lead::TYPE_MANY => [
                 [
                     'name' => 'Lead from tests form unsorted #1498585325',
-                    'notes' => [['text' => 'fTYLaUlMj9TiA', 'note_type' => 4]],
                 ],
             ],
             Elements\Contact::TYPE_MANY => [
@@ -92,6 +85,23 @@ final class UnsortedFormTest extends TestCase
             ],
         ],
     ];
+
+    public function testAddFieldValue() {
+        $unsorted = $this->buildWithoutSourceData();
+        $source_data = $this->_example['source_data'];
+        $source_data['data'] = NULL;
+        $unsorted->setSourceData($source_data);
+
+        foreach ($this->_example['source_data']['data'] as $field_params) {
+            $field = FormFieldFactory::make($field_params['type'], $field_params['id'], $field_params['element_type']);
+            $field->setName($field_params['name']);
+            $field->setValue($field_params['value']);
+
+            $unsorted->addFieldValue($field);
+        }
+
+        $this->assertEquals($this->_example, $unsorted->toAmo());
+    }
 
     public function testValidateSourceData()
     {

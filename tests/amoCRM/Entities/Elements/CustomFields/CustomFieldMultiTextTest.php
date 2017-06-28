@@ -92,4 +92,9 @@ class CustomFieldMultiTextTest extends TestCase
     {
         $this->assertEquals($this->_default_enums, $this->buildMock()->getEnums());
     }
+
+    public function testGetDefaultEnum()
+    {
+        $this->assertEquals(reset($this->_default_enums), $this->buildMock()->getDefaultEnum());
+    }
 }
