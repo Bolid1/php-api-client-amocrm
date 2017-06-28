@@ -18,11 +18,11 @@ final class UnsortedForm extends BaseUnsorted
     const FORM_TYPE_ID_WORDPRESS = 2;
 
     /**
-     * @throws ValidateException
+     * @param array $source_data
      */
-    protected function validateSourceData()
+    protected function validateSourceData($source_data)
     {
-        parent::validateSourceData();
+        parent::validateSourceData($source_data);
 
         $this->ensureFieldsNotEmpty($this->getSourceData('data'));
         $this->ensureFormType($this->getSourceData('form_type'));

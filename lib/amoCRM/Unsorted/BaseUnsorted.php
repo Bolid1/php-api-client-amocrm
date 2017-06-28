@@ -56,11 +56,6 @@ abstract class BaseUnsorted
      */
     public function toAmo()
     {
-        $this->validateSource();
-        $this->validateSourceUid();
-        $this->validateSourceData();
-        $this->validateData();
-
         $result = [
             'source' => $this->getSourceToAmo(),
             'source_uid' => $this->getSourceUidToAmo(),
@@ -68,15 +63,20 @@ abstract class BaseUnsorted
             'data' => $this->getDataToAmo(),
         ];
 
+        $this->validateSource($result['source']);
+        $this->validateSourceUid($result['source_uid']);
+        $this->validateSourceData($result['source_data']);
+        $this->validateData($result['data']);
+
         return $result;
     }
 
     /**
+     * @param string $source
      * @throws ValidateException
      */
-    protected function validateSource()
+    protected function validateSource($source)
     {
-        $source = $this->getSource();
         if (empty($source)) {
             throw new ValidateException('Source can\'t be empty');
         }
@@ -99,11 +99,11 @@ abstract class BaseUnsorted
     }
 
     /**
+     * @param string $source_uid
      * @throws ValidateException
      */
-    protected function validateSourceUid()
+    protected function validateSourceUid($source_uid)
     {
-        $source_uid = $this->getSourceUid();
         if (empty($source_uid)) {
             throw new ValidateException('Source Uid can\'t be empty');
         }
@@ -126,11 +126,11 @@ abstract class BaseUnsorted
     }
 
     /**
+     * @param array $source_data
      * @throws ValidateException
      */
-    protected function validateSourceData()
+    protected function validateSourceData($source_data)
     {
-        $source_data = $this->getSourceData();
         if (empty($source_data)) {
             throw new ValidateException('Source Data can\'t be empty');
         }
@@ -160,11 +160,11 @@ abstract class BaseUnsorted
     }
 
     /**
+     * @param array $data
      * @throws ValidateException
      */
-    protected function validateData()
+    protected function validateData($data)
     {
-        $data = $this->getData();
         if (empty($data)) {
             throw new ValidateException('Data can\'t be empty');
         }
