@@ -10,7 +10,7 @@ use amoCRM\Interfaces\Requester;
  * Common methods for unsorted requests
  * @package amoCRM\Unsorted
  */
-abstract class BaseUnsortedRequester
+abstract class BaseUnsortedRequester implements Interfaces\BaseUnsortedRequester
 {
     const BASE_PATH = 'api/unsorted/';
 
@@ -29,6 +29,14 @@ abstract class BaseUnsortedRequester
     {
         $this->_requester = $requester;
         $this->setCategory($category);
+    }
+
+    /**
+     * @param string $category
+     */
+    private function setCategory($category)
+    {
+        $this->_category = $category;
     }
 
     /**
@@ -96,13 +104,5 @@ abstract class BaseUnsortedRequester
         }
 
         return $result;
-    }
-
-    /**
-     * @param string $category
-     */
-    private function setCategory($category)
-    {
-        $this->_category = $category;
     }
 }

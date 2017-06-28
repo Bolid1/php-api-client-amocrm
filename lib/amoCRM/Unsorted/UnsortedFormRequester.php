@@ -1,9 +1,15 @@
 <?php
+
 namespace amoCRM\Unsorted;
 
 use amoCRM\Interfaces\Requester;
 
-final class UnsortedFormRequester extends BaseUnsortedRequester
+/**
+ * Class UnsortedFormRequester
+ * Class for send requests to unsorted
+ * @package amoCRM\Unsorted
+ */
+final class UnsortedFormRequester extends BaseUnsortedRequester implements Interfaces\UnsortedFormRequester
 {
     public function __construct(Requester $requester)
     {
