@@ -27,4 +27,14 @@ final class FormFieldMultiTextTest extends TestCase
         $field = new FormFieldMultiText('test', Lead::TYPE_NUMERIC);
         $this->assertEquals(FormFieldMultiText::TYPE, $field->getType());
     }
+
+    public function testSetValue()
+    {
+        $field = new FormFieldMultiText('test', Lead::TYPE_NUMERIC);
+        $field->setValue('test');
+        $this->assertEquals(['test'], $field->getValue());
+
+        $field->setValue(['foo', 'bar']);
+        $this->assertEquals(['test', 'foo', 'bar'], $field->getValue());
+    }
 }

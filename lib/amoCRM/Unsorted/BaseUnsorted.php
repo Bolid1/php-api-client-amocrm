@@ -73,6 +73,7 @@ abstract class BaseUnsorted
 
     /**
      * @param string $source
+     * @return string
      * @throws ValidateException
      */
     protected function validateSource($source)
@@ -80,6 +81,8 @@ abstract class BaseUnsorted
         if (empty($source)) {
             throw new ValidateException('Source can\'t be empty');
         }
+
+        return $source;
     }
 
     /**
@@ -100,6 +103,7 @@ abstract class BaseUnsorted
 
     /**
      * @param string $source_uid
+     * @return string
      * @throws ValidateException
      */
     protected function validateSourceUid($source_uid)
@@ -107,6 +111,8 @@ abstract class BaseUnsorted
         if (empty($source_uid)) {
             throw new ValidateException('Source Uid can\'t be empty');
         }
+
+        return $source_uid;
     }
 
     /**
@@ -127,6 +133,7 @@ abstract class BaseUnsorted
 
     /**
      * @param array $source_data
+     * @return array
      * @throws ValidateException
      */
     protected function validateSourceData($source_data)
@@ -134,6 +141,8 @@ abstract class BaseUnsorted
         if (empty($source_data)) {
             throw new ValidateException('Source Data can\'t be empty');
         }
+
+        return $source_data;
     }
 
     /**
@@ -161,6 +170,7 @@ abstract class BaseUnsorted
 
     /**
      * @param array $data
+     * @return array
      * @throws ValidateException
      */
     protected function validateData($data)
@@ -172,6 +182,8 @@ abstract class BaseUnsorted
         if (empty($data[Elements\Lead::TYPE_MANY][0]['name'])) {
             throw new ValidateException('Can\'t create unsorted without at least one lead');
         }
+
+        return $data;
     }
 
     /**

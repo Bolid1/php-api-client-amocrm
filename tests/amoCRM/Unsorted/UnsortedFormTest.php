@@ -19,26 +19,40 @@ final class UnsortedFormTest extends TestCase
         'source_uid' => '1498585325fd4e2ca0e372af6593cd69a991d37585806383581',
         'source_data' => [
             'data' => [
-                'name_1' => [
+                'name_' . Elements\Contact::TYPE_NUMERIC => [
                     'type' => 'text',
                     'id' => 'name',
-                    'element_type' => 1,
+                    'element_type' => Elements\Contact::TYPE_NUMERIC,
                     'name' => 'ФИО',
                     'value' => '0c0gaCbr0',
                 ],
-                '61237_1' => [
+                'name_' . Elements\Lead::TYPE_NUMERIC => [
+                    'type' => 'text',
+                    'id' => 'name',
+                    'element_type' => Elements\Lead::TYPE_NUMERIC,
+                    'name' => 'ФИО',
+                    'value' => 'Lead name',
+                ],
+                '61237_' . Elements\Contact::TYPE_NUMERIC => [
                     'type' => 'multitext',
                     'id' => '61237',
-                    'element_type' => 1,
+                    'element_type' => Elements\Contact::TYPE_NUMERIC,
                     'name' => 'Телефон',
                     'value' => ['odhgPM'],
                 ],
-                '61239_1' => [
-                    'type' => 'multitext',
+                '61238_' . Elements\Lead::TYPE_NUMERIC => [
+                    'type' => 'numeric',
+                    'id' => '61238',
+                    'element_type' => Elements\Lead::TYPE_NUMERIC,
+                    'name' => 'Number',
+                    'value' => 123,
+                ],
+                '61239_' . Elements\Contact::TYPE_NUMERIC => [
+                    'type' => 'text',
                     'id' => '61239',
-                    'element_type' => 1,
+                    'element_type' => Elements\Contact::TYPE_NUMERIC,
                     'name' => 'Email',
-                    'value' => ['jGHVE9@7nTX.YmgGIlVzi.xWK.org',],
+                    'value' => 'jGHVE9@7nTX.YmgGIlVzi.xWK.org',
                 ],
             ],
             'form_id' => 180724,
@@ -55,7 +69,17 @@ final class UnsortedFormTest extends TestCase
         'data' => [
             Elements\Lead::TYPE_MANY => [
                 [
-                    'name' => 'Lead from tests form unsorted #1498585325',
+                    'name' => 'Lead name',
+                    'custom_fields' => [
+                        [
+                            'id' => '61238',
+                            'values' => [
+                                [
+                                    'value' => 123,
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
             ],
             Elements\Contact::TYPE_MANY => [
@@ -67,7 +91,7 @@ final class UnsortedFormTest extends TestCase
                             'values' => [
                                 [
                                     'value' => 'odhgPM',
-                                    'enum' => 136785,
+                                    'enum' => 'WORK',
                                 ],
                             ],
                         ],
@@ -76,7 +100,6 @@ final class UnsortedFormTest extends TestCase
                             'values' => [
                                 [
                                     'value' => 'jGHVE9@7nTX.YmgGIlVzi.xWK.org',
-                                    'enum' => 136797,
                                 ],
                             ],
                         ],
@@ -86,39 +109,37 @@ final class UnsortedFormTest extends TestCase
         ],
     ];
 
-    public function testAddFieldValue() {
-        $unsorted = $this->buildWithoutSourceData();
-        $source_data = $this->_example['source_data'];
-        $source_data['data'] = NULL;
-        $unsorted->setSourceData($source_data);
-
-        foreach ($this->_example['source_data']['data'] as $field_params) {
-            $field = FormFieldFactory::make($field_params['type'], $field_params['id'], $field_params['element_type']);
-            $field->setName($field_params['name']);
-            $field->setValue($field_params['value']);
-
-            $unsorted->addFieldValue($field);
-        }
-
-        $this->assertEquals($this->_example, $unsorted->toAmo());
-    }
-
     public function testValidateSourceData()
     {
-        $unsorted = $this->buildWithoutSourceData();
+        $unsorted = $this->buildWithoutSourceData(['skip_lead' => TRUE, 'skip_contact' => TRUE]);
         $source_data = $this->_example['source_data'];
-        $unsorted->setSourceData($source_data);
+        $source_data['data'] = [
+            'name_3' => [
+                'type' => 'text',
+                'id' => 'name',
+                'element_type' => 3,
+                'name' => 'Company name',
+                'value' => '0c0gaCbr0',
+            ],
+        ];
+        $this->setSourceData($unsorted, $source_data, $this->_example['source_data']['data']);
+
         $this->assertEquals($this->_example, $unsorted->toAmo());
     }
 
     /**
+     * @param array $options
      * @return UnsortedForm
      */
-    public function buildWithoutSourceData()
+    public function buildWithoutSourceData(array $options = [])
     {
         $unsorted = new UnsortedForm;
-        $unsorted->addLead(reset($this->_example['data'][Elements\Lead::TYPE_MANY]));
-        $unsorted->addContact(reset($this->_example['data'][Elements\Contact::TYPE_MANY]));
+        if (empty($options['skip_lead'])) {
+            $unsorted->addLead(reset($this->_example['data'][Elements\Lead::TYPE_MANY]));
+        }
+        if (empty($options['skip_contact'])) {
+            $unsorted->addContact(reset($this->_example['data'][Elements\Contact::TYPE_MANY]));
+        }
         $unsorted->setSource($this->_example['source']);
         $unsorted->setSourceUid($this->_example['source_uid']);
 
@@ -134,7 +155,7 @@ final class UnsortedFormTest extends TestCase
         $unsorted = $this->buildWithoutSourceData();
         $source_data = $this->_example['source_data'];
         unset($source_data['data']);
-        $unsorted->setSourceData($source_data);
+        $this->setSourceData($unsorted, $source_data);
         $unsorted->toAmo();
     }
 
@@ -147,7 +168,7 @@ final class UnsortedFormTest extends TestCase
         $unsorted = $this->buildWithoutSourceData();
         $source_data = $this->_example['source_data'];
         unset($source_data['form_type']);
-        $unsorted->setSourceData($source_data);
+        $this->setSourceData($unsorted, $source_data);
         $unsorted->toAmo();
     }
 
@@ -160,7 +181,7 @@ final class UnsortedFormTest extends TestCase
         $unsorted = $this->buildWithoutSourceData();
         $source_data = $this->_example['source_data'];
         $source_data['form_type'] = 12;
-        $unsorted->setSourceData($source_data);
+        $this->setSourceData($unsorted, $source_data);
         $unsorted->toAmo();
     }
 
@@ -173,7 +194,7 @@ final class UnsortedFormTest extends TestCase
         $unsorted = $this->buildWithoutSourceData();
         $source_data = $this->_example['source_data'];
         $source_data['form_type'] = (string)UnsortedForm::FORM_TYPE_ID_WORDPRESS;
-        $unsorted->setSourceData($source_data);
+        $this->setSourceData($unsorted, $source_data);
         $unsorted->toAmo();
     }
 
@@ -186,7 +207,7 @@ final class UnsortedFormTest extends TestCase
         $unsorted = $this->buildWithoutSourceData();
         $source_data = $this->_example['source_data'];
         unset($source_data['origin']);
-        $unsorted->setSourceData($source_data);
+        $this->setSourceData($unsorted, $source_data);
         $unsorted->toAmo();
     }
 
@@ -199,7 +220,7 @@ final class UnsortedFormTest extends TestCase
         $unsorted = $this->buildWithoutSourceData();
         $source_data = $this->_example['source_data'];
         unset($source_data['origin']['url']);
-        $unsorted->setSourceData($source_data);
+        $this->setSourceData($unsorted, $source_data);
         $unsorted->toAmo();
     }
 
@@ -212,7 +233,7 @@ final class UnsortedFormTest extends TestCase
         $unsorted = $this->buildWithoutSourceData();
         $source_data = $this->_example['source_data'];
         unset($source_data['origin']['request_id']);
-        $unsorted->setSourceData($source_data);
+        $this->setSourceData($unsorted, $source_data);
         $unsorted->toAmo();
     }
 
@@ -225,7 +246,7 @@ final class UnsortedFormTest extends TestCase
         $unsorted = $this->buildWithoutSourceData();
         $source_data = $this->_example['source_data'];
         unset($source_data['origin']['form_type']);
-        $unsorted->setSourceData($source_data);
+        $this->setSourceData($unsorted, $source_data);
         $unsorted->toAmo();
     }
 
@@ -238,7 +259,7 @@ final class UnsortedFormTest extends TestCase
         $unsorted = $this->buildWithoutSourceData();
         $source_data = $this->_example['source_data'];
         unset($source_data['form_id']);
-        $unsorted->setSourceData($source_data);
+        $this->setSourceData($unsorted, $source_data);
         $unsorted->toAmo();
     }
 
@@ -251,7 +272,7 @@ final class UnsortedFormTest extends TestCase
         $unsorted = $this->buildWithoutSourceData();
         $source_data = $this->_example['source_data'];
         $source_data['form_id'] = ['some array'];
-        $unsorted->setSourceData($source_data);
+        $this->setSourceData($unsorted, $source_data);
         $unsorted->toAmo();
     }
 
@@ -264,7 +285,7 @@ final class UnsortedFormTest extends TestCase
         $unsorted = $this->buildWithoutSourceData();
         $source_data = $this->_example['source_data'];
         unset($source_data['date']);
-        $unsorted->setSourceData($source_data);
+        $this->setSourceData($unsorted, $source_data);
         $unsorted->toAmo();
     }
 
@@ -277,7 +298,7 @@ final class UnsortedFormTest extends TestCase
         $unsorted = $this->buildWithoutSourceData();
         $source_data = $this->_example['source_data'];
         $source_data['date'] = ['some array'];
-        $unsorted->setSourceData($source_data);
+        $this->setSourceData($unsorted, $source_data);
         $unsorted->toAmo();
     }
 
@@ -290,7 +311,7 @@ final class UnsortedFormTest extends TestCase
         $unsorted = $this->buildWithoutSourceData();
         $source_data = $this->_example['source_data'];
         unset($source_data['from']);
-        $unsorted->setSourceData($source_data);
+        $this->setSourceData($unsorted, $source_data);
         $unsorted->toAmo();
     }
 
@@ -303,7 +324,33 @@ final class UnsortedFormTest extends TestCase
         $unsorted = $this->buildWithoutSourceData();
         $source_data = $this->_example['source_data'];
         $source_data['from'] = ['some array'];
-        $unsorted->setSourceData($source_data);
+        $this->setSourceData($unsorted, $source_data);
         $unsorted->toAmo();
+    }
+
+    /**
+     * @param UnsortedForm $unsorted
+     * @param array $source_data
+     * @param array $fields
+     */
+    private function setSourceData(UnsortedForm $unsorted, array $source_data, $fields = null)
+    {
+        $unsorted->setSourceData($source_data);
+
+        if (!isset($fields) && isset($source_data['data'])) {
+            $fields = $source_data['data'];
+        }
+
+        if (empty($fields)) {
+            return;
+        }
+
+        foreach ($fields as $field_params) {
+            $field = FormFieldFactory::make($field_params['type'], $field_params['id'], $field_params['element_type']);
+            $field->setName($field_params['name']);
+            $field->setValue($field_params['value']);
+
+            $unsorted->addFieldValue($field);
+        }
     }
 }

@@ -19,20 +19,23 @@ final class UnsortedForm extends BaseUnsorted
 
     /**
      * @param array $source_data
+     * @return array
      */
     protected function validateSourceData($source_data)
     {
-        parent::validateSourceData($source_data);
+        $source_data = parent::validateSourceData($source_data);
 
-        $this->ensureFieldsNotEmpty($this->getSourceData('data'));
-        $this->ensureFormType($this->getSourceData('form_type'));
-        $this->ensureOriginNotEmptyArray($this->getSourceData('origin'));
+        $this->ensureFieldsNotEmpty($source_data['data']);
+        $this->ensureFormType($source_data['form_type']);
+        $this->ensureOriginNotEmptyArray($source_data['origin']);
 
         if ($this->getSourceData('form_type') === self::FORM_TYPE_ID_WORDPRESS) {
-            $this->ensureWordPressOrigin($this->getSourceData('origin'));
+            $this->ensureWordPressOrigin($source_data['origin']);
         }
 
-        $this->ensureFormRequiredFields($this->getSourceData());
+        $this->ensureFormRequiredFields($source_data);
+
+        return $source_data;
     }
 
     /**
@@ -92,14 +95,13 @@ final class UnsortedForm extends BaseUnsorted
 
         foreach ($fields as $field) {
             switch ($field['element_type']) {
-                case Lead::TYPE_NUMERIC:
-                    $obj = &$lead;
-                    break;
                 case Contact::TYPE_NUMERIC:
                     $obj = &$contact;
                     break;
+                case Lead::TYPE_NUMERIC:
                 default:
-                    continue 2;
+                    $obj = &$lead;
+                    break;
             }
 
             if ($field['id'] === 'name') {
@@ -136,17 +138,11 @@ final class UnsortedForm extends BaseUnsorted
         $lead = $lead->toAmo();
         $contact = $contact->toAmo();
         if (!empty($lead)) {
-            if (!isset($elements[Lead::TYPE_MANY])) {
-                $elements[Lead::TYPE_MANY] = [];
-                $elements[Lead::TYPE_MANY][] = $lead;
-            }
+            $elements[Lead::TYPE_MANY][] = $lead;
         }
 
         if (!empty($contact)) {
-            if (!isset($elements[Contact::TYPE_MANY])) {
-                $elements[Contact::TYPE_MANY] = [];
-                $elements[Contact::TYPE_MANY][] = $contact;
-            }
+            $elements[Contact::TYPE_MANY][] = $contact;
         }
 
         return $elements;
@@ -220,15 +216,15 @@ final class UnsortedForm extends BaseUnsorted
      */
     private function getSourceDataFieldsToAmo()
     {
+        $result = [];
         $fields = $this->getSourceData('data') ? : [];
 
-        foreach ($fields as &$field) {
+        foreach ($fields as $key => $field) {
             if ($field instanceof BaseFormField) {
-                $field = $field->toAmo();
+                $result[$key] = $field->toAmo();
             }
         }
-        unset($field);
 
-        return $fields;
+        return $result;
     }
 }

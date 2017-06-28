@@ -37,6 +37,18 @@ final class FormFieldFactoryTest extends TestCase
         );
     }
 
+    public function testMakeMultiText()
+    {
+        $this->assertInstanceOf(
+            UnsortedFormFields\FormFieldMultiText::class,
+            UnsortedFormFields\FormFieldFactory::make(
+                UnsortedFormFields\FormFieldMultiText::TYPE,
+                'test',
+                Lead::TYPE_NUMERIC
+            )
+        );
+    }
+
     /**
      * @expectedException \amoCRM\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Unknown field type "test"

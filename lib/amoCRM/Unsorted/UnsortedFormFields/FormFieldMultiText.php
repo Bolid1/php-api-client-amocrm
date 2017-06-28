@@ -15,6 +15,9 @@ final class FormFieldMultiText extends BaseFormField
         parent::__construct($id, self::TYPE, $element_type);
     }
 
+    /**
+     * @param string|array $value
+     */
     public function setValue($value)
     {
         $values = $this->getValue() ?: [];
