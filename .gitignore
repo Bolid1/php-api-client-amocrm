@@ -6,4 +6,5 @@
 composer.lock
 
 ### Tests
-/tests/output
+/tests/output/
+!/tests/output/.gitkeep
