@@ -6,10 +6,10 @@ use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 
 /**
- * Class RequesterFabric
+ * Class RequesterFactory
  * @package amoCRM
  */
-final class RequesterFabric
+final class RequesterFactory
 {
     /**
      * @param string $subdomain

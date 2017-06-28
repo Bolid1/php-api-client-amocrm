@@ -23,6 +23,16 @@ abstract class CustomFieldMultiText extends BaseCustomField
         $this->_enums = $enums;
     }
 
+    /**
+     * Return available enums of current field
+     *
+     * @return array
+     */
+    public function getEnums()
+    {
+        return $this->_enums;
+    }
+
     public function addValue($enum, $value)
     {
         $enum_upper = strtoupper($enum);
