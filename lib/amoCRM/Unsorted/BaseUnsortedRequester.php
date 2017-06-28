@@ -37,6 +37,7 @@ abstract class BaseUnsortedRequester
      *
      * @param array $elements
      * @return bool
+     * @throws Exceptions\InvalidResponseException
      */
     public function add(array $elements)
     {
