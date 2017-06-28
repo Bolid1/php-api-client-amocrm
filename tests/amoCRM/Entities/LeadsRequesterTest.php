@@ -6,6 +6,7 @@ use amoCRM\Entities\BaseEntityRequester;
 use amoCRM\Entities\LeadsRequester;
 use amoCRM\Interfaces\Requester;
 use PHPUnit\Framework\TestCase;
+use amoCRM\Entities\Elements;
 
 class LeadsRequesterTest extends TestCase
 {
@@ -24,16 +25,16 @@ class LeadsRequesterTest extends TestCase
     {
         $requester = $this->createMock(Requester::class);
 
-        $path = Requester::API_PATH . 'leads/set';
+        $path = Requester::API_PATH . Elements\Lead::TYPE_MANY . '/set';
         $elements = [
             [
                 'name' => 'Test',
             ],
         ];
-        $post_result = ['leads' => ['add' => $elements]];
+        $post_result = [Elements\Lead::TYPE_MANY => ['add' => $elements]];
         $post_data = [
             'request' => [
-                'leads' => [
+				Elements\Lead::TYPE_MANY => [
                     'add' => $elements,
                 ],
             ],
@@ -59,7 +60,7 @@ class LeadsRequesterTest extends TestCase
             ->getMock();
 
         /** @var BaseEntityRequester $stub */
-        $this->assertEquals($post_result['leads']['add'], $stub->add($elements));
+        $this->assertEquals($post_result[Elements\Lead::TYPE_MANY]['add'], $stub->add($elements));
     }
 
     protected function setUp()

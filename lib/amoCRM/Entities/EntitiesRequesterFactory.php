@@ -2,8 +2,8 @@
 
 namespace amoCRM\Entities;
 
-use amoCRM\Exceptions\InvalidArgumentException;
 use amoCRM\Interfaces\Requester;
+use amoCRM\Exceptions\InvalidArgumentException;
 
 /**
  * Class EntitiesRequesterFactory
@@ -31,12 +31,14 @@ final class EntitiesRequesterFactory
     public function make($element_type)
     {
         switch ($element_type) {
-            case 'lead':
-            case 'leads':
+            case Elements\Lead::TYPE_NUMERIC:
+            case Elements\Lead::TYPE_SINGLE:
+            case Elements\Lead::TYPE_MANY:
                 $result = new LeadsRequester($this->_requester);
                 break;
-            case 'contact':
-            case 'contacts':
+			case Elements\Contact::TYPE_NUMERIC:
+			case Elements\Contact::TYPE_SINGLE:
+			case Elements\Contact::TYPE_MANY:
                 $result = new ContactsRequester($this->_requester);
                 break;
             default:

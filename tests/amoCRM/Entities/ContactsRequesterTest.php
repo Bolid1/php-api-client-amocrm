@@ -4,6 +4,7 @@ namespace Tests\amoCRM\Entities;
 
 use amoCRM\Entities\BaseEntityRequester;
 use amoCRM\Entities\ContactsRequester;
+use amoCRM\Entities\Elements\Contact;
 use amoCRM\Interfaces\Requester;
 use PHPUnit\Framework\TestCase;
 
@@ -24,16 +25,16 @@ class ContactsRequesterTest extends TestCase
     {
         $requester = $this->createMock(Requester::class);
 
-        $path = Requester::API_PATH . 'contacts/set';
+        $path = Requester::API_PATH . Contact::TYPE_MANY . '/set';
         $elements = [
             [
                 'name' => 'Test',
             ],
         ];
-        $post_result = ['contacts' => ['add' => $elements]];
+        $post_result = [Contact::TYPE_MANY => ['add' => $elements]];
         $post_data = [
             'request' => [
-                'contacts' => [
+                Contact::TYPE_MANY => [
                     'add' => $elements,
                 ],
             ],
@@ -59,7 +60,7 @@ class ContactsRequesterTest extends TestCase
             ->getMock();
 
         /** @var BaseEntityRequester $stub */
-        $this->assertEquals($post_result['contacts']['add'], $stub->add($elements));
+        $this->assertEquals($post_result[Contact::TYPE_MANY]['add'], $stub->add($elements));
     }
 
     protected function setUp()

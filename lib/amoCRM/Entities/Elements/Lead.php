@@ -9,6 +9,10 @@ namespace amoCRM\Entities\Elements;
  */
 final class Lead extends BaseElement
 {
+	const TYPE_NUMERIC = 2;
+	const TYPE_SINGLE = 'lead';
+	const TYPE_MANY = 'leads';
+
     /** @var integer */
     private $_price;
 

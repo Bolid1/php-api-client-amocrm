@@ -2,6 +2,7 @@
 
 namespace Tests\amoCRM\Unsorted;
 
+use amoCRM\Entities\Elements;
 use amoCRM\Unsorted\UnsortedForm;
 use PHPUnit\Framework\TestCase;
 
@@ -58,13 +59,13 @@ final class UnsortedFormTest extends TestCase
             'from' => 'http://OulVKvE5.info',
         ],
         'data' => [
-            'leads' => [
+            Elements\Lead::TYPE_MANY => [
                 [
                     'name' => 'Lead from tests form unsorted #1498585325',
                     'notes' => [['text' => 'fTYLaUlMj9TiA', 'note_type' => 4]],
                 ],
             ],
-            'contacts' => [
+            Elements\Contact::TYPE_MANY => [
                 [
                     'name' => '0c0gaCbr0',
                     'custom_fields' => [
@@ -106,8 +107,8 @@ final class UnsortedFormTest extends TestCase
     public function buildWithoutSourceData()
     {
         $unsorted = new UnsortedForm;
-        $unsorted->addLead(reset($this->_example['data']['leads']));
-        $unsorted->addContact(reset($this->_example['data']['contacts']));
+        $unsorted->addLead(reset($this->_example['data'][Elements\Lead::TYPE_MANY]));
+        $unsorted->addContact(reset($this->_example['data'][Elements\Contact::TYPE_MANY]));
         $unsorted->setSource($this->_example['source']);
         $unsorted->setSourceUid($this->_example['source_uid']);
 

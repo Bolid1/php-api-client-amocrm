@@ -2,9 +2,10 @@
 
 namespace Tests\amoCRM\Entities;
 
-use amoCRM\Entities\BaseEntityRequester as BaseEntityRequester;
-use amoCRM\Interfaces\Requester;
+use amoCRM\Entities\Elements;
 use PHPUnit\Framework\TestCase;
+use amoCRM\Interfaces\Requester;
+use amoCRM\Entities\BaseEntityRequester as BaseEntityRequester;
 
 /**
  * Class BaseEntityRequesterTest
@@ -16,9 +17,9 @@ final class BaseEntityRequesterTest extends TestCase
     public function testCanBeCreatedFromValidNamesAndPaths()
     {
         $args = [
-            $this->createMock(Requester::class),
-            ['many' => 'leads'],
-            ['set' => 'leads/set'],
+			$this->createMock(Requester::class),
+			['many' => Elements\Lead::TYPE_MANY],
+			['set' => Elements\Lead::TYPE_MANY . '/set'],
         ];
 
         $stub = $this->getMockBuilder(BaseEntityRequester::class)
@@ -41,7 +42,7 @@ final class BaseEntityRequesterTest extends TestCase
         $args = [
             $this->createMock(Requester::class),
             ['many' => null],
-            ['set' => 'leads/set'],
+            ['set' => Elements\Lead::TYPE_MANY . '/set'],
         ];
 
         $this->getMockBuilder(BaseEntityRequester::class)
@@ -57,7 +58,7 @@ final class BaseEntityRequesterTest extends TestCase
     {
         $args = [
             $this->createMock(Requester::class),
-            ['many' => 'leads'],
+            ['many' => Elements\Lead::TYPE_MANY],
             ['set' => null],
         ];
 
