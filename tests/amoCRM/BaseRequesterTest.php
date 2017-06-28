@@ -5,17 +5,16 @@ namespace Tests\amoCRM;
 use amoCRM\BaseRequester;
 use amoCRM\Interfaces\Account;
 use amoCRM\Interfaces\User;
-use amoCRM\Requester;
 use GuzzleHttp\ClientInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Class RequesterTest
+ * Class BaseRequesterTest
  * @package Tests\amoCRM
- * @covers \amoCRM\Requester
+ * @covers \amoCRM\BaseRequester
  */
-final class RequesterTest extends TestCase
+final class BaseRequesterTest extends TestCase
 {
     const BASE_URL = 'https://test.amocrm.ru';
     const CREDENTIALS = [
@@ -45,20 +44,15 @@ final class RequesterTest extends TestCase
         list($response, $body) = $this->mockResponse();
 
         $curl = $this->createMock(ClientInterface::class);
-        $curl->expects($this->exactly(2))
+        $curl->expects($this->once())
             ->method('request')
-            ->with(
-                $this->logicalOr(
-                    $this->equalTo('get'), $this->stringContains('private/api/auth.php'),
-                    $this->equalTo('get'), $this->stringContains('/test')
-                )
-            )
+            ->with($this->equalTo('get'))
             ->willReturn($response);
 
         /** @var ClientInterface $curl */
-        $requester = new Requester($this->_account, $this->_user, $curl);
+        $requester = $this->buildMock($curl);
 
-        $result = $requester->get('test', ['type' => 'json']);
+        $result = $requester->get('/private/api/auth.php', ['type' => 'json']);
         $expected = json_decode($body, true);
         $this->assertEquals($expected['response'], $result);
     }
@@ -69,17 +63,33 @@ final class RequesterTest extends TestCase
     private function mockResponse()
     {
         $response = $this->createMock(ResponseInterface::class);
-        $response->expects($this->exactly(2))
+        $response->expects($this->once())
             ->method('getStatusCode')
             ->willReturn(200);
 
         $body = '{"response":{"auth":true},"server_time":1498126390}';
 
-        $response
+        $response->expects($this->once())
             ->method('getBody')
             ->willReturn($body);
 
         return [$response, $body];
+    }
+
+    /**
+     * @param ClientInterface $curl
+     * @return BaseRequester
+     */
+    private function buildMock(ClientInterface $curl)
+    {
+        $requester = $this->getMockBuilder(BaseRequester::class)
+            ->enableOriginalConstructor()
+            ->setConstructorArgs([$this->_account, $this->_user, $curl])
+            ->setMethods(null)
+            ->getMock();
+
+        /** @var BaseRequester $requester */
+        return $requester;
     }
 
     public function testSendPostRequest()
@@ -87,20 +97,15 @@ final class RequesterTest extends TestCase
         list($response, $body) = $this->mockResponse();
 
         $curl = $this->createMock(ClientInterface::class);
-        $curl->expects($this->exactly(2))
+        $curl->expects($this->once())
             ->method('request')
-            ->with(
-                $this->logicalOr(
-                    $this->equalTo('get'), $this->stringContains('private/api/auth.php'),
-                    $this->equalTo('post'), $this->stringContains('/test')
-                )
-            )
+            ->with($this->equalTo('post'))
             ->willReturn($response);
 
         /** @var ClientInterface $curl */
-        $requester = new Requester($this->_account, $this->_user, $curl);
+        $requester = $this->buildMock($curl);
 
-        $result = $requester->post('test', ['type' => 'json']);
+        $result = $requester->post('/private/api/auth.php', ['type' => 'json']);
         $expected = json_decode($body, true);
         $this->assertEquals($expected['response'], $result);
     }
@@ -108,45 +113,24 @@ final class RequesterTest extends TestCase
     /**
      * @expectedException \amoCRM\Exceptions\RuntimeException
      */
-    public function testExceptionOnAuthLost()
+    public function testExceptionOnAuthFailed()
     {
-        $auth_success = '{"response":{"auth":true},"server_time":1498126390}';
-
         $response = $this->createMock(ResponseInterface::class);
-        $response->expects($this->exactly(2))
-            ->method('getStatusCode')
-            ->willReturn(200, 401);
-
         $response->expects($this->once())
-            ->method('getBody')
-            ->willReturn($auth_success);
+            ->method('getStatusCode')
+            ->willReturn(401);
+
+        $response->expects($this->never())
+            ->method('getBody');
 
         $curl = $this->createMock(ClientInterface::class);
-        $curl->expects($this->exactly(2))
+        $curl->expects($this->once())
             ->method('request')
-            ->with(
-                $this->logicalOr(
-                    $this->equalTo('get'), $this->stringContains('private/api/auth.php'),
-                    $this->equalTo('post'), $this->stringContains('/test')
-                )
-            )
             ->willReturn($response);
 
         /** @var ClientInterface $curl */
-        $requester = new Requester($this->_account, $this->_user, $curl);
+        $requester = $this->buildMock($curl);
 
-        // Now will return 401 and auth must be lost
-        $requester->post('/private/api/auth.php', ['type' => 'json']);
-    }
-
-    public function testInstanceOfBaseRequester()
-    {
-        /** @var ClientInterface $curl */
-        $curl = $this->createMock(ClientInterface::class);
-
-        $this->assertInstanceOf(
-            BaseRequester::class,
-            new Requester($this->_account, $this->_user, $curl)
-        );
+        $requester->get('/private/api/auth.php', ['type' => 'json']);
     }
 }
