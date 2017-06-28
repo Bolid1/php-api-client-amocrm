@@ -7,6 +7,7 @@ use amoCRM\Entities\Elements\Contact;
 use amoCRM\Exceptions\ValidateException;
 use amoCRM\Entities\Elements\CustomFields;
 use amoCRM\Unsorted\UnsortedFormFields\BaseFormField;
+use amoCRM\Unsorted\UnsortedFormFields\FormFieldFactory;
 
 /**
  * Class UnsortedForm
@@ -14,6 +15,8 @@ use amoCRM\Unsorted\UnsortedFormFields\BaseFormField;
  */
 final class UnsortedForm extends BaseUnsorted
 {
+    const CATEGORY = 'forms';
+
     const FORM_TYPE_ID_DEFAULT = 1;
     const FORM_TYPE_ID_WORDPRESS = 2;
 
@@ -49,6 +52,9 @@ final class UnsortedForm extends BaseUnsorted
         }
     }
 
+    /**
+     * @param BaseFormField $field
+     */
     public function addFieldValue(BaseFormField $field)
     {
         $data = $this->getSourceData('data') ?: [];
@@ -58,6 +64,41 @@ final class UnsortedForm extends BaseUnsorted
         $source_data['data'] = $data;
 
         $this->setSourceData($source_data);
+    }
+
+    public function setSourceData(array $source_data)
+    {
+        $fields_as_array = [];
+
+        if (isset($source_data['data'])) {
+            foreach ($source_data['data'] as $field) {
+                if (is_array($field)) {
+                    $fields_as_array[] = $field;
+                }
+            }
+        }
+
+        parent::setSourceData($source_data);
+
+
+        if (!empty($fields_as_array)) {
+            $this->parseFieldsValues($fields_as_array);
+        }
+    }
+
+    /**
+     * Convert fields array to array of BaseFormField
+     * @param array $fields
+     */
+    public function parseFieldsValues(array $fields)
+    {
+        foreach ($fields as $field_params) {
+            $field = FormFieldFactory::make($field_params['type'], $field_params['id'], $field_params['element_type']);
+            $field->setName($field_params['name']);
+            $field->setValue($field_params['value']);
+
+            $this->addFieldValue($field);
+        }
     }
 
     /**
@@ -217,7 +258,7 @@ final class UnsortedForm extends BaseUnsorted
     private function getSourceDataFieldsToAmo()
     {
         $result = [];
-        $fields = $this->getSourceData('data') ? : [];
+        $fields = $this->getSourceData('data') ?: [];
 
         foreach ($fields as $key => $field) {
             if ($field instanceof BaseFormField) {

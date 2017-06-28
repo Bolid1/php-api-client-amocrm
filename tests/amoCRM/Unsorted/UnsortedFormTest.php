@@ -5,7 +5,6 @@ namespace Tests\amoCRM\Unsorted;
 use amoCRM\Entities\Elements;
 use PHPUnit\Framework\TestCase;
 use amoCRM\Unsorted\UnsortedForm;
-use amoCRM\Unsorted\UnsortedFormFields\FormFieldFactory;
 
 /**
  * Class UnsortedFormTest
@@ -113,15 +112,7 @@ final class UnsortedFormTest extends TestCase
     {
         $unsorted = $this->buildWithoutSourceData(['skip_lead' => TRUE, 'skip_contact' => TRUE]);
         $source_data = $this->_example['source_data'];
-        $source_data['data'] = [
-            'name_3' => [
-                'type' => 'text',
-                'id' => 'name',
-                'element_type' => 3,
-                'name' => 'Company name',
-                'value' => '0c0gaCbr0',
-            ],
-        ];
+        $source_data['data'] = [];
         $this->setSourceData($unsorted, $source_data, $this->_example['source_data']['data']);
 
         $this->assertEquals($this->_example, $unsorted->toAmo());
@@ -345,12 +336,6 @@ final class UnsortedFormTest extends TestCase
             return;
         }
 
-        foreach ($fields as $field_params) {
-            $field = FormFieldFactory::make($field_params['type'], $field_params['id'], $field_params['element_type']);
-            $field->setName($field_params['name']);
-            $field->setValue($field_params['value']);
-
-            $unsorted->addFieldValue($field);
-        }
+        $unsorted->parseFieldsValues($fields);
     }
 }
