@@ -31,7 +31,7 @@ final class RequesterFactory
      * @param $api_key
      * @return array
      */
-    private static function buildConstructorArgs($subdomain, $login, $api_key): array
+    private static function buildConstructorArgs($subdomain, $login, $api_key)
     {
         $account = new Account($subdomain);
         $user = new User($login, $api_key);
