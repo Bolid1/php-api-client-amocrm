@@ -68,23 +68,31 @@ final class User implements Interfaces\User
     /**
      * Generate credential string for auth in amoCRM API
      *
+     * @param string $type
      * @return string
      */
-    public function getCredentials()
+    public function getCredentials($type = self::CREDENTIALS_TYPE_API)
     {
-        return http_build_query($this->getCredentialsAsArray());
+        return http_build_query($this->getCredentialsAsArray($type));
     }
 
     /**
      * Generate credential string for auth in amoCRM API
      *
+     * @param string $type
      * @return array
      */
-    public function getCredentialsAsArray()
+    public function getCredentialsAsArray($type = self::CREDENTIALS_TYPE_API)
     {
-        return [
-            'USER_LOGIN' => $this->_login,
-            'USER_HASH' => $this->_api_key,
-        ];
+        switch ($type) {
+            case self::CREDENTIALS_TYPE_UNSORTED:
+                $result = ['login' => $this->_login, 'api_key' => $this->_api_key];
+                break;
+            case self::CREDENTIALS_TYPE_API:
+            default:
+                $result = ['USER_LOGIN' => $this->_login, 'USER_HASH' => $this->_api_key];
+        }
+
+        return $result;
     }
 }

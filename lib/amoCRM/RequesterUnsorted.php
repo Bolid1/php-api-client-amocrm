@@ -35,11 +35,12 @@ final class RequesterUnsorted extends BaseRequester
         }
 
         if (is_array($query)) {
-            $query += $this->_user->getCredentialsAsArray();
+            $query += $this->_user->getCredentialsAsArray(Interfaces\User::CREDENTIALS_TYPE_UNSORTED);
         } elseif (is_string($query) && strlen($query) === 0) {
-            $query = $this->_user->getCredentials();
+            $query = $this->_user->getCredentials(Interfaces\User::CREDENTIALS_TYPE_UNSORTED);
         } else {
-            $query = rtrim($query, '&') . '&' . $this->_user->getCredentials();
+            $query = rtrim($query,
+                    '&') . '&' . $this->_user->getCredentials(Interfaces\User::CREDENTIALS_TYPE_UNSORTED);
         }
 
         return $query;

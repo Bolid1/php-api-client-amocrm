@@ -18,12 +18,6 @@ use Psr\Http\Message\ResponseInterface;
  */
 final class RequesterUnsortedTest extends TestCase
 {
-    const BASE_URL = 'https://test.amocrm.ru';
-    const CREDENTIALS = [
-        'USER_LOGIN' => 'test@test.test',
-        'USER_HASH' => '098f6bcd4621d373cade4e832627b4f6',
-    ];
-
     /** @var Account */
     private $_account;
 
@@ -36,12 +30,8 @@ final class RequesterUnsortedTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->_account = $this->createMock(Account::class);
-        $this->_account->method('getAddress')->willReturn(self::BASE_URL);
-
-        $this->_user = $this->createMock(User::class);
-        $this->_user->method('getCredentials')->willReturn(http_build_query(self::CREDENTIALS));
-        $this->_user->method('getCredentialsAsArray')->willReturn(self::CREDENTIALS);
+        $this->_account = new \amoCRM\Account('test');
+        $this->_user = new \amoCRM\User('test@test.test', '098f6bcd4621d373cade4e832627b4f6');
     }
 
     public function testSendGetRequest()
@@ -50,7 +40,7 @@ final class RequesterUnsortedTest extends TestCase
 
         $query = $this->_data;
         $params = [
-            RequestOptions::QUERY => $query + $this->_user->getCredentialsAsArray(),
+            RequestOptions::QUERY => $query + $this->_user->getCredentialsAsArray(User::CREDENTIALS_TYPE_UNSORTED),
         ];
         $curl = $this->createMock(ClientInterface::class);
         $curl->expects($this->once())
@@ -96,7 +86,7 @@ final class RequesterUnsortedTest extends TestCase
 
         $query = 'foo=bar';
         $params = [
-            RequestOptions::QUERY => $query . '&' . $this->_user->getCredentials(),
+            RequestOptions::QUERY => $query . '&' . $this->_user->getCredentials(User::CREDENTIALS_TYPE_UNSORTED),
             RequestOptions::FORM_PARAMS => $this->_data,
         ];
         $curl = $this->createMock(ClientInterface::class);
@@ -123,7 +113,7 @@ final class RequesterUnsortedTest extends TestCase
 
         $query = '';
         $params = [
-            RequestOptions::QUERY => $this->_user->getCredentials(),
+            RequestOptions::QUERY => $this->_user->getCredentials(User::CREDENTIALS_TYPE_UNSORTED),
             RequestOptions::FORM_PARAMS => $this->_data,
         ];
         $curl = $this->createMock(ClientInterface::class);
@@ -149,7 +139,7 @@ final class RequesterUnsortedTest extends TestCase
         list($response, $body) = $this->mockResponse();
 
         $params = [
-            RequestOptions::QUERY => $this->_user->getCredentialsAsArray(),
+            RequestOptions::QUERY => $this->_user->getCredentialsAsArray(User::CREDENTIALS_TYPE_UNSORTED),
             RequestOptions::FORM_PARAMS => $this->_data,
         ];
         $curl = $this->createMock(ClientInterface::class);

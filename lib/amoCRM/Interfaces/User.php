@@ -10,16 +10,22 @@ namespace amoCRM\Interfaces;
  */
 interface User
 {
+    const CREDENTIALS_TYPE_API = 'api';
+    const CREDENTIALS_TYPE_UNSORTED = 'unsorted';
+
     /**
      * Generate credential string for auth in amoCRM API
      *
+     * @param string $type
      * @return string
      */
-    public function getCredentials();
+    public function getCredentials($type = self::CREDENTIALS_TYPE_API);
 
     /**
-     * Generate credentials array for auth in amoCRM API
+     * Generate credential string for auth in amoCRM API
+     *
+     * @param string $type
      * @return array
      */
-    public function getCredentialsAsArray();
+    public function getCredentialsAsArray($type = self::CREDENTIALS_TYPE_API);
 }
