@@ -14,4 +14,12 @@ class RequesterFactoryTest extends TestCase
             RequesterFactory::make('test', 'some@example.com', md5('string'))
         );
     }
+
+    public function testReturnRequesterUnsorted()
+    {
+        $this->assertInstanceOf(
+            RequesterUnsorted::class,
+            RequesterFactory::makeUnsorted('test', 'some@example.com', md5('string'))
+        );
+    }
 }
