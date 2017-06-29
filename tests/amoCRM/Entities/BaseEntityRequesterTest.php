@@ -2,10 +2,10 @@
 
 namespace Tests\amoCRM\Entities;
 
-use amoCRM\Entities\Elements;
-use PHPUnit\Framework\TestCase;
-use amoCRM\Interfaces\Requester;
 use amoCRM\Entities\BaseEntityRequester as BaseEntityRequester;
+use amoCRM\Entities\Filters\Interfaces\SearchFilter;
+use amoCRM\Interfaces\Requester;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class BaseEntityRequesterTest
@@ -18,8 +18,8 @@ final class BaseEntityRequesterTest extends TestCase
     {
         $args = [
 			$this->createMock(Requester::class),
-			['many' => Elements\Lead::TYPE_MANY],
-			['set' => Elements\Lead::TYPE_MANY . '/set'],
+            ['many' => 'elements'],
+            ['list' => 'elements/list', 'set' => 'elements/set'],
         ];
 
         $stub = $this->getMockBuilder(BaseEntityRequester::class)
@@ -42,7 +42,7 @@ final class BaseEntityRequesterTest extends TestCase
         $args = [
             $this->createMock(Requester::class),
             ['many' => null],
-            ['set' => Elements\Lead::TYPE_MANY . '/set'],
+            ['list' => 'elements/list', 'set' => 'elements/set'],
         ];
 
         $this->getMockBuilder(BaseEntityRequester::class)
@@ -58,7 +58,7 @@ final class BaseEntityRequesterTest extends TestCase
     {
         $args = [
             $this->createMock(Requester::class),
-            ['many' => Elements\Lead::TYPE_MANY],
+            ['many' => 'elements'],
             ['set' => null],
         ];
 
@@ -81,7 +81,7 @@ final class BaseEntityRequesterTest extends TestCase
         $args = [
             $requester,
             ['many' => 'elements'],
-            ['set' => 'elements/set'],
+            ['list' => 'elements/list', 'set' => 'elements/set'],
         ];
 
         $stub = $this->getMockBuilder(BaseEntityRequester::class)
@@ -125,7 +125,7 @@ final class BaseEntityRequesterTest extends TestCase
         $args = [
             $requester,
             ['many' => 'elements'],
-            ['set' => 'elements/set'],
+            ['list' => 'elements/list', 'set' => 'elements/set'],
         ];
 
         $stub = $this->getMockBuilder(BaseEntityRequester::class)
@@ -137,6 +137,155 @@ final class BaseEntityRequesterTest extends TestCase
 
         /** @var BaseEntityRequester $stub */
         $this->assertEquals($post_result['elements']['add'], $stub->add($elements));
+    }
+
+    public function testSearch()
+    {
+        $requester = $this->createMock(Requester::class);
+
+        $path = Requester::API_PATH . 'elements/list';
+
+        $elements = [
+            [
+                'id' => 123,
+                'name' => 'Test',
+            ],
+        ];
+        $get_result = ['elements' => $elements];
+
+        $requester->expects($this->once())
+            ->method('get')->with(
+                $this->equalTo($path),
+                $this->equalTo([])
+            )
+            ->willReturn($get_result);
+
+        $args = [
+            $requester,
+            ['many' => 'elements'],
+            ['list' => 'elements/list', 'set' => 'elements/set'],
+        ];
+
+        $stub = $this->getMockBuilder(BaseEntityRequester::class)
+            ->setConstructorArgs($args)
+            ->enableOriginalConstructor()
+            // Disable mock of any methods
+            ->setMethods(null)
+            ->getMock();
+
+        /** @var BaseEntityRequester $stub */
+        $this->assertEquals($elements, $stub->search());
+    }
+
+    public function testSearchWithFilterAndNav()
+    {
+        $requester = $this->createMock(Requester::class);
+
+        $path = Requester::API_PATH . 'elements/list';
+
+        $elements = [
+            [
+                'id' => 123,
+                'name' => 'Test',
+            ],
+        ];
+        $get_result = ['elements' => $elements];
+
+        $filter = $this->createMock(SearchFilter::class);
+        $filter_array = [
+            'foo' => 'bar',
+        ];
+        $filter->expects($this->once())
+            ->method('toArray')
+            ->willReturn($filter_array);
+
+        $nav = [
+            'limit' => 20,
+            'offset' => 40,
+        ];
+
+        $query = [
+                'limit_rows' => $nav['limit'],
+                'limit_offset' => $nav['offset'],
+            ] + $filter_array;
+
+        $requester->expects($this->once())
+            ->method('get')->with(
+                $this->equalTo($path),
+                $this->equalTo($query)
+            )
+            ->willReturn($get_result);
+
+        $args = [
+            $requester,
+            ['many' => 'elements'],
+            ['list' => 'elements/list', 'set' => 'elements/set'],
+        ];
+
+        $stub = $this->getMockBuilder(BaseEntityRequester::class)
+            ->setConstructorArgs($args)
+            ->enableOriginalConstructor()
+            // Disable mock of any methods
+            ->setMethods(null)
+            ->getMock();
+
+        /** @var BaseEntityRequester $stub */
+        $this->assertEquals($elements, $stub->search($filter, $nav));
+    }
+
+    /**
+     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedExceptionMessage Invalid navigation field "offset" value: "-1"
+     */
+    public function testSearchThrowInvalidArgumentExceptionLessZero()
+    {
+        $nav = ['offset' => -1];
+        $this->buildStubForSearchException()->search(null, $nav);
+    }
+
+    /**
+     * @return BaseEntityRequester
+     *
+     */
+    private function buildStubForSearchException()
+    {
+        $requester = $this->createMock(Requester::class);
+
+        $args = [
+            $requester,
+            ['many' => 'elements'],
+            ['list' => 'elements/list', 'set' => 'elements/set'],
+        ];
+
+        $stub = $this->getMockBuilder(BaseEntityRequester::class)
+            ->setConstructorArgs($args)
+            ->enableOriginalConstructor()
+            // Disable mock of any methods
+            ->setMethods(null)
+            ->getMock();
+
+        /** @var BaseEntityRequester $stub */
+        return $stub;
+    }
+
+    /**
+     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedExceptionMessage Invalid navigation field "limit" value: "0"
+     */
+    public function testSearchThrowInvalidArgumentExceptionLimitEqualZero()
+    {
+        $nav = ['limit' => 0];
+        $this->buildStubForSearchException()->search(null, $nav);
+    }
+
+    /**
+     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedExceptionMessage Invalid navigation field "limit" value: "501"
+     */
+    public function testSearchThrowInvalidArgumentExceptionLimitGreater500()
+    {
+        $nav = ['limit' => 501];
+        $this->buildStubForSearchException()->search(null, $nav);
     }
 
     public function testAddErrorResult()
@@ -168,7 +317,7 @@ final class BaseEntityRequesterTest extends TestCase
         $args = [
             $requester,
             ['many' => 'elements'],
-            ['set' => 'elements/set'],
+            ['list' => 'elements/list', 'set' => 'elements/set'],
         ];
 
         $stub = $this->getMockBuilder(BaseEntityRequester::class)

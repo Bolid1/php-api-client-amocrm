@@ -2,6 +2,7 @@
 
 namespace amoCRM\Entities;
 
+use amoCRM\Entities\Filters\Interfaces\SearchFilter;
 use amoCRM\Exceptions;
 use amoCRM\Interfaces\Requester;
 
@@ -23,6 +24,7 @@ abstract class BaseEntityRequester
     /** @var array */
     private $_paths = [
         'set' => null,
+        'list' => null,
     ];
 
     /**
@@ -123,5 +125,68 @@ abstract class BaseEntityRequester
                 throw new Exceptions\InvalidArgumentException($message);
             }
         }
+    }
+
+    /**
+     * Method for use elements/list endpoints
+     *
+     * @param SearchFilter $filter
+     * @param array $nav
+     *
+     * @return array
+     */
+    public function search(SearchFilter $filter = null, array $nav = [])
+    {
+        $query = [];
+
+        if ($nav = $this->parseNavigation($nav)) {
+            $query += $nav;
+        }
+
+        if (!is_null($filter)) {
+            $query += $filter->toArray();
+        }
+
+        $result = $this->_requester->get($this->_paths['list'], $query) ?: [];
+
+        if (isset($result[$this->_names['many']])) {
+            $result = $result[$this->_names['many']];
+        }
+
+        return $result;
+    }
+
+    /**
+     * Parse navigation array
+     *
+     * @param array $nav
+     * @return array
+     * @throws Exceptions\InvalidArgumentException
+     */
+    private function parseNavigation(array $nav)
+    {
+        $names_match = [
+            'limit' => 'limit_rows',
+            'offset' => 'limit_offset',
+        ];
+        $result = [];
+        foreach (['limit', 'offset'] as $field) {
+            if (!isset($nav[$field])) {
+                continue;
+            }
+
+            $value = (int)$nav[$field];
+
+            // Offset can't be less zero
+            // Limit must be between 1 and 500
+            if ($value < 0 || ($value > 500 || $value === 0) && $field === 'limit') {
+                $message = sprintf('Invalid navigation field "%s" value: "%s"', $field, $nav[$field]);
+                throw new Exceptions\InvalidArgumentException($message);
+            }
+
+            $result[$names_match[$field]] = $value;
+        }
+
+        return $result;
     }
 }

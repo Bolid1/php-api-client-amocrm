@@ -15,6 +15,7 @@ class LeadsRequester extends BaseEntityRequester
 
         $paths = [
             'set' => Lead::TYPE_MANY . '/set',
+            'list' => Lead::TYPE_MANY . '/list',
         ];
 
         parent::__construct($_requester, $names, $paths);

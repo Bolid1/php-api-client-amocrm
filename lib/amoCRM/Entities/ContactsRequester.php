@@ -15,6 +15,7 @@ class ContactsRequester extends BaseEntityRequester
 
         $paths = [
             'set' => Contact::TYPE_MANY . '/set',
+            'list' => Contact::TYPE_MANY . '/list',
         ];
 
         parent::__construct($_requester, $names, $paths);
