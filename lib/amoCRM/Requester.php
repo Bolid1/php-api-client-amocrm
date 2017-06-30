@@ -2,6 +2,8 @@
 
 namespace amoCRM;
 
+use GuzzleHttp\ClientInterface;
+
 /**
  * Class Requester
  * Класс для отправки запросов в amoCRM.
@@ -10,8 +12,16 @@ namespace amoCRM;
  */
 final class Requester extends BaseRequester
 {
+    /** @var Interfaces\User */
+    private $_user;
     /** @var boolean */
     private $_auth;
+
+    public function __construct(Interfaces\Account $account, Interfaces\User $user, ClientInterface $curl)
+    {
+        $this->_user = $user;
+        parent::__construct($account, $curl);
+    }
 
     /**
      * Make GET request to account

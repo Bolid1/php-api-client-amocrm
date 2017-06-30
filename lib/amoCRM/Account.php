@@ -9,9 +9,6 @@ namespace amoCRM;
  */
 final class Account implements Interfaces\Account
 {
-    const TOP_LEVEL_DOMAIN_RU = 'ru';
-    const TOP_LEVEL_DOMAIN_COM = 'com';
-
     /**
      * Account subdomain
      * @var string

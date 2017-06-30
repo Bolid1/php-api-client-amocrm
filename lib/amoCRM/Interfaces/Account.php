@@ -10,6 +10,9 @@ namespace amoCRM\Interfaces;
  */
 interface Account
 {
+    const TOP_LEVEL_DOMAIN_RU = 'ru';
+    const TOP_LEVEL_DOMAIN_COM = 'com';
+
     /**
      * @param string $top_level_domain
      */

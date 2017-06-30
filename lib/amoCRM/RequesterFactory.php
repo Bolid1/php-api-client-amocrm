@@ -35,7 +35,17 @@ final class RequesterFactory
     {
         $account = new Account($subdomain);
         $user = new User($login, $api_key);
-        $curl = new Client([
+        $curl = self::buildClient();
+
+        return [$account, $user, $curl];
+    }
+
+    /**
+     * @return Client
+     */
+    private static function buildClient()
+    {
+        return new Client([
             RequestOptions::COOKIES => new CookieJar,
             RequestOptions::HEADERS => [
                 'User-Agent' => 'amoCRM-PHP-API-client/0.5.0',
@@ -43,8 +53,6 @@ final class RequesterFactory
             RequestOptions::HTTP_ERRORS => false,
             RequestOptions::VERIFY => false,
         ]);
-
-        return [$account, $user, $curl];
     }
 
     /**
@@ -58,5 +66,13 @@ final class RequesterFactory
         list($account, $user, $curl) = self::buildConstructorArgs($subdomain, $login, $api_key);
 
         return new RequesterUnsorted($account, $user, $curl);
+    }
+
+    /**
+     * @return \amoCRM\Interfaces\RequesterPromo
+     */
+    public static function makePromo()
+    {
+        return new RequesterPromo(self::buildClient());
     }
 }

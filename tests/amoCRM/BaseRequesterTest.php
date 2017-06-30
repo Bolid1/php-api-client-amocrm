@@ -4,7 +4,6 @@ namespace Tests\amoCRM;
 
 use amoCRM\BaseRequester;
 use amoCRM\Interfaces\Account;
-use amoCRM\Interfaces\User;
 use GuzzleHttp\ClientInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -17,26 +16,15 @@ use Psr\Http\Message\ResponseInterface;
 final class BaseRequesterTest extends TestCase
 {
     const BASE_URL = 'https://test.amocrm.ru';
-    const CREDENTIALS = [
-        'USER_LOGIN' => 'test@test.test',
-        'USER_HASH' => '098f6bcd4621d373cade4e832627b4f6',
-    ];
 
     /** @var Account */
     private $_account;
-
-    /** @var User */
-    private $_user;
 
     public function setUp()
     {
         parent::setUp();
         $this->_account = $this->createMock(Account::class);
         $this->_account->method('getAddress')->willReturn(self::BASE_URL);
-
-        $this->_user = $this->createMock(User::class);
-        $this->_user->method('getCredentials')->willReturn(http_build_query(self::CREDENTIALS));
-        $this->_user->method('getCredentialsAsArray')->willReturn(self::CREDENTIALS);
     }
 
     public function testSendGetRequest()
@@ -84,7 +72,7 @@ final class BaseRequesterTest extends TestCase
     {
         $requester = $this->getMockBuilder(BaseRequester::class)
             ->enableOriginalConstructor()
-            ->setConstructorArgs([$this->_account, $this->_user, $curl])
+            ->setConstructorArgs([$this->_account, $curl])
             ->setMethods(null)
             ->getMock();
 

@@ -13,23 +13,19 @@ use Psr\Http\Message\ResponseInterface;
  */
 abstract class BaseRequester implements Interfaces\Requester
 {
-    /** @var Interfaces\User */
-    protected $_user;
     /** @var Interfaces\Account */
-    private $_account;
+    protected $_account;
     /** @var ClientInterface */
     private $_curl;
 
     /**
      * Requester constructor.
      * @param Interfaces\Account $account
-     * @param Interfaces\User $user
      * @param ClientInterface $curl
      */
-    public function __construct(Interfaces\Account $account, Interfaces\User $user, ClientInterface $curl)
+    public function __construct(Interfaces\Account $account, ClientInterface $curl)
     {
         $this->_account = $account;
-        $this->_user = $user;
         $this->_curl = $curl;
     }
 
