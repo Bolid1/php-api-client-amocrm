@@ -2,7 +2,7 @@
 
 namespace Tests\amoCRM\Entities;
 
-use amoCRM\Entities\BaseEntityRequester as BaseEntityRequester;
+use amoCRM\Entities\BaseEntityRequester;
 use amoCRM\Entities\Filters\Interfaces\SearchFilter;
 use amoCRM\Interfaces\Requester;
 use PHPUnit\Framework\TestCase;
@@ -95,6 +95,60 @@ final class BaseEntityRequesterTest extends TestCase
         $stub->add($elements);
     }
 
+    /**
+     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     */
+    public function testBuildFailedForUpdate()
+    {
+        $requester = $this->createMock(Requester::class);
+
+        // Wrong nesting level
+        $elements = ['id' => 12, 'name' => 'Test'];
+
+        $args = [
+            $requester,
+            ['many' => 'elements'],
+            ['list' => 'elements/list', 'set' => 'elements/set'],
+        ];
+
+        $stub = $this->getMockBuilder(BaseEntityRequester::class)
+            ->setConstructorArgs($args)
+            ->enableOriginalConstructor()
+            // Disable mock of any methods
+            ->setMethods(null)
+            ->getMock();
+
+        /** @var BaseEntityRequester $stub */
+        $stub->update($elements);
+    }
+
+    /**
+     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     */
+    public function testBuildFailedForUpdateWithoutId()
+    {
+        $requester = $this->createMock(Requester::class);
+
+        // Wrong nesting level
+        $elements = [['name' => 'Test']];
+
+        $args = [
+            $requester,
+            ['many' => 'elements'],
+            ['list' => 'elements/list', 'set' => 'elements/set'],
+        ];
+
+        $stub = $this->getMockBuilder(BaseEntityRequester::class)
+            ->setConstructorArgs($args)
+            ->enableOriginalConstructor()
+            // Disable mock of any methods
+            ->setMethods(null)
+            ->getMock();
+
+        /** @var BaseEntityRequester $stub */
+        $stub->update($elements);
+    }
+
     public function testBuildValidFormatForAdd()
     {
         $requester = $this->createMock(Requester::class);
@@ -137,6 +191,51 @@ final class BaseEntityRequesterTest extends TestCase
 
         /** @var BaseEntityRequester $stub */
         $this->assertEquals($post_result['elements']['add'], $stub->add($elements));
+    }
+
+    public function testBuildValidFormatForUpdate()
+    {
+        $requester = $this->createMock(Requester::class);
+
+        $path = Requester::API_PATH . 'elements/set';
+        $elements = [
+            [
+                'id' => 12,
+                'name' => 'Test',
+            ],
+        ];
+        $post_result = ['elements' => ['update' => $elements]];
+        $post_data = [
+            'request' => [
+                'elements' => [
+                    'update' => $elements,
+                ],
+            ],
+        ];
+
+        $requester
+            ->expects($this->once())
+            ->method('post')->with(
+                $this->equalTo($path),
+                $this->equalTo($post_data)
+            )
+            ->willReturn($post_result);
+
+        $args = [
+            $requester,
+            ['many' => 'elements'],
+            ['list' => 'elements/list', 'set' => 'elements/set'],
+        ];
+
+        $stub = $this->getMockBuilder(BaseEntityRequester::class)
+            ->setConstructorArgs($args)
+            ->enableOriginalConstructor()
+            // Disable mock of any methods
+            ->setMethods(null)
+            ->getMock();
+
+        /** @var BaseEntityRequester $stub */
+        $this->assertEquals($post_result['elements']['update'], $stub->update($elements));
     }
 
     public function testSearch()
@@ -329,5 +428,49 @@ final class BaseEntityRequesterTest extends TestCase
 
         /** @var BaseEntityRequester $stub */
         $this->assertEquals($post_result, $stub->add($elements));
+    }
+
+    public function testUpdateErrorResult()
+    {
+        $requester = $this->createMock(Requester::class);
+
+        $path = Requester::API_PATH . 'elements/set';
+        $elements = [
+            [
+                'id' => 12,
+                'name' => 'Test',
+            ],
+        ];
+        $post_result = ['error' => 'test error', 'error_code' => 102];
+        $post_data = [
+            'request' => [
+                'elements' => [
+                    'update' => $elements,
+                ],
+            ],
+        ];
+        $requester
+            ->expects($this->once())
+            ->method('post')->with(
+                $this->equalTo($path),
+                $this->equalTo($post_data)
+            )
+            ->willReturn($post_result);
+
+        $args = [
+            $requester,
+            ['many' => 'elements'],
+            ['list' => 'elements/list', 'set' => 'elements/set'],
+        ];
+
+        $stub = $this->getMockBuilder(BaseEntityRequester::class)
+            ->setConstructorArgs($args)
+            ->enableOriginalConstructor()
+            // Disable mock of any methods
+            ->setMethods(null)
+            ->getMock();
+
+        /** @var BaseEntityRequester $stub */
+        $this->assertEquals($post_result, $stub->update($elements));
     }
 }

@@ -82,33 +82,7 @@ abstract class BaseEntityRequester
     {
         $this->ensureIsArrayOfElements($elements);
 
-        $data = [
-            'request' => [
-                $this->_names['many'] => [
-                    'add' => $elements,
-                ],
-            ],
-        ];
-
-        /**
-         * На данный момент $result выглядит так:
-         * 'response' => [
-         *   $this->_names['many'] => [
-         *     'add' => $elements,
-         *   ],
-         * ],
-         */
-        $result = $this->_requester->post($this->_paths['set'], $data);
-
-        if (isset($result[$this->_names['many']])) {
-            $result = $result[$this->_names['many']];
-        }
-
-        if (isset($result['add'])) {
-            $result = $result['add'];
-        }
-
-        return $result;
+        return $this->set($elements, 'add');
     }
 
     /**
@@ -122,6 +96,72 @@ abstract class BaseEntityRequester
         foreach ($elements as $element) {
             if (!is_array($element)) {
                 $message = sprintf('Element "%s" is not an array', var_export($element, true));
+                throw new Exceptions\InvalidArgumentException($message);
+            }
+        }
+    }
+
+    /**
+     * @param array $elements
+     * @param string $action
+     * @return array
+     */
+    private function set(array $elements, $action)
+    {
+        $data = [
+            'request' => [
+                $this->_names['many'] => [
+                    $action => $elements,
+                ],
+            ],
+        ];
+
+        /**
+         * На данный момент $result выглядит так:
+         * 'response' => [
+         *   $this->_names['many'] => [
+         *     $action => $elements,
+         *   ],
+         * ],
+         */
+        $result = $this->_requester->post($this->_paths['set'], $data);
+
+        if (isset($result[$this->_names['many']])) {
+            $result = $result[$this->_names['many']];
+        }
+
+        if (isset($result[$action])) {
+            $result = $result[$action];
+        }
+
+        return $result;
+    }
+
+    /**
+     * Request for add many elements
+     *
+     * @param array $elements
+     * @return array
+     */
+    public function update(array $elements)
+    {
+        $this->ensureIsArrayOfElements($elements);
+        $this->ensureIsArrayOfElementsWithIds($elements);
+
+        return $this->set($elements, 'update');
+    }
+
+    /**
+     * Check for possible invalid data format
+     *
+     * @param array $elements
+     * @throws Exceptions\InvalidArgumentException
+     */
+    private function ensureIsArrayOfElementsWithIds(array $elements)
+    {
+        foreach ($elements as $element) {
+            if (!isset($element['id']) || !is_numeric($element['id'])) {
+                $message = sprintf('Element "%s" without numeric id', var_export($element, true));
                 throw new Exceptions\InvalidArgumentException($message);
             }
         }
