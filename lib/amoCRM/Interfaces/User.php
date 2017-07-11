@@ -2,7 +2,6 @@
 
 namespace amoCRM\Interfaces;
 
-
 /**
  * Class User
  * @package amoCRM

@@ -40,14 +40,6 @@ abstract class BaseFormField
     }
 
     /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->_id;
-    }
-
-    /**
      * @param int $id
      */
     private function setId($id)
@@ -56,27 +48,11 @@ abstract class BaseFormField
     }
 
     /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->_type;
-    }
-
-    /**
      * @param string $type
      */
     private function setType($type)
     {
         $this->_type = $type;
-    }
-
-    /**
-     * @return int
-     */
-    public function getElementType()
-    {
-        return $this->_element_type;
     }
 
     /**
@@ -95,6 +71,44 @@ abstract class BaseFormField
         }
 
         $this->_element_type = $element_type;
+    }
+
+    /**
+     * @return array
+     */
+    public function toAmo()
+    {
+        return [
+            'id' => $this->getId(),
+            'type' => $this->getType(),
+            'element_type' => $this->getElementType(),
+            'name' => $this->getName(),
+            'value' => $this->getValue(),
+        ];
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->_type;
+    }
+
+    /**
+     * @return int
+     */
+    public function getElementType()
+    {
+        return $this->_element_type;
     }
 
     /**
@@ -121,21 +135,8 @@ abstract class BaseFormField
         return $this->_value;
     }
 
-    /**
-     * @return array
-     */
-    public function toAmo()
+    public function setValue($value)
     {
-        return [
-            'id' => $this->getId(),
-            'type' => $this->getType(),
-            'element_type' => $this->getElementType(),
-            'name' => $this->getName(),
-            'value' => $this->getValue(),
-        ];
-    }
-
-    public function setValue($value) {
         $this->_value = $value;
     }
 }

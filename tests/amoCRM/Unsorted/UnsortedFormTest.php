@@ -3,8 +3,8 @@
 namespace Tests\amoCRM\Unsorted;
 
 use amoCRM\Entities\Elements;
-use PHPUnit\Framework\TestCase;
 use amoCRM\Unsorted\UnsortedForm;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class UnsortedFormTest
@@ -110,7 +110,7 @@ final class UnsortedFormTest extends TestCase
 
     public function testValidateSourceData()
     {
-        $unsorted = $this->buildWithoutSourceData(['skip_lead' => TRUE, 'skip_contact' => TRUE]);
+        $unsorted = $this->buildWithoutSourceData(['skip_lead' => true, 'skip_contact' => true]);
         $source_data = $this->_example['source_data'];
         $source_data['data'] = [];
         $this->setSourceData($unsorted, $source_data, $this->_example['source_data']['data']);
@@ -135,6 +135,26 @@ final class UnsortedFormTest extends TestCase
         $unsorted->setSourceUid($this->_example['source_uid']);
 
         return $unsorted;
+    }
+
+    /**
+     * @param UnsortedForm $unsorted
+     * @param array $source_data
+     * @param array $fields
+     */
+    private function setSourceData(UnsortedForm $unsorted, array $source_data, $fields = null)
+    {
+        $unsorted->setSourceData($source_data);
+
+        if (!isset($fields) && isset($source_data['data'])) {
+            $fields = $source_data['data'];
+        }
+
+        if (empty($fields)) {
+            return;
+        }
+
+        $unsorted->parseFieldsValues($fields);
     }
 
     /**
@@ -317,25 +337,5 @@ final class UnsortedFormTest extends TestCase
         $source_data['from'] = ['some array'];
         $this->setSourceData($unsorted, $source_data);
         $unsorted->toAmo();
-    }
-
-    /**
-     * @param UnsortedForm $unsorted
-     * @param array $source_data
-     * @param array $fields
-     */
-    private function setSourceData(UnsortedForm $unsorted, array $source_data, $fields = null)
-    {
-        $unsorted->setSourceData($source_data);
-
-        if (!isset($fields) && isset($source_data['data'])) {
-            $fields = $source_data['data'];
-        }
-
-        if (empty($fields)) {
-            return;
-        }
-
-        $unsorted->parseFieldsValues($fields);
     }
 }

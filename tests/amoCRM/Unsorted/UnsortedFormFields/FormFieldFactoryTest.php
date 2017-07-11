@@ -3,8 +3,8 @@
 namespace Tests\amoCRM\Unsorted\UnsortedFormFields;
 
 use amoCRM\Entities\Elements\Lead;
-use PHPUnit\Framework\TestCase;
 use amoCRM\Unsorted\UnsortedFormFields;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class FormFieldFactoryTest
@@ -55,6 +55,6 @@ final class FormFieldFactoryTest extends TestCase
      */
     public function testMakeThrowInvalidArgumentException()
     {
-        UnsortedFormFields\FormFieldFactory::make('test','test',Lead::TYPE_NUMERIC);
+        UnsortedFormFields\FormFieldFactory::make('test', 'test', Lead::TYPE_NUMERIC);
     }
 }

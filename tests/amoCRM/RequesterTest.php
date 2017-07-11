@@ -49,8 +49,10 @@ final class RequesterTest extends TestCase
             ->method('request')
             ->with(
                 $this->logicalOr(
-                    $this->equalTo('get'), $this->stringContains('private/api/auth.php'),
-                    $this->equalTo('get'), $this->stringContains('/test')
+                    $this->equalTo('get'),
+                    $this->stringContains('private/api/auth.php'),
+                    $this->equalTo('get'),
+                    $this->stringContains('/test')
                 )
             )
             ->willReturn($response);
@@ -91,8 +93,10 @@ final class RequesterTest extends TestCase
             ->method('request')
             ->with(
                 $this->logicalOr(
-                    $this->equalTo('get'), $this->stringContains('private/api/auth.php'),
-                    $this->equalTo('post'), $this->stringContains('/test')
+                    $this->equalTo('get'),
+                    $this->stringContains('private/api/auth.php'),
+                    $this->equalTo('post'),
+                    $this->stringContains('/test')
                 )
             )
             ->willReturn($response);
@@ -126,8 +130,10 @@ final class RequesterTest extends TestCase
             ->method('request')
             ->with(
                 $this->logicalOr(
-                    $this->equalTo('get'), $this->stringContains('private/api/auth.php'),
-                    $this->equalTo('post'), $this->stringContains('/test')
+                    $this->equalTo('get'),
+                    $this->stringContains('private/api/auth.php'),
+                    $this->equalTo('post'),
+                    $this->stringContains('/test')
                 )
             )
             ->willReturn($response);

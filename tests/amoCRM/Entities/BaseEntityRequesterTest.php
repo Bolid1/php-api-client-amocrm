@@ -17,7 +17,7 @@ final class BaseEntityRequesterTest extends TestCase
     public function testCanBeCreatedFromValidNamesAndPaths()
     {
         $args = [
-			$this->createMock(Requester::class),
+            $this->createMock(Requester::class),
             ['many' => 'elements'],
             ['list' => 'elements/list', 'set' => 'elements/set'],
         ];

@@ -2,9 +2,9 @@
 
 namespace Tests\amoCRM\Unsorted;
 
+use amoCRM\Entities\Elements;
 use amoCRM\Unsorted\BaseUnsorted;
 use PHPUnit\Framework\TestCase;
-use amoCRM\Entities\Elements;
 
 /**
  * Class BaseUnsortedTest
@@ -21,8 +21,8 @@ final class BaseUnsortedTest extends TestCase
             'foo' => 'bar',
         ],
         'data' => [
-			Elements\Lead::TYPE_MANY => [['name' => 'some name']],
-			Elements\Contact::TYPE_MANY => [['name' => 'some name']],
+            Elements\Lead::TYPE_MANY => [['name' => 'some name']],
+            Elements\Contact::TYPE_MANY => [['name' => 'some name']],
             'companies' => [['name' => 'some name']],
         ],
     ];

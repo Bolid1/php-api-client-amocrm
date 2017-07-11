@@ -39,7 +39,7 @@ class LeadsRequesterTest extends TestCase
         $post_result = [Elements\Lead::TYPE_MANY => ['add' => $elements]];
         $post_data = [
             'request' => [
-				Elements\Lead::TYPE_MANY => [
+                Elements\Lead::TYPE_MANY => [
                     'add' => $elements,
                 ],
             ],

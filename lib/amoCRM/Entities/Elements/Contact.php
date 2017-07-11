@@ -9,9 +9,9 @@ namespace amoCRM\Entities\Elements;
  */
 final class Contact extends BaseElement
 {
-	const TYPE_NUMERIC = 1;
-	const TYPE_SINGLE = 'contact';
-	const TYPE_MANY = 'contacts';
+    const TYPE_NUMERIC = 1;
+    const TYPE_SINGLE = 'contact';
+    const TYPE_MANY = 'contacts';
 
     /** @var integer */
     private $_company_id;

@@ -2,7 +2,6 @@
 
 namespace amoCRM\Entities\Filters;
 
-
 use amoCRM\Entities\Elements\Contact;
 use amoCRM\Exceptions\InvalidArgumentException;
 
