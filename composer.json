@@ -11,9 +11,14 @@
     }
   ],
   "scripts": {
+    "code-style-install": "cp -r vendor/wimg/php-compatibility vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/PHPCompatibility",
     "code-style-check": "phpcs --standard=./standard.xml",
+    "code-style-compatibility": "phpcs --standard=PHPCompatibility --runtime-set testVersion 5.6 ./lib",
     "code-style-fix": "phpcbf --standard=./standard.xml",
-    "test": "phpunit --configuration phpunit.xml"
+    "test": "phpunit --configuration phpunit.xml",
+    "post-install-cmd": [
+      "@code-style-install"
+    ]
   },
   "require": {
     "php": ">=5.6.25",
@@ -23,12 +28,12 @@
     "php": ">=7.0.0",
     "phpunit/phpunit": "6.2.2",
     "satooshi/php-coveralls": "dev-master",
-    "squizlabs/php_codesniffer": "^3.0"
+    "squizlabs/php_codesniffer": "~2.0",
+    "wimg/php-compatibility": "^7.1"
   },
   "autoload": {
     "psr-4": {
-      "amoCRM\\": "lib/amoCRM/",
-      "HTTP\\": "lib/HTTP/"
+      "amoCRM\\": "lib/amoCRM/"
     }
   }
 }
