@@ -8,7 +8,12 @@ use amoCRM\Entities\Elements\Contact;
 use amoCRM\Interfaces\Requester;
 use PHPUnit\Framework\TestCase;
 
-class ContactsRequesterTest extends TestCase
+/**
+ * Class ContactsRequesterTest
+ * @package Tests\amoCRM\Entities
+ * @covers \amoCRM\Entities\ContactsRequester
+ */
+final class ContactsRequesterTest extends TestCase
 {
     /** @var Requester */
     private $_requester;

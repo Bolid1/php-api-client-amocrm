@@ -7,7 +7,10 @@ abstract class CustomFieldSingleValue extends BaseCustomField
     /** @var mixed */
     protected $_value;
 
-    abstract public function setValue($value);
+    public function setValue($value)
+    {
+        $this->_value = $value;
+    }
 
     /**
      * @return array

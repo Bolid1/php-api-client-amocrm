@@ -2,12 +2,17 @@
 
 namespace Tests\amoCRM\Unsorted;
 
-use PHPUnit\Framework\TestCase;
 use amoCRM\Interfaces\Requester;
 use amoCRM\Unsorted\BaseUnsortedRequester;
 use amoCRM\Unsorted\UnsortedFormRequester;
+use PHPUnit\Framework\TestCase;
 
-class UnsortedFormRequesterTest extends TestCase
+/**
+ * Class UnsortedFormRequesterTest
+ * @package Tests\amoCRM\Unsorted
+ * @covers \amoCRM\Unsorted\UnsortedFormRequester
+ */
+final class UnsortedFormRequesterTest extends TestCase
 {
 
     public function testInstanceOfBaseUnsortedRequester()

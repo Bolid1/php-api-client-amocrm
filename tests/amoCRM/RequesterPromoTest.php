@@ -8,6 +8,11 @@ use GuzzleHttp\ClientInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * Class RequesterPromoTest
+ * @package Tests\amoCRM
+ * @covers \amoCRM\RequesterPromo
+ */
 final class RequesterPromoTest extends TestCase
 {
     const BASE_URL = 'https://www.amocrm.';

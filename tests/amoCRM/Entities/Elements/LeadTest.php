@@ -6,7 +6,12 @@ use amoCRM\Entities\Elements\BaseElement;
 use amoCRM\Entities\Elements\Lead;
 use PHPUnit\Framework\TestCase;
 
-class LeadTest extends TestCase
+/**
+ * Class LeadTest
+ * @package Tests\amoCRM\Entities\Elements
+ * @covers \amoCRM\Entities\Elements\Lead
+ */
+final class LeadTest extends TestCase
 {
     public function testInstanceOfBaseElement()
     {

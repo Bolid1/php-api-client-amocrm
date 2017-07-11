@@ -1,11 +1,19 @@
 <?php
 
-namespace amoCRM;
+namespace Tests\amoCRM;
 
 use amoCRM\Interfaces\Requester;
+use amoCRM\Interfaces\RequesterPromo;
+use amoCRM\RequesterFactory;
+use amoCRM\RequesterUnsorted;
 use PHPUnit\Framework\TestCase;
 
-class RequesterFactoryTest extends TestCase
+/**
+ * Class RequesterFactoryTest
+ * @package amoCRM
+ * @covers \amoCRM\RequesterFactory
+ */
+final class RequesterFactoryTest extends TestCase
 {
     public function testReturnRequester()
     {

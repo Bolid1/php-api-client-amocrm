@@ -2,13 +2,18 @@
 
 namespace Tests\amoCRM\Unsorted;
 
+use amoCRM\Entities\Elements;
 use amoCRM\Interfaces\Requester;
+use amoCRM\Unsorted\BaseUnsortedRequester;
 use amoCRM\Unsorted\UnsortedForm;
 use PHPUnit\Framework\TestCase;
-use amoCRM\Unsorted\BaseUnsortedRequester;
-use amoCRM\Entities\Elements;
 
-class BaseUnsortedRequesterTest extends TestCase
+/**
+ * Class BaseUnsortedRequesterTest
+ * @package Tests\amoCRM\Unsorted
+ * @covers \amoCRM\Unsorted\BaseUnsortedRequester
+ */
+final class BaseUnsortedRequesterTest extends TestCase
 {
     private $_unsorted = [
         'source' => 'http://OulVKvE5.info',

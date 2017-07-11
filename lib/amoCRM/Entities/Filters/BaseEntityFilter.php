@@ -20,6 +20,7 @@ abstract class BaseEntityFilter implements Interfaces\SearchFilter
 
     /**
      * @param array|integer $id
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function setId($id)
     {
@@ -58,6 +59,7 @@ abstract class BaseEntityFilter implements Interfaces\SearchFilter
 
     /**
      * @param array|integer $responsible_user
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function setResponsibleUser($responsible_user)
     {

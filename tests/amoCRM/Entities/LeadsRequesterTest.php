@@ -3,11 +3,16 @@
 namespace Tests\amoCRM\Entities;
 
 use amoCRM\Entities\BaseEntityRequester;
+use amoCRM\Entities\Elements;
 use amoCRM\Entities\LeadsRequester;
 use amoCRM\Interfaces\Requester;
 use PHPUnit\Framework\TestCase;
-use amoCRM\Entities\Elements;
 
+/**
+ * Class LeadsRequesterTest
+ * @package Tests\amoCRM\Entities
+ * @covers \amoCRM\Entities\LeadsRequester
+ */
 class LeadsRequesterTest extends TestCase
 {
     /** @var Requester */
