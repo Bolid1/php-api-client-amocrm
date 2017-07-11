@@ -5,11 +5,11 @@ namespace amoCRM\Entities\Elements\CustomFields;
 abstract class CustomFieldSingleValue extends BaseCustomField
 {
     /** @var mixed */
-    protected $_value;
+    protected $value;
 
     public function setValue($value)
     {
-        $this->_value = $value;
+        $this->value = $value;
     }
 
     /**
@@ -27,6 +27,6 @@ abstract class CustomFieldSingleValue extends BaseCustomField
      */
     protected function prepareToAmo()
     {
-        return $this->_value;
+        return $this->value;
     }
 }

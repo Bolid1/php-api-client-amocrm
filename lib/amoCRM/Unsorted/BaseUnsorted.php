@@ -13,24 +13,29 @@ use amoCRM\Exceptions\ValidateException;
 abstract class BaseUnsorted
 {
     /** @var string */
-    private $_source;
+    private $source;
     /** @var string */
-    private $_source_uid;
+    private $source_uid;
     /** @var array */
-    private $_source_data;
+    private $source_data;
     /** @var array */
-    private $_data = [
-        Elements\Lead::TYPE_MANY => [],
-        Elements\Contact::TYPE_MANY => [],
-        'companies' => [],
-    ];
+    private $data;
+
+    public function __construct()
+    {
+        $this->data = [
+            Elements\Lead::TYPE_MANY => [],
+            Elements\Contact::TYPE_MANY => [],
+            'companies' => []
+        ];
+    }
 
     /**
      * @param array $lead
      */
     public function addLead(array $lead)
     {
-        $this->_data[Elements\Lead::TYPE_MANY][] = $lead;
+        $this->data[Elements\Lead::TYPE_MANY][] = $lead;
     }
 
     /**
@@ -38,7 +43,7 @@ abstract class BaseUnsorted
      */
     public function addContact(array $contact)
     {
-        $this->_data[Elements\Contact::TYPE_MANY][] = $contact;
+        $this->data[Elements\Contact::TYPE_MANY][] = $contact;
     }
 
     /**
@@ -46,12 +51,13 @@ abstract class BaseUnsorted
      */
     public function addCompany(array $company)
     {
-        $this->_data['companies'][] = $company;
+        $this->data['companies'][] = $company;
     }
 
     /**
      * Prepare current unsorted element for send to amoCRM
      * @return array
+     * @throws \amoCRM\Exceptions\ValidateException
      * @throws RuntimeException
      */
     public function toAmo()
@@ -72,6 +78,101 @@ abstract class BaseUnsorted
     }
 
     /**
+     * @return string
+     */
+    protected function getSourceToAmo()
+    {
+        return $this->getSource();
+    }
+
+    /**
+     * @return string
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     * @param string $source
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getSourceUidToAmo()
+    {
+        return $this->getSourceUid();
+    }
+
+    /**
+     * @return string
+     */
+    public function getSourceUid()
+    {
+        return $this->source_uid;
+    }
+
+    /**
+     * @param string $source_uid
+     */
+    public function setSourceUid($source_uid)
+    {
+        $this->source_uid = $source_uid;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getSourceDataToAmo()
+    {
+        return $this->getSourceData();
+    }
+
+    /**
+     * @param string [$key=null]
+     *
+     * @return array|mixed|null
+     */
+    public function getSourceData($key = null)
+    {
+        $result = $this->source_data;
+        if ($key !== null) {
+            $result = isset($result[$key]) ? $result[$key] : null;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param array $source_data
+     */
+    public function setSourceData(array $source_data)
+    {
+        $this->source_data = $source_data;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getDataToAmo()
+    {
+        return $this->getData();
+    }
+
+    /**
+     * @return array
+     */
+    public function getData()
+    {
+        return array_filter($this->data);
+    }
+
+    /**
      * @param string $source
      * @return string
      * @throws ValidateException
@@ -83,22 +184,6 @@ abstract class BaseUnsorted
         }
 
         return $source;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSource()
-    {
-        return $this->_source;
-    }
-
-    /**
-     * @param string $source
-     */
-    public function setSource($source)
-    {
-        $this->_source = $source;
     }
 
     /**
@@ -116,22 +201,6 @@ abstract class BaseUnsorted
     }
 
     /**
-     * @return string
-     */
-    public function getSourceUid()
-    {
-        return $this->_source_uid;
-    }
-
-    /**
-     * @param string $source_uid
-     */
-    public function setSourceUid($source_uid)
-    {
-        $this->_source_uid = $source_uid;
-    }
-
-    /**
      * @param array $source_data
      * @return array
      * @throws ValidateException
@@ -143,29 +212,6 @@ abstract class BaseUnsorted
         }
 
         return $source_data;
-    }
-
-    /**
-     * @param string [$key=null]
-     *
-     * @return array|mixed|null
-     */
-    public function getSourceData($key = null)
-    {
-        $result = $this->_source_data;
-        if (isset($key)) {
-            $result = isset($result[$key]) ? $result[$key] : null;
-        }
-
-        return $result;
-    }
-
-    /**
-     * @param array $source_data
-     */
-    public function setSourceData(array $source_data)
-    {
-        $this->_source_data = $source_data;
     }
 
     /**
@@ -184,45 +230,5 @@ abstract class BaseUnsorted
         }
 
         return $data;
-    }
-
-    /**
-     * @return array
-     */
-    public function getData()
-    {
-        return array_filter($this->_data);
-    }
-
-    /**
-     * @return string
-     */
-    protected function getSourceToAmo()
-    {
-        return $this->getSource();
-    }
-
-    /**
-     * @return string
-     */
-    protected function getSourceUidToAmo()
-    {
-        return $this->getSourceUid();
-    }
-
-    /**
-     * @return array
-     */
-    protected function getSourceDataToAmo()
-    {
-        return $this->getSourceData();
-    }
-
-    /**
-     * @return array
-     */
-    protected function getDataToAmo()
-    {
-        return $this->getData();
     }
 }

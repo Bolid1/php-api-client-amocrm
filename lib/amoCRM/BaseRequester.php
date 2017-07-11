@@ -14,9 +14,9 @@ use Psr\Http\Message\ResponseInterface;
 abstract class BaseRequester implements Interfaces\Requester
 {
     /** @var Interfaces\Account */
-    protected $_account;
+    protected $account;
     /** @var ClientInterface */
-    private $_curl;
+    private $curl;
 
     /**
      * Requester constructor.
@@ -25,8 +25,8 @@ abstract class BaseRequester implements Interfaces\Requester
      */
     public function __construct(Interfaces\Account $account, ClientInterface $curl)
     {
-        $this->_account = $account;
-        $this->_curl = $curl;
+        $this->account = $account;
+        $this->curl = $curl;
     }
 
     /**
@@ -36,10 +36,12 @@ abstract class BaseRequester implements Interfaces\Requester
      * @param array|string [$query=null]
      *
      * @return array
+     * @throws \amoCRM\Exceptions\AuthFailed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function get($path, $query = null)
     {
-        $curl_result = $this->_curl->request('get', $this->buildPath($path), [
+        $curl_result = $this->curl->request('get', $this->buildPath($path), [
             RequestOptions::QUERY => $query,
         ]);
 
@@ -53,7 +55,7 @@ abstract class BaseRequester implements Interfaces\Requester
      */
     private function buildPath($path)
     {
-        return sprintf('%s/%s', $this->_account->getAddress(), ltrim($path, '/'));
+        return sprintf('%s/%s', $this->account->getAddress(), ltrim($path, '/'));
     }
 
     /**
@@ -84,10 +86,12 @@ abstract class BaseRequester implements Interfaces\Requester
      * @param array|string [$query=null]
      *
      * @return array
+     * @throws \amoCRM\Exceptions\AuthFailed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function post($path, $data, $query = null)
     {
-        $curl_result = $this->_curl->request('post', $this->buildPath($path), [
+        $curl_result = $this->curl->request('post', $this->buildPath($path), [
             RequestOptions::QUERY => $query,
             RequestOptions::FORM_PARAMS => $data,
         ]);

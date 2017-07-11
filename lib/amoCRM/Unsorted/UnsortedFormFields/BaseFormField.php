@@ -12,25 +12,26 @@ use amoCRM\Exceptions\InvalidArgumentException;
 abstract class BaseFormField
 {
     /** @var integer */
-    private $_id;
+    private $id;
 
     /** @var string */
-    private $_type;
+    private $type;
 
     /** @var integer */
-    private $_element_type;
+    private $element_type;
 
     /** @var string */
-    private $_name;
+    private $name;
 
     /** @var mixed */
-    private $_value;
+    private $value;
 
     /**
      * BaseFormField constructor.
      * @param int $id
      * @param string $type
      * @param integer $element_type
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function __construct($id, $type, $element_type)
     {
@@ -44,7 +45,7 @@ abstract class BaseFormField
      */
     private function setId($id)
     {
-        $this->_id = $id;
+        $this->id = $id;
     }
 
     /**
@@ -52,7 +53,7 @@ abstract class BaseFormField
      */
     private function setType($type)
     {
-        $this->_type = $type;
+        $this->type = $type;
     }
 
     /**
@@ -70,7 +71,7 @@ abstract class BaseFormField
             throw new InvalidArgumentException(sprintf('Incorrect element type "%s"', $element_type));
         }
 
-        $this->_element_type = $element_type;
+        $this->element_type = $element_type;
     }
 
     /**
@@ -92,7 +93,7 @@ abstract class BaseFormField
      */
     public function getId()
     {
-        return $this->_id;
+        return $this->id;
     }
 
     /**
@@ -100,7 +101,7 @@ abstract class BaseFormField
      */
     public function getType()
     {
-        return $this->_type;
+        return $this->type;
     }
 
     /**
@@ -108,7 +109,7 @@ abstract class BaseFormField
      */
     public function getElementType()
     {
-        return $this->_element_type;
+        return $this->element_type;
     }
 
     /**
@@ -116,7 +117,7 @@ abstract class BaseFormField
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
 
     /**
@@ -124,7 +125,7 @@ abstract class BaseFormField
      */
     public function setName($name)
     {
-        $this->_name = $name;
+        $this->name = $name;
     }
 
     /**
@@ -132,11 +133,11 @@ abstract class BaseFormField
      */
     public function getValue()
     {
-        return $this->_value;
+        return $this->value;
     }
 
     public function setValue($value)
     {
-        $this->_value = $value;
+        $this->value = $value;
     }
 }

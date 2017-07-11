@@ -14,6 +14,6 @@ class CustomFieldText extends CustomFieldSingleValue
      */
     public function setValue($value)
     {
-        $this->_value = (string)$value;
+        $this->value = (string)$value;
     }
 }

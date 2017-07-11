@@ -14,25 +14,27 @@ final class Contact extends BaseElement
     const TYPE_MANY = 'contacts';
 
     /** @var integer */
-    private $_company_id;
+    private $company_id;
 
     /** @var array<integer> */
-    private $_leads_id = [];
+    private $leads_id = [];
 
     /**
      * @param integer $company_id
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function setCompanyId($company_id)
     {
-        $this->_company_id = $this->parseInteger($company_id);
+        $this->company_id = $this->parseInteger($company_id);
     }
 
     /**
      * @param integer $lead_id
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function addLeadId($lead_id)
     {
-        $this->_leads_id[] = $this->parseInteger($lead_id);
+        $this->leads_id[] = $this->parseInteger($lead_id);
     }
 
     /**
@@ -44,11 +46,11 @@ final class Contact extends BaseElement
     {
         $contact = parent::toAmo();
 
-        if (isset($this->_company_id)) {
-            $contact['linked_company_id'] = $this->_company_id;
+        if ($this->company_id !== null) {
+            $contact['linked_company_id'] = $this->company_id;
         }
 
-        foreach ($this->_leads_id as $lead_id) {
+        foreach ($this->leads_id as $lead_id) {
             if (!isset($contact['linked_leads_id'])) {
                 $contact['linked_leads_id'] = [];
             }

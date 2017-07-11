@@ -23,7 +23,7 @@ final class RequesterPromo extends BaseRequester implements Interfaces\Requester
      */
     public function setTopLevelDomain($top_level_domain)
     {
-        $this->_account->setTopLevelDomain($top_level_domain);
+        $this->account->setTopLevelDomain($top_level_domain);
     }
 
     /**
@@ -31,6 +31,8 @@ final class RequesterPromo extends BaseRequester implements Interfaces\Requester
      *
      * @param array|string $subdomains
      * @return array
+     * @throws \amoCRM\Exceptions\AuthFailed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function domains($subdomains)
     {

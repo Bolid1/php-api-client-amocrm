@@ -10,15 +10,16 @@ namespace amoCRM\Entities\Filters;
 final class LeadsFilter extends BaseEntityFilter
 {
     /** @var array */
-    private $_status = [];
+    private $status = [];
 
     /**
      * @param array|integer $status
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function setStatus($status)
     {
-        $this->_status = (array)$status;
-        $this->onlyPositiveIntegers($this->_status);
+        $this->status = (array)$status;
+        $this->onlyPositiveIntegers($this->status);
     }
 
     /**
@@ -26,7 +27,7 @@ final class LeadsFilter extends BaseEntityFilter
      */
     public function toArray()
     {
-        $result = parent::toArray() + ['status' => $this->_status];
+        $result = parent::toArray() + ['status' => $this->status];
 
         return array_filter($result);
     }

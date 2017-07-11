@@ -12,11 +12,12 @@ use amoCRM\Exceptions;
 abstract class BaseCustomField
 {
     /** @var integer */
-    private $_id;
+    private $id;
 
     /**
      * BaseCustomField constructor.
      * @param integer $id
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function __construct($id)
     {
@@ -29,7 +30,7 @@ abstract class BaseCustomField
      */
     private function setId($id)
     {
-        $this->_id = $this->parseNumber($id);
+        $this->id = $this->parseNumber($id);
     }
 
     /**
@@ -64,7 +65,7 @@ abstract class BaseCustomField
      */
     public function toAmo()
     {
-        return ['id' => $this->_id, 'values' => $this->valueToAmo()];
+        return ['id' => $this->id, 'values' => $this->valueToAmo()];
     }
 
     /**

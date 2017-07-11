@@ -15,10 +15,10 @@ abstract class BaseUnsortedRequester implements Interfaces\BaseUnsortedRequester
     const BASE_PATH = 'api/unsorted/';
 
     /** @var Requester */
-    private $_requester;
+    private $requester;
 
     /** @var string */
-    private $_category;
+    private $category;
 
     /**
      * BaseUnsortedRequester constructor.
@@ -27,7 +27,7 @@ abstract class BaseUnsortedRequester implements Interfaces\BaseUnsortedRequester
      */
     public function __construct(Requester $requester, $category)
     {
-        $this->_requester = $requester;
+        $this->requester = $requester;
         $this->setCategory($category);
     }
 
@@ -36,7 +36,7 @@ abstract class BaseUnsortedRequester implements Interfaces\BaseUnsortedRequester
      */
     private function setCategory($category)
     {
-        $this->_category = $category;
+        $this->category = $category;
     }
 
     /**
@@ -45,6 +45,9 @@ abstract class BaseUnsortedRequester implements Interfaces\BaseUnsortedRequester
      *
      * @param array $elements
      * @return bool
+     * @throws \amoCRM\Exceptions\ValidateException
+     * @throws \amoCRM\Exceptions\RuntimeException
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      * @throws Exceptions\InvalidResponseException
      */
     public function add(array $elements)
@@ -54,7 +57,7 @@ abstract class BaseUnsortedRequester implements Interfaces\BaseUnsortedRequester
         $data = [
             'request' => [
                 'unsorted' => [
-                    'category' => $this->_category,
+                    'category' => $this->category,
                     'add' => $elements,
                 ],
             ],
@@ -70,7 +73,7 @@ abstract class BaseUnsortedRequester implements Interfaces\BaseUnsortedRequester
          *   ],
          * ],
          */
-        $response = $this->_requester->post(self::BASE_PATH . 'add/', $data);
+        $response = $this->requester->post(self::BASE_PATH . 'add/', $data);
 
         if (!isset($response['unsorted']['add']['status'])) {
             throw new Exceptions\InvalidResponseException(json_encode($response));
@@ -84,6 +87,8 @@ abstract class BaseUnsortedRequester implements Interfaces\BaseUnsortedRequester
      *
      * @param array $elements
      * @return array
+     * @throws \amoCRM\Exceptions\ValidateException
+     * @throws \amoCRM\Exceptions\RuntimeException
      * @throws Exceptions\InvalidArgumentException
      */
     private function ensureIsArrayOfElements(array $elements)

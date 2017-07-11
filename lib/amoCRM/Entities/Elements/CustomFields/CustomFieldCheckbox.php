@@ -14,6 +14,6 @@ final class CustomFieldCheckbox extends CustomFieldSingleValue
      */
     public function setValue($value)
     {
-        $this->_value = empty($value) ? 0 : 1;
+        $this->value = empty($value) ? 0 : 1;
     }
 }

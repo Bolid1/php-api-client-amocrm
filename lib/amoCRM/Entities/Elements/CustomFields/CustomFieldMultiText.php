@@ -7,20 +7,21 @@ use amoCRM\Exceptions\InvalidArgumentException;
 abstract class CustomFieldMultiText extends BaseCustomField
 {
     /** @var array */
-    protected $_values = [];
+    protected $values = [];
 
     /** @var array */
-    protected $_enums;
+    protected $enums;
 
     /**
      * CustomFieldMultiText constructor.
      * @param integer $id
      * @param array $enums
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function __construct($id, array $enums)
     {
         parent::__construct($id);
-        $this->_enums = $enums;
+        $this->enums = $enums;
     }
 
     /**
@@ -30,7 +31,7 @@ abstract class CustomFieldMultiText extends BaseCustomField
      */
     public function getEnums()
     {
-        return $this->_enums;
+        return $this->enums;
     }
 
     /**
@@ -40,17 +41,17 @@ abstract class CustomFieldMultiText extends BaseCustomField
      */
     public function getDefaultEnum()
     {
-        return reset($this->_enums);
+        return reset($this->enums);
     }
 
     public function addValue($enum, $value)
     {
         $enum_upper = strtoupper($enum);
-        if (!in_array($enum_upper, $this->_enums, true)) {
+        if (!in_array($enum_upper, $this->enums, true)) {
             throw new InvalidArgumentException(sprintf('Invalid enum "%s"', $enum));
         }
 
-        $this->_values[] = [
+        $this->values[] = [
             'enum' => $enum_upper,
             'value' => (string)$value,
         ];
@@ -61,6 +62,6 @@ abstract class CustomFieldMultiText extends BaseCustomField
      */
     protected function valueToAmo()
     {
-        return $this->_values;
+        return $this->values;
     }
 }

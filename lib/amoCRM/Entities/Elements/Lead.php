@@ -14,49 +14,53 @@ final class Lead extends BaseElement
     const TYPE_MANY = 'leads';
 
     /** @var integer */
-    private $_price;
+    private $price;
 
     /** @var integer */
-    private $_status_id;
+    private $status_id;
     /** @var integer */
-    private $_pipeline_id;
+    private $pipeline_id;
 
     /** @var integer */
-    private $_company_id;
+    private $company_id;
     /** @var string */
-    private $_visitor_uid;
+    private $visitor_uid;
 
     /**
      * @param integer $price
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function setPrice($price)
     {
         $price = $this->parseInteger($price, true);
-        $this->_price = $price > 0 ? $price : 0;
+        $this->price = $price > 0 ? $price : 0;
     }
 
     /**
      * @param integer $status_id
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function setStatusId($status_id)
     {
-        $this->_status_id = $this->parseInteger($status_id);
+        $this->status_id = $this->parseInteger($status_id);
     }
 
     /**
      * @param integer $pipeline_id
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function setPipelineId($pipeline_id)
     {
-        $this->_pipeline_id = $this->parseInteger($pipeline_id);
+        $this->pipeline_id = $this->parseInteger($pipeline_id);
     }
 
     /**
      * @param integer $linked_company_id
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function setCompanyId($linked_company_id)
     {
-        $this->_company_id = $this->parseInteger($linked_company_id);
+        $this->company_id = $this->parseInteger($linked_company_id);
     }
 
     /**
@@ -64,7 +68,7 @@ final class Lead extends BaseElement
      */
     public function setVisitorUid($visitor_uid)
     {
-        $this->_visitor_uid = (string)$visitor_uid;
+        $this->visitor_uid = (string)$visitor_uid;
     }
 
     /**
@@ -76,20 +80,20 @@ final class Lead extends BaseElement
     {
         $lead = parent::toAmo();
 
-        if (isset($this->_price)) {
-            $lead['price'] = $this->_price;
+        if ($this->price !== null) {
+            $lead['price'] = $this->price;
         }
-        if (isset($this->_status_id)) {
-            $lead['status_id'] = $this->_status_id;
+        if ($this->status_id !== null) {
+            $lead['status_id'] = $this->status_id;
         }
-        if (isset($this->_pipeline_id)) {
-            $lead['pipeline_id'] = $this->_pipeline_id;
+        if ($this->pipeline_id !== null) {
+            $lead['pipeline_id'] = $this->pipeline_id;
         }
-        if (isset($this->_company_id)) {
-            $lead['linked_company_id'] = $this->_company_id;
+        if ($this->company_id !== null) {
+            $lead['linked_company_id'] = $this->company_id;
         }
-        if (isset($this->_visitor_uid)) {
-            $lead['visitor_uid'] = $this->_visitor_uid;
+        if ($this->visitor_uid !== null) {
+            $lead['visitor_uid'] = $this->visitor_uid;
         }
 
         return $lead;

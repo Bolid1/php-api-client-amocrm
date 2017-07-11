@@ -12,7 +12,7 @@ use amoCRM\Interfaces\Requester;
 final class EntitiesRequesterFactory
 {
     /** @var Requester */
-    private $_requester;
+    private $requester;
 
     /**
      * RequesterFactory constructor.
@@ -20,7 +20,7 @@ final class EntitiesRequesterFactory
      */
     public function __construct(Requester $requester)
     {
-        $this->_requester = $requester;
+        $this->requester = $requester;
     }
 
     /**
@@ -34,12 +34,12 @@ final class EntitiesRequesterFactory
             case Elements\Lead::TYPE_NUMERIC:
             case Elements\Lead::TYPE_SINGLE:
             case Elements\Lead::TYPE_MANY:
-                $result = new LeadsRequester($this->_requester);
+                $result = new LeadsRequester($this->requester);
                 break;
             case Elements\Contact::TYPE_NUMERIC:
             case Elements\Contact::TYPE_SINGLE:
             case Elements\Contact::TYPE_MANY:
-                $result = new ContactsRequester($this->_requester);
+                $result = new ContactsRequester($this->requester);
                 break;
             default:
                 throw new InvalidArgumentException(sprintf('Unknown element type "%s"', $element_type));

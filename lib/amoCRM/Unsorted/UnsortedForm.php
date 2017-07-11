@@ -2,10 +2,10 @@
 
 namespace amoCRM\Unsorted;
 
-use amoCRM\Entities\Elements\Lead;
 use amoCRM\Entities\Elements\Contact;
-use amoCRM\Exceptions\ValidateException;
 use amoCRM\Entities\Elements\CustomFields;
+use amoCRM\Entities\Elements\Lead;
+use amoCRM\Exceptions\ValidateException;
 use amoCRM\Unsorted\UnsortedFormFields\BaseFormField;
 use amoCRM\Unsorted\UnsortedFormFields\FormFieldFactory;
 
@@ -21,8 +21,60 @@ final class UnsortedForm extends BaseUnsorted
     const FORM_TYPE_ID_WORDPRESS = 2;
 
     /**
+     * @param BaseFormField $field
+     */
+    public function addFieldValue(BaseFormField $field)
+    {
+        $data = $this->getSourceData('data') ?: [];
+        $data[implode('_', [$field->getId(), $field->getElementType()])] = $field;
+
+        $source_data = $this->getSourceData();
+        $source_data['data'] = $data;
+
+        $this->setSourceData($source_data);
+    }
+
+    public function setSourceData(array $source_data)
+    {
+        $fields_as_array = [];
+
+        if (isset($source_data['data'])) {
+            $data = (array)$source_data['data'];
+            foreach ($data as $field) {
+                if (is_array($field)) {
+                    $fields_as_array[] = $field;
+                }
+            }
+        }
+
+        parent::setSourceData($source_data);
+
+
+        if (!empty($fields_as_array)) {
+            $this->parseFieldsValues($fields_as_array);
+        }
+    }
+
+    /**
+     * Convert fields array to array of BaseFormField
+     * @param array $fields
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     */
+    public function parseFieldsValues(array $fields)
+    {
+        foreach ($fields as $field_params) {
+            $field = FormFieldFactory::make($field_params['type'], $field_params['id'], $field_params['element_type']);
+            $field->setName($field_params['name']);
+            $field->setValue($field_params['value']);
+
+            $this->addFieldValue($field);
+        }
+    }
+
+    /**
      * @param array $source_data
      * @return array
+     * @throws \amoCRM\Exceptions\ValidateException
      */
     protected function validateSourceData($source_data)
     {
@@ -50,143 +102,6 @@ final class UnsortedForm extends BaseUnsorted
         if (empty($data)) {
             throw new ValidateException('Source data elements data empty');
         }
-    }
-
-    /**
-     * @param BaseFormField $field
-     */
-    public function addFieldValue(BaseFormField $field)
-    {
-        $data = $this->getSourceData('data') ?: [];
-        $data[implode('_', [$field->getId(), $field->getElementType()])] = $field;
-
-        $source_data = $this->getSourceData();
-        $source_data['data'] = $data;
-
-        $this->setSourceData($source_data);
-    }
-
-    public function setSourceData(array $source_data)
-    {
-        $fields_as_array = [];
-
-        if (isset($source_data['data'])) {
-            foreach ($source_data['data'] as $field) {
-                if (is_array($field)) {
-                    $fields_as_array[] = $field;
-                }
-            }
-        }
-
-        parent::setSourceData($source_data);
-
-
-        if (!empty($fields_as_array)) {
-            $this->parseFieldsValues($fields_as_array);
-        }
-    }
-
-    /**
-     * Convert fields array to array of BaseFormField
-     * @param array $fields
-     */
-    public function parseFieldsValues(array $fields)
-    {
-        foreach ($fields as $field_params) {
-            $field = FormFieldFactory::make($field_params['type'], $field_params['id'], $field_params['element_type']);
-            $field->setName($field_params['name']);
-            $field->setValue($field_params['value']);
-
-            $this->addFieldValue($field);
-        }
-    }
-
-    /**
-     * @return array
-     */
-    protected function getSourceDataToAmo()
-    {
-        $source_data = [
-            'data' => $this->getSourceDataFieldsToAmo(),
-            'form_id' => $this->getSourceData('form_id'),
-            'form_type' => $this->getSourceData('form_type'),
-            'origin' => $this->getSourceData('origin'),
-            'date' => $this->getSourceData('date'),
-            'form_name' => $this->getSourceData('form_name'),
-            'from' => $this->getSourceData('from'),
-        ];
-
-        return $source_data;
-    }
-
-    /**
-     * Convert fields to elements
-     * @return array
-     */
-    protected function getDataToAmo()
-    {
-        $elements = parent::getDataToAmo();
-        $fields = $this->getSourceDataFieldsToAmo();
-        if (empty($fields)) {
-            return $elements;
-        }
-
-        $lead = new Lead;
-        $contact = new Contact;
-
-        foreach ($fields as $field) {
-            switch ($field['element_type']) {
-                case Contact::TYPE_NUMERIC:
-                    $obj = &$contact;
-                    break;
-                case Lead::TYPE_NUMERIC:
-                default:
-                    $obj = &$lead;
-                    break;
-            }
-
-            if ($field['id'] === 'name') {
-                $obj->setName($field['value']);
-                unset($obj);
-                continue;
-            }
-
-            unset($cf);
-            switch ($field['type']) {
-                case UnsortedFormFields\FormFieldText::TYPE:
-                    $cf = new CustomFields\CustomFieldText($field['id']);
-                    $cf->setValue($field['value']);
-                    break;
-                case UnsortedFormFields\FormFieldNumber::TYPE:
-                    $cf = new CustomFields\CustomFieldNumber($field['id']);
-                    $cf->setValue($field['value']);
-                    break;
-                case UnsortedFormFields\FormFieldMultiText::TYPE:
-                    $cf = new CustomFields\CustomFieldPhones($field['id']);
-                    foreach ((array)$field['value'] as $value) {
-                        $cf->addValue($cf->getDefaultEnum(), $value);
-                    }
-                    break;
-            }
-
-            if (isset($cf)) {
-                $obj->addCustomField($cf);
-            }
-
-            unset($obj);
-        }
-
-        $lead = $lead->toAmo();
-        $contact = $contact->toAmo();
-        if (!empty($lead)) {
-            $elements[Lead::TYPE_MANY][] = $lead;
-        }
-
-        if (!empty($contact)) {
-            $elements[Contact::TYPE_MANY][] = $contact;
-        }
-
-        return $elements;
     }
 
     /**
@@ -218,6 +133,7 @@ final class UnsortedForm extends BaseUnsorted
 
     /**
      * @param array $origin
+     * @throws \amoCRM\Exceptions\ValidateException
      */
     private function ensureWordPressOrigin($origin)
     {
@@ -244,12 +160,31 @@ final class UnsortedForm extends BaseUnsorted
 
     /**
      * @param array $source_data
+     * @throws \amoCRM\Exceptions\ValidateException
      */
     protected function ensureFormRequiredFields(array $source_data)
     {
         foreach (['form_id', 'date', 'from'] as $key) {
             $this->ensureArrayHasStringField($source_data, $key);
         }
+    }
+
+    /**
+     * @return array
+     */
+    protected function getSourceDataToAmo()
+    {
+        $source_data = [
+            'data' => $this->getSourceDataFieldsToAmo(),
+            'form_id' => $this->getSourceData('form_id'),
+            'form_type' => $this->getSourceData('form_type'),
+            'origin' => $this->getSourceData('origin'),
+            'date' => $this->getSourceData('date'),
+            'form_name' => $this->getSourceData('form_name'),
+            'from' => $this->getSourceData('from'),
+        ];
+
+        return $source_data;
     }
 
     /**
@@ -267,5 +202,74 @@ final class UnsortedForm extends BaseUnsorted
         }
 
         return $result;
+    }
+
+    /**
+     * Convert fields to elements
+     * @return array
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     */
+    protected function getDataToAmo()
+    {
+        $elements = parent::getDataToAmo();
+        $fields = $this->getSourceDataFieldsToAmo();
+        if (empty($fields)) {
+            return $elements;
+        }
+
+        $lead = new Lead;
+        $contact = new Contact;
+
+        foreach ($fields as $field) {
+            switch ($field['element_type']) {
+                case Contact::TYPE_NUMERIC:
+                    $obj = &$contact;
+                    break;
+                case Lead::TYPE_NUMERIC:
+                default:
+                    $obj = &$lead;
+                    break;
+            }
+
+            if ($field['id'] === 'name') {
+                $obj->setName($field['value']);
+                unset($obj);
+                continue;
+            }
+
+            $cf = null;
+            switch ($field['type']) {
+                case UnsortedFormFields\FormFieldText::TYPE:
+                    $cf = new CustomFields\CustomFieldText($field['id']);
+                    $cf->setValue($field['value']);
+                    break;
+                case UnsortedFormFields\FormFieldNumber::TYPE:
+                    $cf = new CustomFields\CustomFieldNumber($field['id']);
+                    $cf->setValue($field['value']);
+                    break;
+                case UnsortedFormFields\FormFieldMultiText::TYPE:
+                    $cf = new CustomFields\CustomFieldPhones($field['id']);
+                    foreach ((array)$field['value'] as $value) {
+                        $cf->addValue($cf->getDefaultEnum(), $value);
+                    }
+                    break;
+            }
+
+            if ($cf !== null) {
+                $obj->addCustomField($cf);
+            }
+
+            unset($obj);
+        }
+
+        if ($lead = $lead->toAmo()) {
+            $elements[Lead::TYPE_MANY][] = $lead;
+        }
+
+        if ($contact = $contact->toAmo()) {
+            $elements[Contact::TYPE_MANY][] = $contact;
+        }
+
+        return $elements;
     }
 }

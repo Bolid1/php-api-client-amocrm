@@ -12,35 +12,35 @@ use amoCRM\Exceptions;
 abstract class BaseElement
 {
     /** @var integer */
-    private $_id;
+    private $id;
 
     /** @var string */
-    private $_name;
+    private $name;
 
     /** @var integer */
-    private $_date_create;
+    private $date_create;
     /** @var integer - id создателя */
-    private $_created_by;
+    private $created_by;
 
     /** @var integer */
-    private $_date_modify;
+    private $date_modify;
 
     /**
      * id пользователя,
      * который последним менял элемент
      * @var integer
      */
-    private $_modified_by;
+    private $modified_by;
 
     /**
      * id пользователя,
      * ответственного за элемент
      * @var integer
      */
-    private $_responsible;
+    private $responsible;
 
     /** @var array.<CustomField> */
-    private $_custom_fields = [];
+    private $custom_fields = [];
 
     /**
      * Массив тегов. Не ициализируем,
@@ -49,14 +49,15 @@ abstract class BaseElement
      *
      * @var array
      */
-    private $_tags;
+    private $tags;
 
     /**
      * @param integer $id
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function setId($id)
     {
-        $this->_id = $this->parseInteger($id);
+        $this->id = $this->parseInteger($id);
     }
 
     /**
@@ -85,15 +86,16 @@ abstract class BaseElement
      */
     public function setName($name)
     {
-        $this->_name = (string)$name;
+        $this->name = (string)$name;
     }
 
     /**
      * @param string|integer $date_create
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function setDateCreate($date_create)
     {
-        $this->_date_create = $this->parseDate($date_create);
+        $this->date_create = $this->parseDate($date_create);
     }
 
     /**
@@ -107,9 +109,13 @@ abstract class BaseElement
             return (int)$date;
         }
 
-        $result = is_string($date) ? strtotime($date) ?: null : null;
+        $result = null;
 
-        if (is_null($result)) {
+        if (is_string($date)) {
+            $result = strtotime($date) ?: null;
+        }
+
+        if ($result === null) {
             throw new Exceptions\InvalidArgumentException(sprintf('Invalid date "%s"', $date));
         }
 
@@ -118,34 +124,38 @@ abstract class BaseElement
 
     /**
      * @param integer $created_by
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function setCreatedBy($created_by)
     {
-        $this->_created_by = $this->parseInteger($created_by);
+        $this->created_by = $this->parseInteger($created_by);
     }
 
     /**
      * @param string|integer $date_modify
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function setDateModify($date_modify)
     {
-        $this->_date_modify = $this->parseDate($date_modify);
+        $this->date_modify = $this->parseDate($date_modify);
     }
 
     /**
      * @param integer $modified_by
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function setModifiedBy($modified_by)
     {
-        $this->_modified_by = $this->parseInteger($modified_by);
+        $this->modified_by = $this->parseInteger($modified_by);
     }
 
     /**
      * @param integer $responsible
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function setResponsible($responsible)
     {
-        $this->_responsible = $this->parseInteger($responsible);
+        $this->responsible = $this->parseInteger($responsible);
     }
 
     /**
@@ -153,7 +163,7 @@ abstract class BaseElement
      */
     public function addCustomField(CustomFields\BaseCustomField $custom_fields)
     {
-        $this->_custom_fields[] = $custom_fields;
+        $this->custom_fields[] = $custom_fields;
     }
 
     /**
@@ -161,14 +171,14 @@ abstract class BaseElement
      */
     public function addTag($tag)
     {
-        if (!isset($this->_tags)) {
-            $this->_tags = [];
+        if ($this->tags === null) {
+            $this->tags = [];
         }
 
         $tag = (string)$tag;
 
         if (mb_strlen($tag) > 0) {
-            $this->_tags[$tag] = true;
+            $this->tags[$tag] = true;
         }
     }
 
@@ -177,12 +187,12 @@ abstract class BaseElement
      */
     public function removeTag($tag)
     {
-        if (!isset($this->_tags)) {
+        if ($this->tags === null) {
             return;
         }
 
         $tag = (string)$tag;
-        unset($this->_tags[$tag]);
+        unset($this->tags[$tag]);
     }
 
     /**
@@ -202,36 +212,36 @@ abstract class BaseElement
     {
         $element = [];
 
-        if (isset($this->_id)) {
-            $element['id'] = $this->_id;
+        if ($this->id !== null) {
+            $element['id'] = $this->id;
         }
 
-        if (isset($this->_name)) {
-            $element['name'] = $this->_name;
+        if ($this->name !== null) {
+            $element['name'] = $this->name;
         }
 
-        if (isset($this->_date_create)) {
-            $element['date_create'] = $this->_date_create;
+        if ($this->date_create !== null) {
+            $element['date_create'] = $this->date_create;
         }
 
-        if (isset($this->_created_by)) {
-            $element['created_user_id'] = $this->_created_by;
+        if ($this->created_by !== null) {
+            $element['created_user_id'] = $this->created_by;
         }
 
-        if (isset($this->_date_modify)) {
-            $element['last_modified'] = $this->_date_modify;
+        if ($this->date_modify !== null) {
+            $element['last_modified'] = $this->date_modify;
         }
 
-        if (isset($this->_modified_by)) {
-            $element['modified_user_id'] = $this->_modified_by;
+        if ($this->modified_by !== null) {
+            $element['modified_user_id'] = $this->modified_by;
         }
 
-        if (isset($this->_responsible)) {
-            $element['responsible_user_id'] = $this->_responsible;
+        if ($this->responsible !== null) {
+            $element['responsible_user_id'] = $this->responsible;
         }
 
         /** @var CustomFields\BaseCustomField $custom_field */
-        foreach ($this->_custom_fields as $custom_field) {
+        foreach ($this->custom_fields as $custom_field) {
             if (!isset($element['custom_fields'])) {
                 $element['custom_fields'] = [];
             }
@@ -239,8 +249,8 @@ abstract class BaseElement
             $element['custom_fields'][] = $custom_field->toAmo();
         }
 
-        if (isset($this->_tags)) {
-            $element['tags'] = implode(',', array_keys($this->_tags));
+        if ($this->tags !== null) {
+            $element['tags'] = implode(',', array_keys($this->tags));
         }
 
         return $element;

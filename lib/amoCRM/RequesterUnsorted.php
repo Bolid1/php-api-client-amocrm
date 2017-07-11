@@ -14,11 +14,11 @@ use GuzzleHttp\ClientInterface;
 final class RequesterUnsorted extends BaseRequester
 {
     /** @var Interfaces\User */
-    private $_user;
+    private $user;
 
     public function __construct(Interfaces\Account $account, Interfaces\User $user, ClientInterface $curl)
     {
-        $this->_user = $user;
+        $this->user = $user;
         parent::__construct($account, $curl);
     }
 
@@ -29,6 +29,8 @@ final class RequesterUnsorted extends BaseRequester
      * @param array|string [$query=null]
      *
      * @return array
+     * @throws \amoCRM\Exceptions\AuthFailed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function get($path, $query = null)
     {
@@ -41,17 +43,17 @@ final class RequesterUnsorted extends BaseRequester
      */
     private function addCredentials($query)
     {
-        if (is_null($query)) {
+        if ($query === null) {
             $query = [];
         }
 
         if (is_array($query)) {
-            $credentials = $this->_user->getCredentialsAsArray(Interfaces\User::CREDENTIALS_TYPE_UNSORTED);
+            $credentials = $this->user->getCredentialsAsArray(Interfaces\User::CREDENTIALS_TYPE_UNSORTED);
             $query = array_merge($query, $credentials);
-        } elseif (is_string($query) && '' === $query) {
-            $query = $this->_user->getCredentials(Interfaces\User::CREDENTIALS_TYPE_UNSORTED);
+        } elseif (is_string($query) && $query === '') {
+            $query = $this->user->getCredentials(Interfaces\User::CREDENTIALS_TYPE_UNSORTED);
         } else {
-            $credentials = $this->_user->getCredentials(Interfaces\User::CREDENTIALS_TYPE_UNSORTED);
+            $credentials = $this->user->getCredentials(Interfaces\User::CREDENTIALS_TYPE_UNSORTED);
             $query = rtrim($query, '&') . '&' . $credentials;
         }
 
@@ -66,6 +68,8 @@ final class RequesterUnsorted extends BaseRequester
      * @param array|string [$query=null]
      *
      * @return array
+     * @throws \amoCRM\Exceptions\AuthFailed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function post($path, $data, $query = null)
     {

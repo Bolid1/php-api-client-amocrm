@@ -12,11 +12,11 @@ use amoCRM\Exceptions\InvalidArgumentException;
 abstract class BaseEntityFilter implements Interfaces\SearchFilter
 {
     /** @var array */
-    private $_id = [];
+    private $id = [];
     /** @var string */
-    private $_query;
+    private $query;
     /** @var array */
-    private $_responsible_user = [];
+    private $responsible_user = [];
 
     /**
      * @param array|integer $id
@@ -25,8 +25,8 @@ abstract class BaseEntityFilter implements Interfaces\SearchFilter
     public function setId($id)
     {
 
-        $this->_id = (array)$id;
-        $this->onlyPositiveIntegers($this->_id);
+        $this->id = (array)$id;
+        $this->onlyPositiveIntegers($this->id);
     }
 
     /**
@@ -54,7 +54,7 @@ abstract class BaseEntityFilter implements Interfaces\SearchFilter
      */
     public function setQuery($query)
     {
-        $this->_query = (string)$query;
+        $this->query = (string)$query;
     }
 
     /**
@@ -63,8 +63,8 @@ abstract class BaseEntityFilter implements Interfaces\SearchFilter
      */
     public function setResponsibleUser($responsible_user)
     {
-        $this->_responsible_user = (array)$responsible_user;
-        $this->onlyPositiveIntegers($this->_responsible_user);
+        $this->responsible_user = (array)$responsible_user;
+        $this->onlyPositiveIntegers($this->responsible_user);
     }
 
     /**
@@ -73,9 +73,9 @@ abstract class BaseEntityFilter implements Interfaces\SearchFilter
     public function toArray()
     {
         $result = [
-            'id' => $this->_id,
-            'query' => $this->_query,
-            'responsible_user_id' => $this->_responsible_user,
+            'id' => $this->id,
+            'query' => $this->query,
+            'responsible_user_id' => $this->responsible_user,
         ];
 
         return array_filter($result);

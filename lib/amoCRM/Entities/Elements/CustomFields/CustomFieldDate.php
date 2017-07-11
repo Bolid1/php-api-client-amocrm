@@ -11,18 +11,19 @@ use amoCRM\Exceptions;
  */
 final class CustomFieldDate extends CustomFieldSingleValue
 {
-    private $_date_format = 'd.m.Y';
+    private $date_format = 'd.m.Y';
 
     /**
      * @return string current used date format
      */
     public function getDateFormat()
     {
-        return $this->_date_format;
+        return $this->date_format;
     }
 
     /**
      * @param string $value - date in format $this->_date_format
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function setValue($value)
     {
@@ -31,10 +32,11 @@ final class CustomFieldDate extends CustomFieldSingleValue
 
     /**
      * @param string $timestamp - date timestamp
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function setTimestamp($timestamp)
     {
-        $this->_value = $this->parseNumber($timestamp, true, true);
+        $this->value = $this->parseNumber($timestamp, true, true);
     }
 
     /**
@@ -44,7 +46,7 @@ final class CustomFieldDate extends CustomFieldSingleValue
      */
     private function parseDate($date)
     {
-        $date_time = \DateTime::createFromFormat($this->_date_format, $date);
+        $date_time = \DateTime::createFromFormat($this->date_format, $date);
 
         if ($date_time === false) {
             throw new Exceptions\InvalidArgumentException(sprintf('Invalid date "%s"', $date));
@@ -58,6 +60,6 @@ final class CustomFieldDate extends CustomFieldSingleValue
      */
     protected function prepareToAmo()
     {
-        return is_null($this->_value) ? '' : date($this->_date_format, $this->_value);
+        return $this->value === null ? '' : date($this->date_format, $this->value);
     }
 }

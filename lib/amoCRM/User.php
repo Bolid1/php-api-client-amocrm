@@ -13,13 +13,13 @@ final class User implements Interfaces\User
      * User login
      * @var string
      */
-    private $_login;
+    private $login;
 
     /**
      * User API hash
      * @var string
      */
-    private $_api_key;
+    private $api_key;
 
     /**
      * User constructor
@@ -33,8 +33,8 @@ final class User implements Interfaces\User
         $this->ensureIsValidEmail($login);
         $this->ensureIsValidHash($api_key);
 
-        $this->_login = $login;
-        $this->_api_key = $api_key;
+        $this->login = $login;
+        $this->api_key = $api_key;
     }
 
     /**
@@ -86,11 +86,11 @@ final class User implements Interfaces\User
     {
         switch ($type) {
             case self::CREDENTIALS_TYPE_UNSORTED:
-                $result = ['login' => $this->_login, 'api_key' => $this->_api_key];
+                $result = ['login' => $this->login, 'api_key' => $this->api_key];
                 break;
             case self::CREDENTIALS_TYPE_API:
             default:
-                $result = ['USER_LOGIN' => $this->_login, 'USER_HASH' => $this->_api_key];
+                $result = ['USER_LOGIN' => $this->login, 'USER_HASH' => $this->api_key];
         }
 
         return $result;

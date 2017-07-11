@@ -13,7 +13,7 @@ use amoCRM\Exceptions\InvalidArgumentException;
 final class ContactsFilter extends BaseEntityFilter
 {
     /** @var string */
-    private $_type = Contact::TYPE_SINGLE;
+    private $type = Contact::TYPE_SINGLE;
 
     /**
      * @param string $type
@@ -32,7 +32,7 @@ final class ContactsFilter extends BaseEntityFilter
             throw new InvalidArgumentException($message);
         }
 
-        $this->_type = $type;
+        $this->type = $type;
     }
 
     /**
@@ -40,7 +40,7 @@ final class ContactsFilter extends BaseEntityFilter
      */
     public function toArray()
     {
-        $result = parent::toArray() + ['type' => $this->_type];
+        $result = parent::toArray() + ['type' => $this->type];
 
         return array_filter($result);
     }

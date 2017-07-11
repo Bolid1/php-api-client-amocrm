@@ -13,24 +13,25 @@ final class Account implements Interfaces\Account
      * Account subdomain
      * @var string
      */
-    private $_subdomain;
+    private $subdomain;
 
     /**
      * Account subdomain
      * @var string
      */
-    private $_top_level_domain;
+    private $top_level_domain;
 
     /**
      * Account constructor.
      * @param string $subdomain
      * @param string [$top_level_domain = 'ru']
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function __construct($subdomain, $top_level_domain = self::TOP_LEVEL_DOMAIN_RU)
     {
         $this->ensureIsValidSubdomain($subdomain);
 
-        $this->_subdomain = $subdomain;
+        $this->subdomain = $subdomain;
         $this->setTopLevelDomain($top_level_domain);
     }
 
@@ -50,11 +51,12 @@ final class Account implements Interfaces\Account
 
     /**
      * @param string $top_level_domain
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function setTopLevelDomain($top_level_domain)
     {
         $this->ensureIsValidTopLevelDomain($top_level_domain);
-        $this->_top_level_domain = $top_level_domain;
+        $this->top_level_domain = $top_level_domain;
     }
 
     /**
@@ -83,6 +85,6 @@ final class Account implements Interfaces\Account
      */
     public function getAddress()
     {
-        return sprintf('https://%s.amocrm.%s', $this->_subdomain, $this->_top_level_domain);
+        return sprintf('https://%s.amocrm.%s', $this->subdomain, $this->top_level_domain);
     }
 }

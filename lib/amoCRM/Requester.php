@@ -13,13 +13,13 @@ use GuzzleHttp\ClientInterface;
 final class Requester extends BaseRequester
 {
     /** @var Interfaces\User */
-    private $_user;
+    private $user;
     /** @var boolean */
-    private $_auth;
+    private $auth;
 
     public function __construct(Interfaces\Account $account, Interfaces\User $user, ClientInterface $curl)
     {
-        $this->_user = $user;
+        $this->user = $user;
         parent::__construct($account, $curl);
     }
 
@@ -30,6 +30,9 @@ final class Requester extends BaseRequester
      * @param array|string [$query=null]
      *
      * @return array
+     * @throws \amoCRM\Exceptions\AuthFailed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \amoCRM\Exceptions\RuntimeException
      */
     public function get($path, $query = null)
     {
@@ -41,15 +44,17 @@ final class Requester extends BaseRequester
     /**
      * If auth not initialized, initialize it
      * @throws Exceptions\RuntimeException if auth failed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \amoCRM\Exceptions\AuthFailed
      */
     private function checkHasAuth()
     {
-        if (isset($this->_auth)) {
+        if ($this->auth !== null) {
             return;
         }
 
-        $this->_auth = true;
-        $query = ['type' => 'json'] + $this->_user->getCredentialsAsArray();
+        $this->auth = true;
+        $query = ['type' => 'json'] + $this->user->getCredentialsAsArray();
         $this->get('/private/api/auth.php', $query);
     }
 
@@ -61,6 +66,9 @@ final class Requester extends BaseRequester
      * @param array|string [$query=null]
      *
      * @return array
+     * @throws \amoCRM\Exceptions\AuthFailed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \amoCRM\Exceptions\RuntimeException
      */
     public function post($path, $data, $query = null)
     {

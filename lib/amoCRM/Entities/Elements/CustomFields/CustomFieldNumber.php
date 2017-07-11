@@ -12,9 +12,10 @@ final class CustomFieldNumber extends CustomFieldSingleValue
 {
     /**
      * @param integer $value
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function setValue($value)
     {
-        $this->_value = $this->parseNumber($value, true);
+        $this->value = $this->parseNumber($value, true);
     }
 }

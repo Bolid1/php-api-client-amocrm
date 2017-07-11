@@ -14,15 +14,15 @@ use amoCRM\Interfaces\Requester;
 abstract class BaseEntityRequester
 {
     /** @var  Requester */
-    private $_requester;
+    private $requester;
 
     /** @var array */
-    private $_names = [
+    private $names = [
         'many' => null,
     ];
 
     /** @var array */
-    private $_paths = [
+    private $paths = [
         'set' => null,
         'list' => null,
     ];
@@ -36,7 +36,7 @@ abstract class BaseEntityRequester
      */
     public function __construct(Requester $_requester, array $names, array $paths)
     {
-        $this->_requester = $_requester;
+        $this->requester = $_requester;
 
         $this->setNames($names);
         $this->setPaths($paths);
@@ -48,7 +48,7 @@ abstract class BaseEntityRequester
      */
     private function setNames(array $names)
     {
-        foreach ($this->_names as $key => &$name) {
+        foreach ($this->names as $key => &$name) {
             if (empty($names[$key])) {
                 throw new Exceptions\InvalidArgumentException(sprintf('Empty name "%s"', $key));
             }
@@ -63,7 +63,7 @@ abstract class BaseEntityRequester
      */
     private function setPaths(array $paths)
     {
-        foreach ($this->_paths as $key => &$path) {
+        foreach ($this->paths as $key => &$path) {
             if (empty($paths[$key])) {
                 throw new Exceptions\InvalidArgumentException(sprintf('Empty path "%s"', $key));
             }
@@ -77,6 +77,7 @@ abstract class BaseEntityRequester
      *
      * @param array $elements
      * @return array
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function add(array $elements)
     {
@@ -110,7 +111,7 @@ abstract class BaseEntityRequester
     {
         $data = [
             'request' => [
-                $this->_names['many'] => [
+                $this->names['many'] => [
                     $action => $elements,
                 ],
             ],
@@ -124,10 +125,10 @@ abstract class BaseEntityRequester
          *   ],
          * ],
          */
-        $result = $this->_requester->post($this->_paths['set'], $data);
+        $result = $this->requester->post($this->paths['set'], $data);
 
-        if (isset($result[$this->_names['many']])) {
-            $result = $result[$this->_names['many']];
+        if (isset($result[$this->names['many']])) {
+            $result = $result[$this->names['many']];
         }
 
         if (isset($result[$action])) {
@@ -142,6 +143,7 @@ abstract class BaseEntityRequester
      *
      * @param array $elements
      * @return array
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function update(array $elements)
     {
@@ -174,23 +176,24 @@ abstract class BaseEntityRequester
      * @param array $nav
      *
      * @return array
+     * @throws \amoCRM\Exceptions\InvalidArgumentException
      */
     public function search(SearchFilter $filter = null, array $nav = [])
     {
         $query = [];
 
         if ($nav = $this->parseNavigation($nav)) {
-            $query += $nav;
+            $query = array_merge($query, $nav);
         }
 
-        if (!is_null($filter)) {
-            $query += $filter->toArray();
+        if ($filter !== null) {
+            $query = array_merge($query, $filter->toArray());
         }
 
-        $result = $this->_requester->get($this->_paths['list'], $query) ?: [];
+        $result = $this->requester->get($this->paths['list'], $query) ?: [];
 
-        if (isset($result[$this->_names['many']])) {
-            $result = $result[$this->_names['many']];
+        if (isset($result[$this->names['many']])) {
+            $result = $result[$this->names['many']];
         }
 
         return $result;
@@ -217,9 +220,14 @@ abstract class BaseEntityRequester
 
             $value = (int)$nav[$field];
 
-            // Offset can't be less zero
+            // Offset and limit can't be less zero
+            if ($value < 0) {
+                $message = sprintf('Invalid navigation field "%s" value: "%s"', $field, $nav[$field]);
+                throw new Exceptions\InvalidArgumentException($message);
+            }
+
             // Limit must be between 1 and 500
-            if ($value < 0 || ($value > 500 || $value === 0) && $field === 'limit') {
+            if (($value > 500 || $value === 0) && $field === 'limit') {
                 $message = sprintf('Invalid navigation field "%s" value: "%s"', $field, $nav[$field]);
                 throw new Exceptions\InvalidArgumentException($message);
             }
