@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  * @package Tests\amoCRM\Entities
  * @covers \amoCRM\Entities\LeadsRequester
  */
-class LeadsRequesterTest extends TestCase
+final class LeadsRequesterTest extends TestCase
 {
     /** @var Requester */
     private $requester;

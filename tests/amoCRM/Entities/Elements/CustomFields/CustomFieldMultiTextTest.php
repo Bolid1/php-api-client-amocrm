@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
  * @package Tests\amoCRM\Entities\Elements\CustomFields
  * @covers \amoCRM\Entities\Elements\CustomFields\CustomFieldMultiText
  */
-class CustomFieldMultiTextTest extends TestCase
+final class CustomFieldMultiTextTest extends TestCase
 {
     private static $default_enums = [
         'WORK',

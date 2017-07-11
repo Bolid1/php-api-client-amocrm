@@ -6,7 +6,12 @@ use amoCRM\Entities\Elements\CustomFields\BaseCustomField;
 use amoCRM\Entities\Elements\CustomFields\CustomFieldTextArea;
 use PHPUnit\Framework\TestCase;
 
-class CustomFieldTextAreaTest extends TestCase
+/**
+ * Class CustomFieldTextAreaTest
+ * @package Tests\amoCRM\Entities\Elements\CustomFields
+ * @covers \amoCRM\Entities\Elements\CustomFields\CustomFieldTextArea
+ */
+final class CustomFieldTextAreaTest extends TestCase
 {
     /** @var integer */
     private $default_id = 25;

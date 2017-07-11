@@ -39,7 +39,7 @@ final class BaseUnsortedTest extends TestCase
     private function buildMock()
     {
         $stub = $this->getMockBuilder(BaseUnsorted::class)
-            ->disableOriginalConstructor()
+            ->enableOriginalConstructor()
             ->setMethods()
             ->getMock();
 

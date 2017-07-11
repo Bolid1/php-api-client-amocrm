@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
  * @package Tests\amoCRM\Entities\Elements\CustomFields
  * @covers \amoCRM\Entities\Elements\CustomFields\CustomFieldAddress
  */
-class CustomFieldAddressTest extends TestCase
+final class CustomFieldAddressTest extends TestCase
 {
     /** @var integer */
     private $default_id = 25;
