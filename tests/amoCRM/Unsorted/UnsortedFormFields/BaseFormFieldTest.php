@@ -2,9 +2,9 @@
 
 namespace Tests\amoCRM\Unsorted\UnsortedFormFields;
 
-use PHPUnit\Framework\TestCase;
 use amoCRM\Entities\Elements\Lead;
 use amoCRM\Unsorted\UnsortedFormFields\BaseFormField;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class BaseFormFieldTest
@@ -13,7 +13,7 @@ use amoCRM\Unsorted\UnsortedFormFields\BaseFormField;
  */
 final class BaseFormFieldTest extends TestCase
 {
-    private $_default = [
+    private static $default = [
         'id' => 'name',
         'type' => 'text',
         'element_type' => Lead::TYPE_NUMERIC,
@@ -22,19 +22,40 @@ final class BaseFormFieldTest extends TestCase
     public function testManageId()
     {
         $field = $this->buildMock();
-        $this->assertEquals($this->_default['id'], $field->getId());
+        $this->assertEquals(self::$default['id'], $field->getId());
+    }
+
+    /**
+     * @param array $args
+     * @return BaseFormField
+     */
+    protected function buildMock($args = null)
+    {
+        if ($args === null) {
+            $args = [self::$default['id'], self::$default['type'], self::$default['element_type']];
+        }
+
+        $field = $this
+            ->getMockBuilder(BaseFormField::class)
+            ->enableOriginalConstructor()
+            ->setConstructorArgs($args)
+            ->setMethods()
+            ->getMock();
+
+        /** @var BaseFormField $field */
+        return $field;
     }
 
     public function testManageType()
     {
         $field = $this->buildMock();
-        $this->assertEquals($this->_default['type'], $field->getType());
+        $this->assertEquals(self::$default['type'], $field->getType());
     }
 
     public function testManageElementType()
     {
         $field = $this->buildMock();
-        $this->assertEquals($this->_default['element_type'], $field->getElementType());
+        $this->assertEquals(self::$default['element_type'], $field->getElementType());
     }
 
     /**
@@ -43,7 +64,7 @@ final class BaseFormFieldTest extends TestCase
      */
     public function testManageElementTypeThrowInvalidArgument()
     {
-        $this->buildMock([$this->_default['id'], $this->_default['type'], 21]);
+        $this->buildMock([self::$default['id'], self::$default['type'], 21]);
     }
 
     public function testManageName()
@@ -66,27 +87,6 @@ final class BaseFormFieldTest extends TestCase
     public function testToAmo()
     {
         $field = $this->buildMock();
-        $this->assertEquals($this->_default + ['name' => null, 'value' => null], $field->toAmo());
-    }
-
-    /**
-     * @param array $args
-     * @return BaseFormField
-     */
-    protected function buildMock($args = null)
-    {
-        if (!isset($args)) {
-            $args = [$this->_default['id'], $this->_default['type'], $this->_default['element_type']];
-        }
-
-        $field = $this
-            ->getMockBuilder(BaseFormField::class)
-            ->enableOriginalConstructor()
-            ->setConstructorArgs($args)
-            ->setMethods(null)
-            ->getMock();
-
-        /** @var BaseFormField $field */
-        return $field;
+        $this->assertEquals(self::$default + ['name' => null, 'value' => null], $field->toAmo());
     }
 }

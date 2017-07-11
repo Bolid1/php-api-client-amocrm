@@ -24,20 +24,20 @@ final class RequesterTest extends TestCase
     ];
 
     /** @var Account */
-    private $_account;
+    private $account;
 
     /** @var User */
-    private $_user;
+    private $user;
 
     public function setUp()
     {
         parent::setUp();
-        $this->_account = $this->createMock(Account::class);
-        $this->_account->method('getAddress')->willReturn(self::BASE_URL);
+        $this->account = $this->createMock(Account::class);
+        $this->account->method('getAddress')->willReturn(self::BASE_URL);
 
-        $this->_user = $this->createMock(User::class);
-        $this->_user->method('getCredentials')->willReturn(http_build_query(self::CREDENTIALS));
-        $this->_user->method('getCredentialsAsArray')->willReturn(self::CREDENTIALS);
+        $this->user = $this->createMock(User::class);
+        $this->user->method('getCredentials')->willReturn(http_build_query(self::CREDENTIALS));
+        $this->user->method('getCredentialsAsArray')->willReturn(self::CREDENTIALS);
     }
 
     public function testSendGetRequest()
@@ -58,7 +58,7 @@ final class RequesterTest extends TestCase
             ->willReturn($response);
 
         /** @var ClientInterface $curl */
-        $requester = new Requester($this->_account, $this->_user, $curl);
+        $requester = new Requester($this->account, $this->user, $curl);
 
         $result = $requester->get('test', ['type' => 'json']);
         $expected = json_decode($body, true);
@@ -102,7 +102,7 @@ final class RequesterTest extends TestCase
             ->willReturn($response);
 
         /** @var ClientInterface $curl */
-        $requester = new Requester($this->_account, $this->_user, $curl);
+        $requester = new Requester($this->account, $this->user, $curl);
 
         $result = $requester->post('test', ['type' => 'json']);
         $expected = json_decode($body, true);
@@ -139,7 +139,7 @@ final class RequesterTest extends TestCase
             ->willReturn($response);
 
         /** @var ClientInterface $curl */
-        $requester = new Requester($this->_account, $this->_user, $curl);
+        $requester = new Requester($this->account, $this->user, $curl);
 
         // Now will return 401 and auth must be lost
         $requester->post('/private/api/auth.php', ['type' => 'json']);
@@ -152,7 +152,7 @@ final class RequesterTest extends TestCase
 
         $this->assertInstanceOf(
             BaseRequester::class,
-            new Requester($this->_account, $this->_user, $curl)
+            new Requester($this->account, $this->user, $curl)
         );
     }
 }

@@ -19,28 +19,29 @@ use Psr\Http\Message\ResponseInterface;
 final class RequesterUnsortedTest extends TestCase
 {
     /** @var Account */
-    private $_account;
+    private $account;
 
     /** @var User */
-    private $_user;
+    private $user;
 
     /** @var array */
-    private $_data = ['type' => 'json'];
+    private $data = ['type' => 'json'];
 
     public function setUp()
     {
         parent::setUp();
-        $this->_account = new \amoCRM\Account('test');
-        $this->_user = new \amoCRM\User('test@test.test', '098f6bcd4621d373cade4e832627b4f6');
+        $this->account = new \amoCRM\Account('test');
+        $this->user = new \amoCRM\User('test@test.test', '098f6bcd4621d373cade4e832627b4f6');
     }
 
     public function testSendGetRequest()
     {
         list($response, $body) = $this->mockResponse();
 
-        $query = $this->_data;
+        $query = $this->data;
+        $user_credentials = $this->user->getCredentialsAsArray(User::CREDENTIALS_TYPE_UNSORTED);
         $params = [
-            RequestOptions::QUERY => $query + $this->_user->getCredentialsAsArray(User::CREDENTIALS_TYPE_UNSORTED),
+            RequestOptions::QUERY => array_merge($query, $user_credentials),
         ];
         $curl = $this->createMock(ClientInterface::class);
         $curl->expects($this->once())
@@ -53,7 +54,7 @@ final class RequesterUnsortedTest extends TestCase
             ->willReturn($response);
 
         /** @var ClientInterface $curl */
-        $requester = new RequesterUnsorted($this->_account, $this->_user, $curl);
+        $requester = new RequesterUnsorted($this->account, $this->user, $curl);
 
         $result = $requester->get('test', $query);
         $expected = json_decode($body, true);
@@ -86,8 +87,8 @@ final class RequesterUnsortedTest extends TestCase
 
         $query = 'foo=bar';
         $params = [
-            RequestOptions::QUERY => $query . '&' . $this->_user->getCredentials(User::CREDENTIALS_TYPE_UNSORTED),
-            RequestOptions::FORM_PARAMS => $this->_data,
+            RequestOptions::QUERY => $query . '&' . $this->user->getCredentials(User::CREDENTIALS_TYPE_UNSORTED),
+            RequestOptions::FORM_PARAMS => $this->data,
         ];
         $curl = $this->createMock(ClientInterface::class);
         $curl->expects($this->once())
@@ -100,9 +101,9 @@ final class RequesterUnsortedTest extends TestCase
             ->willReturn($response);
 
         /** @var ClientInterface $curl */
-        $requester = new RequesterUnsorted($this->_account, $this->_user, $curl);
+        $requester = new RequesterUnsorted($this->account, $this->user, $curl);
 
-        $result = $requester->post('test', $this->_data, $query);
+        $result = $requester->post('test', $this->data, $query);
         $expected = json_decode($body, true);
         $this->assertEquals($expected['response'], $result);
     }
@@ -113,8 +114,8 @@ final class RequesterUnsortedTest extends TestCase
 
         $query = '';
         $params = [
-            RequestOptions::QUERY => $this->_user->getCredentials(User::CREDENTIALS_TYPE_UNSORTED),
-            RequestOptions::FORM_PARAMS => $this->_data,
+            RequestOptions::QUERY => $this->user->getCredentials(User::CREDENTIALS_TYPE_UNSORTED),
+            RequestOptions::FORM_PARAMS => $this->data,
         ];
         $curl = $this->createMock(ClientInterface::class);
         $curl->expects($this->once())
@@ -127,9 +128,9 @@ final class RequesterUnsortedTest extends TestCase
             ->willReturn($response);
 
         /** @var ClientInterface $curl */
-        $requester = new RequesterUnsorted($this->_account, $this->_user, $curl);
+        $requester = new RequesterUnsorted($this->account, $this->user, $curl);
 
-        $result = $requester->post('test', $this->_data, $query);
+        $result = $requester->post('test', $this->data, $query);
         $expected = json_decode($body, true);
         $this->assertEquals($expected['response'], $result);
     }
@@ -139,8 +140,8 @@ final class RequesterUnsortedTest extends TestCase
         list($response, $body) = $this->mockResponse();
 
         $params = [
-            RequestOptions::QUERY => $this->_user->getCredentialsAsArray(User::CREDENTIALS_TYPE_UNSORTED),
-            RequestOptions::FORM_PARAMS => $this->_data,
+            RequestOptions::QUERY => $this->user->getCredentialsAsArray(User::CREDENTIALS_TYPE_UNSORTED),
+            RequestOptions::FORM_PARAMS => $this->data,
         ];
         $curl = $this->createMock(ClientInterface::class);
         $curl->expects($this->once())
@@ -153,9 +154,9 @@ final class RequesterUnsortedTest extends TestCase
             ->willReturn($response);
 
         /** @var ClientInterface $curl */
-        $requester = new RequesterUnsorted($this->_account, $this->_user, $curl);
+        $requester = new RequesterUnsorted($this->account, $this->user, $curl);
 
-        $result = $requester->post('test', $this->_data);
+        $result = $requester->post('test', $this->data);
         $expected = json_decode($body, true);
         $this->assertEquals($expected['response'], $result);
     }
@@ -167,7 +168,7 @@ final class RequesterUnsortedTest extends TestCase
 
         $this->assertInstanceOf(
             BaseRequester::class,
-            new RequesterUnsorted($this->_account, $this->_user, $curl)
+            new RequesterUnsorted($this->account, $this->user, $curl)
         );
     }
 }

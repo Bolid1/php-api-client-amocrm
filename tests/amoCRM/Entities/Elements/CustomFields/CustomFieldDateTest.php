@@ -14,44 +14,44 @@ use PHPUnit\Framework\TestCase;
 final class CustomFieldDateTest extends TestCase
 {
     /** @var integer */
-    private $_default_id = 25;
+    private $default_id = 25;
 
     public function testIsInstanceOfBaseField()
     {
         $this->assertInstanceOf(
             BaseCustomField::class,
-            new CustomFieldDate($this->_default_id)
+            new CustomFieldDate($this->default_id)
         );
     }
 
     public function getDateFormat()
     {
-        $cf = new CustomFieldDate($this->_default_id);
+        $cf = new CustomFieldDate($this->default_id);
         $this->assertEquals('d.m.Y', $cf->getDateFormat());
     }
 
     public function testSetPositiveTimestamp()
     {
-        $cf = new CustomFieldDate($this->_default_id);
+        $cf = new CustomFieldDate($this->default_id);
         $timestamp = time();
         $value = date($cf->getDateFormat(), $timestamp);
 
         $cf->setTimestamp($timestamp);
 
         $data = $cf->toAmo();
-        $this->assertEquals(['id' => $this->_default_id, 'values' => [['value' => $value]]], $data);
+        $this->assertEquals(['id' => $this->default_id, 'values' => [['value' => $value]]], $data);
     }
 
     public function testSetNegativeTimestamp()
     {
-        $cf = new CustomFieldDate($this->_default_id);
+        $cf = new CustomFieldDate($this->default_id);
         $timestamp = -time();
         $value = date($cf->getDateFormat(), $timestamp);
 
         $cf->setTimestamp($timestamp);
 
         $data = $cf->toAmo();
-        $this->assertEquals(['id' => $this->_default_id, 'values' => [['value' => $value]]], $data);
+        $this->assertEquals(['id' => $this->default_id, 'values' => [['value' => $value]]], $data);
     }
 
     /**
@@ -59,7 +59,7 @@ final class CustomFieldDateTest extends TestCase
      */
     public function testSetValueToAmoThrowInvalidArgumentNotADate()
     {
-        $cf = new CustomFieldDate($this->_default_id);
+        $cf = new CustomFieldDate($this->default_id);
         $value = 'some text';
 
         $cf->setValue($value);
@@ -67,12 +67,12 @@ final class CustomFieldDateTest extends TestCase
 
     public function testSetValue()
     {
-        $cf = new CustomFieldDate($this->_default_id);
+        $cf = new CustomFieldDate($this->default_id);
         $value = date($cf->getDateFormat(), time());
 
         $cf->setValue($value);
 
         $data = $cf->toAmo();
-        $this->assertEquals(['id' => $this->_default_id, 'values' => [['value' => $value]]], $data);
+        $this->assertEquals(['id' => $this->default_id, 'values' => [['value' => $value]]], $data);
     }
 }

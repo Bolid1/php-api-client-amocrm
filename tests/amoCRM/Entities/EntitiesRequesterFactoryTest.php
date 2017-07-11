@@ -2,12 +2,12 @@
 
 namespace Tests\amoCRM\Entities;
 
-use amoCRM\Entities\Elements;
-use PHPUnit\Framework\TestCase;
-use amoCRM\Interfaces\Requester;
-use amoCRM\Entities\LeadsRequester;
 use amoCRM\Entities\ContactsRequester;
+use amoCRM\Entities\Elements;
 use amoCRM\Entities\EntitiesRequesterFactory;
+use amoCRM\Entities\LeadsRequester;
+use amoCRM\Interfaces\Requester;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class EntitiesRequesterFactoryTest
@@ -17,14 +17,14 @@ use amoCRM\Entities\EntitiesRequesterFactory;
 final class EntitiesRequesterFactoryTest extends TestCase
 {
     /** @var Requester */
-    private $_requester;
+    private $requester;
 
     /**
      * @expectedException \amoCRM\Exceptions\InvalidArgumentException
      */
     public function testCreateFailedOnInvalidElementType()
     {
-        $fabric = new EntitiesRequesterFactory($this->_requester);
+        $fabric = new EntitiesRequesterFactory($this->requester);
         $this->assertInstanceOf(
             LeadsRequester::class,
             $fabric->make('foo')
@@ -33,7 +33,7 @@ final class EntitiesRequesterFactoryTest extends TestCase
 
     public function testCreateLead()
     {
-        $fabric = new EntitiesRequesterFactory($this->_requester);
+        $fabric = new EntitiesRequesterFactory($this->requester);
         $this->assertInstanceOf(
             LeadsRequester::class,
             $fabric->make(Elements\Lead::TYPE_SINGLE)
@@ -42,7 +42,7 @@ final class EntitiesRequesterFactoryTest extends TestCase
 
     public function testCreateLeads()
     {
-        $fabric = new EntitiesRequesterFactory($this->_requester);
+        $fabric = new EntitiesRequesterFactory($this->requester);
         $this->assertInstanceOf(
             LeadsRequester::class,
             $fabric->make(Elements\Lead::TYPE_MANY)
@@ -51,7 +51,7 @@ final class EntitiesRequesterFactoryTest extends TestCase
 
     public function testCreateContact()
     {
-        $fabric = new EntitiesRequesterFactory($this->_requester);
+        $fabric = new EntitiesRequesterFactory($this->requester);
         $this->assertInstanceOf(
             ContactsRequester::class,
             $fabric->make(Elements\Contact::TYPE_SINGLE)
@@ -60,7 +60,7 @@ final class EntitiesRequesterFactoryTest extends TestCase
 
     public function testCreateContacts()
     {
-        $fabric = new EntitiesRequesterFactory($this->_requester);
+        $fabric = new EntitiesRequesterFactory($this->requester);
         $this->assertInstanceOf(
             ContactsRequester::class,
             $fabric->make(Elements\Contact::TYPE_MANY)
@@ -70,6 +70,6 @@ final class EntitiesRequesterFactoryTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->_requester = $this->createMock(Requester::class);
+        $this->requester = $this->createMock(Requester::class);
     }
 }

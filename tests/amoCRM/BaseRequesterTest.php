@@ -18,13 +18,13 @@ final class BaseRequesterTest extends TestCase
     const BASE_URL = 'https://test.amocrm.ru';
 
     /** @var Account */
-    private $_account;
+    private $account;
 
     public function setUp()
     {
         parent::setUp();
-        $this->_account = $this->createMock(Account::class);
-        $this->_account->method('getAddress')->willReturn(self::BASE_URL);
+        $this->account = $this->createMock(Account::class);
+        $this->account->method('getAddress')->willReturn(self::BASE_URL);
     }
 
     public function testSendGetRequest()
@@ -72,8 +72,8 @@ final class BaseRequesterTest extends TestCase
     {
         $requester = $this->getMockBuilder(BaseRequester::class)
             ->enableOriginalConstructor()
-            ->setConstructorArgs([$this->_account, $curl])
-            ->setMethods(null)
+            ->setConstructorArgs([$this->account, $curl])
+            ->setMethods()
             ->getMock();
 
         /** @var BaseRequester $requester */

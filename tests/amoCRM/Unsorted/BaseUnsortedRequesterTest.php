@@ -3,6 +3,7 @@
 namespace Tests\amoCRM\Unsorted;
 
 use amoCRM\Entities\Elements;
+use amoCRM\Exceptions\InvalidResponseException;
 use amoCRM\Interfaces\Requester;
 use amoCRM\Unsorted\BaseUnsortedRequester;
 use amoCRM\Unsorted\UnsortedForm;
@@ -15,68 +16,68 @@ use PHPUnit\Framework\TestCase;
  */
 final class BaseUnsortedRequesterTest extends TestCase
 {
-    private $_unsorted = [
-        'source' => 'http://OulVKvE5.info',
-        'source_uid' => '1498585325fd4e2ca0e372af6593cd69a991d37585806383581',
-        'source_data' => [
-            'data' => [
-                'name_' . Elements\Contact::TYPE_NUMERIC => [
-                    'type' => 'text',
-                    'id' => 'name',
-                    'element_type' => Elements\Contact::TYPE_NUMERIC,
-                    'name' => 'ФИО',
-                    'value' => '0c0gaCbr0',
-                ],
-                'name_' . Elements\Lead::TYPE_NUMERIC => [
-                    'type' => 'text',
-                    'id' => 'name',
-                    'element_type' => Elements\Lead::TYPE_NUMERIC,
-                    'name' => 'ФИО',
-                    'value' => 'Lead name',
-                ],
-                '61237_' . Elements\Contact::TYPE_NUMERIC => [
-                    'type' => 'multitext',
-                    'id' => '61237',
-                    'element_type' => Elements\Contact::TYPE_NUMERIC,
-                    'name' => 'Телефон',
-                    'value' => ['odhgPM'],
-                ],
-                '61238_' . Elements\Lead::TYPE_NUMERIC => [
-                    'type' => 'numeric',
-                    'id' => '61238',
-                    'element_type' => Elements\Lead::TYPE_NUMERIC,
-                    'name' => 'Number',
-                    'value' => 123,
-                ],
-                '61239_' . Elements\Contact::TYPE_NUMERIC => [
-                    'type' => 'text',
-                    'id' => '61239',
-                    'element_type' => Elements\Contact::TYPE_NUMERIC,
-                    'name' => 'Email',
-                    'value' => 'jGHVE9@7nTX.YmgGIlVzi.xWK.org',
-                ],
-            ],
-            'form_id' => 180724,
-            'form_type' => UnsortedForm::FORM_TYPE_ID_WORDPRESS,
-            'origin' => [
-                'url' => 'https://D33.wu8s.com',
-                'request_id' => '1498585325fd4e2ca0e372af6593cd69a991d37585806383581',
-                'form_type' => UnsortedForm::FORM_TYPE_ID_WORDPRESS,
-            ],
-            'date' => 1498585317,
-            'form_name' => 'kRq0ZD2DZHV',
-            'from' => 'http://OulVKvE5.info',
-        ],
-    ];
-
     public function testAddUnsorted()
     {
+        $example = [
+            'source' => 'http://example.info',
+            'source_uid' => '1498585325fd4e2ca0e372af6593cd69a991d37585806383581',
+            'source_data' => [
+                'data' => [
+                    'name_' . Elements\Contact::TYPE_NUMERIC => [
+                        'type' => 'text',
+                        'id' => 'name',
+                        'element_type' => Elements\Contact::TYPE_NUMERIC,
+                        'name' => 'ФИО',
+                        'value' => '0c0gaCbr0',
+                    ],
+                    'name_' . Elements\Lead::TYPE_NUMERIC => [
+                        'type' => 'text',
+                        'id' => 'name',
+                        'element_type' => Elements\Lead::TYPE_NUMERIC,
+                        'name' => 'ФИО',
+                        'value' => 'Lead name',
+                    ],
+                    '61237_' . Elements\Contact::TYPE_NUMERIC => [
+                        'type' => 'multitext',
+                        'id' => '61237',
+                        'element_type' => Elements\Contact::TYPE_NUMERIC,
+                        'name' => 'Телефон',
+                        'value' => ['+7 999 999 99-99'],
+                    ],
+                    '61238_' . Elements\Lead::TYPE_NUMERIC => [
+                        'type' => 'numeric',
+                        'id' => '61238',
+                        'element_type' => Elements\Lead::TYPE_NUMERIC,
+                        'name' => 'Number',
+                        'value' => 123,
+                    ],
+                    '61239_' . Elements\Contact::TYPE_NUMERIC => [
+                        'type' => 'text',
+                        'id' => '61239',
+                        'element_type' => Elements\Contact::TYPE_NUMERIC,
+                        'name' => 'Email',
+                        'value' => 'test@example.com',
+                    ],
+                ],
+                'form_id' => 180724,
+                'form_type' => UnsortedForm::FORM_TYPE_ID_WORDPRESS,
+                'origin' => [
+                    'url' => 'https://example.com',
+                    'request_id' => '1498585325fd4e2ca0e372af6593cd69a991d37585806383581',
+                    'form_type' => UnsortedForm::FORM_TYPE_ID_WORDPRESS,
+                ],
+                'date' => 1498585317,
+                'form_name' => 'My first form',
+                'from' => 'http://example.info',
+            ],
+        ];
+
         $requester = $this->createMock(Requester::class);
 
         $unsorted = new UnsortedForm;
-        $unsorted->setSource($this->_unsorted['source']);
-        $unsorted->setSourceUid($this->_unsorted['source_uid']);
-        $unsorted->setSourceData($this->_unsorted['source_data']);
+        $unsorted->setSource($example['source']);
+        $unsorted->setSourceUid($example['source_uid']);
+        $unsorted->setSourceData($example['source_data']);
 
         $post_data = [
             'request' => [
@@ -122,13 +123,13 @@ final class BaseUnsortedRequesterTest extends TestCase
         $stub = $this->getMockBuilder(BaseUnsortedRequester::class)
             ->enableOriginalConstructor()
             ->setConstructorArgs([$requester, UnsortedForm::CATEGORY])
-            ->setMethods(null)
+            ->setMethods()
             ->getMock();
 
         $this->assertTrue($stub->add([$unsorted, $unsorted->toAmo()]));
         $this->assertFalse($stub->add([$unsorted, $unsorted->toAmo()]));
 
-        $this->expectException('\amoCRM\Exceptions\InvalidResponseException');
+        $this->expectException(InvalidResponseException::class);
         $stub->add([$unsorted, $unsorted->toAmo()]);
     }
 
@@ -143,7 +144,7 @@ final class BaseUnsortedRequesterTest extends TestCase
         $stub = $this->getMockBuilder(BaseUnsortedRequester::class)
             ->enableOriginalConstructor()
             ->setConstructorArgs([$requester, UnsortedForm::CATEGORY])
-            ->setMethods(null)
+            ->setMethods()
             ->getMock();
 
         $stub->add(['test']);

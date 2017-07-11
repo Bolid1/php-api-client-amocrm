@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vdvug
- * Date: 11.07.2017
- * Time: 22:04
- */
 
 namespace Tests\amoCRM\Entities\Elements\CustomFields;
 

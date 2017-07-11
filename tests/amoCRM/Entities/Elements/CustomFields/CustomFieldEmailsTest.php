@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class CustomFieldEmailsTest extends TestCase
 {
-    private $_enums = [
+    private static $enums = [
         'WORK',
         'PRIV',
         'OTHER',
@@ -22,12 +22,12 @@ final class CustomFieldEmailsTest extends TestCase
     {
         $cf = new CustomFieldEmails(1);
 
-        $this->assertEquals($this->_enums, $cf->getEnums());
+        $this->assertEquals(self::$enums, $cf->getEnums());
     }
 
     public function testGetDefaultEnum()
     {
         $cf = new CustomFieldEmails(1);
-        $this->assertEquals(reset($this->_enums), $cf->getDefaultEnum());
+        $this->assertEquals(reset(self::$enums), $cf->getDefaultEnum());
     }
 }

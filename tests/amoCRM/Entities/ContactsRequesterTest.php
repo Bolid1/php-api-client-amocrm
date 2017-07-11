@@ -16,13 +16,13 @@ use PHPUnit\Framework\TestCase;
 final class ContactsRequesterTest extends TestCase
 {
     /** @var Requester */
-    private $_requester;
+    private $requester;
 
     public function testInstanceOfBaseEntityRequester()
     {
         $this->assertInstanceOf(
             BaseEntityRequester::class,
-            new ContactsRequester($this->_requester)
+            new ContactsRequester($this->requester)
         );
     }
 
@@ -61,7 +61,7 @@ final class ContactsRequesterTest extends TestCase
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
-            ->setMethods(null)
+            ->setMethods()
             ->getMock();
 
         /** @var BaseEntityRequester $stub */
@@ -71,6 +71,6 @@ final class ContactsRequesterTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->_requester = $this->createMock(Requester::class);
+        $this->requester = $this->createMock(Requester::class);
     }
 }

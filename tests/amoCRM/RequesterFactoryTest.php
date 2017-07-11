@@ -2,6 +2,7 @@
 
 namespace Tests\amoCRM;
 
+use amoCRM\Exceptions\AuthFailed;
 use amoCRM\Interfaces\Requester;
 use amoCRM\Interfaces\RequesterPromo;
 use amoCRM\RequesterFactory;
@@ -27,7 +28,7 @@ final class RequesterFactoryTest extends TestCase
         // Check if request doing normally
         // Check cURL verify turned off
         // Check http errors throwing disabled
-        $this->expectException('\amoCRM\Exceptions\AuthFailed');
+        $this->expectException(AuthFailed::class);
         $requester->get('/private/api/auth.php', ['type' => 'json']);
     }
 
@@ -43,7 +44,7 @@ final class RequesterFactoryTest extends TestCase
         // Check if request doing normally
         // Check cURL verify turned off
         // Check http errors throwing disabled
-        $this->expectException('\amoCRM\Exceptions\AuthFailed');
+        $this->expectException(AuthFailed::class);
         $requester->get('/private/api/auth.php', ['type' => 'json']);
     }
 

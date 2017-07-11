@@ -12,17 +12,16 @@ use PHPUnit\Framework\TestCase;
  */
 final class BaseCustomFieldTest extends TestCase
 {
-    /** @var int */
-    protected $_default_id = 25;
-
     /** @var string */
-    private $_default_value = 'result';
+    private static $default_value = 'result';
+    /** @var int */
+    protected $default_id = 25;
 
     public function testSetId()
     {
         $stub = $this->buildMock();
 
-        $this->assertEquals(['id' => $this->_default_id, 'values' => $this->_default_value], $stub->toAmo());
+        $this->assertEquals(['id' => $this->default_id, 'values' => self::$default_value], $stub->toAmo());
     }
 
     /**
@@ -31,8 +30,8 @@ final class BaseCustomFieldTest extends TestCase
      */
     private function buildMock($id = null)
     {
-        if (is_null($id)) {
-            $id = $this->_default_id;
+        if ($id === null) {
+            $id = $this->default_id;
         }
 
         $stub = $this->getMockBuilder(BaseCustomField::class)
@@ -42,7 +41,7 @@ final class BaseCustomFieldTest extends TestCase
 
         $stub
             ->method('valueToAmo')
-            ->willReturn($this->_default_value);
+            ->willReturn(self::$default_value);
 
         /** @var BaseCustomField $stub */
         return $stub;

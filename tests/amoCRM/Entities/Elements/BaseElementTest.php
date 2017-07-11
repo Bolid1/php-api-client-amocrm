@@ -30,7 +30,7 @@ final class BaseElementTest extends TestCase
     {
         $stub = $this->getMockBuilder(BaseElement::class)
             ->disableOriginalConstructor()
-            ->setMethods(null)
+            ->setMethods()
             ->getMock();
 
         /** @var BaseElement $stub */

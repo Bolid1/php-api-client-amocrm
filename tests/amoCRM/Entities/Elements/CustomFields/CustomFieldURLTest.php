@@ -14,22 +14,22 @@ use PHPUnit\Framework\TestCase;
 class CustomFieldURLTest extends TestCase
 {
     /** @var integer */
-    private $_default_id = 25;
+    private $default_id = 25;
 
     public function testIsInstanceOfBaseField()
     {
         $this->assertInstanceOf(
             BaseCustomField::class,
-            new CustomFieldURL($this->_default_id)
+            new CustomFieldURL($this->default_id)
         );
     }
 
     public function testSetValueToAmo()
     {
-        $cf = new CustomFieldURL($this->_default_id);
+        $cf = new CustomFieldURL($this->default_id);
         $value = 'my.url.com';
 
         $cf->setValue($value);
-        $this->assertEquals(['id' => $this->_default_id, 'values' => [['value' => $value]]], $cf->toAmo());
+        $this->assertEquals(['id' => $this->default_id, 'values' => [['value' => $value]]], $cf->toAmo());
     }
 }

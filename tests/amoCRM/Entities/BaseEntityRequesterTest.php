@@ -88,7 +88,7 @@ final class BaseEntityRequesterTest extends TestCase
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
-            ->setMethods(null)
+            ->setMethods()
             ->getMock();
 
         /** @var BaseEntityRequester $stub */
@@ -115,7 +115,7 @@ final class BaseEntityRequesterTest extends TestCase
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
-            ->setMethods(null)
+            ->setMethods()
             ->getMock();
 
         /** @var BaseEntityRequester $stub */
@@ -142,7 +142,7 @@ final class BaseEntityRequesterTest extends TestCase
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
-            ->setMethods(null)
+            ->setMethods()
             ->getMock();
 
         /** @var BaseEntityRequester $stub */
@@ -186,7 +186,7 @@ final class BaseEntityRequesterTest extends TestCase
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
-            ->setMethods(null)
+            ->setMethods()
             ->getMock();
 
         /** @var BaseEntityRequester $stub */
@@ -231,7 +231,7 @@ final class BaseEntityRequesterTest extends TestCase
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
-            ->setMethods(null)
+            ->setMethods()
             ->getMock();
 
         /** @var BaseEntityRequester $stub */
@@ -269,7 +269,7 @@ final class BaseEntityRequesterTest extends TestCase
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
-            ->setMethods(null)
+            ->setMethods()
             ->getMock();
 
         /** @var BaseEntityRequester $stub */
@@ -325,7 +325,7 @@ final class BaseEntityRequesterTest extends TestCase
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
-            ->setMethods(null)
+            ->setMethods()
             ->getMock();
 
         /** @var BaseEntityRequester $stub */
@@ -360,7 +360,7 @@ final class BaseEntityRequesterTest extends TestCase
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
-            ->setMethods(null)
+            ->setMethods()
             ->getMock();
 
         /** @var BaseEntityRequester $stub */
@@ -423,7 +423,7 @@ final class BaseEntityRequesterTest extends TestCase
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
-            ->setMethods(null)
+            ->setMethods()
             ->getMock();
 
         /** @var BaseEntityRequester $stub */
@@ -467,7 +467,7 @@ final class BaseEntityRequesterTest extends TestCase
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
-            ->setMethods(null)
+            ->setMethods()
             ->getMock();
 
         /** @var BaseEntityRequester $stub */

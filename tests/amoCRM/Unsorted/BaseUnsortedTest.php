@@ -13,8 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class BaseUnsortedTest extends TestCase
 {
-    /** @var array */
-    private $_example = [
+    private static $example = [
         'source' => 'some_source',
         'source_uid' => 'test',
         'source_data' => [
@@ -30,8 +29,8 @@ final class BaseUnsortedTest extends TestCase
     public function testSetSource()
     {
         $unsorted = $this->buildMock();
-        $unsorted->setSource($this->_example['source']);
-        $this->assertEquals($this->_example['source'], $unsorted->getSource());
+        $unsorted->setSource(self::$example['source']);
+        $this->assertEquals(self::$example['source'], $unsorted->getSource());
     }
 
     /**
@@ -41,7 +40,7 @@ final class BaseUnsortedTest extends TestCase
     {
         $stub = $this->getMockBuilder(BaseUnsorted::class)
             ->disableOriginalConstructor()
-            ->setMethods(null)
+            ->setMethods()
             ->getMock();
 
         /** @var BaseUnsorted $stub */
@@ -51,35 +50,35 @@ final class BaseUnsortedTest extends TestCase
     public function testSetSourceUid()
     {
         $unsorted = $this->buildMock();
-        $unsorted->setSourceUid($this->_example['source_uid']);
-        $this->assertEquals($this->_example['source_uid'], $unsorted->getSourceUid());
+        $unsorted->setSourceUid(self::$example['source_uid']);
+        $this->assertEquals(self::$example['source_uid'], $unsorted->getSourceUid());
     }
 
     public function testSetSourceData()
     {
         $unsorted = $this->buildMock();
-        $unsorted->setSourceData($this->_example['source_data']);
-        $this->assertEquals($this->_example['source_data'], $unsorted->getSourceData());
+        $unsorted->setSourceData(self::$example['source_data']);
+        $this->assertEquals(self::$example['source_data'], $unsorted->getSourceData());
     }
 
     public function testSetSourceDataByKey()
     {
         $unsorted = $this->buildMock();
-        $unsorted->setSourceData($this->_example['source_data']);
-        $this->assertEquals($this->_example['source_data']['foo'], $unsorted->getSourceData('foo'));
+        $unsorted->setSourceData(self::$example['source_data']);
+        $this->assertEquals(self::$example['source_data']['foo'], $unsorted->getSourceData('foo'));
     }
 
     public function testToAmo()
     {
         $unsorted = $this->buildMock();
-        $unsorted->setSource($this->_example['source']);
-        $unsorted->setSourceUid($this->_example['source_uid']);
-        $unsorted->setSourceData($this->_example['source_data']);
-        $unsorted->addLead(reset($this->_example['data'][Elements\Lead::TYPE_MANY]));
-        $unsorted->addContact(reset($this->_example['data'][Elements\Contact::TYPE_MANY]));
-        $unsorted->addCompany(reset($this->_example['data']['companies']));
+        $unsorted->setSource(self::$example['source']);
+        $unsorted->setSourceUid(self::$example['source_uid']);
+        $unsorted->setSourceData(self::$example['source_data']);
+        $unsorted->addLead(reset(self::$example['data'][Elements\Lead::TYPE_MANY]));
+        $unsorted->addContact(reset(self::$example['data'][Elements\Contact::TYPE_MANY]));
+        $unsorted->addCompany(reset(self::$example['data']['companies']));
 
-        $this->assertEquals($this->_example, $unsorted->toAmo());
+        $this->assertEquals(self::$example, $unsorted->toAmo());
     }
 
     /**
@@ -89,11 +88,11 @@ final class BaseUnsortedTest extends TestCase
     public function testToAmoThrowValidateExceptionEmptyData()
     {
         $unsorted = $this->buildMock();
-        $unsorted->setSource($this->_example['source']);
-        $unsorted->setSourceUid($this->_example['source_uid']);
-        $unsorted->setSourceData($this->_example['source_data']);
+        $unsorted->setSource(self::$example['source']);
+        $unsorted->setSourceUid(self::$example['source_uid']);
+        $unsorted->setSourceData(self::$example['source_data']);
 
-        $this->assertEquals($this->_example, $unsorted->toAmo());
+        $this->assertEquals(self::$example, $unsorted->toAmo());
     }
 
     /**
@@ -103,12 +102,12 @@ final class BaseUnsortedTest extends TestCase
     public function testToAmoThrowValidateExceptionEmptyLeadName()
     {
         $unsorted = $this->buildMock();
-        $unsorted->setSource($this->_example['source']);
-        $unsorted->setSourceUid($this->_example['source_uid']);
-        $unsorted->setSourceData($this->_example['source_data']);
+        $unsorted->setSource(self::$example['source']);
+        $unsorted->setSourceUid(self::$example['source_uid']);
+        $unsorted->setSourceData(self::$example['source_data']);
         $unsorted->addLead(['date_create' => time()]);
 
-        $this->assertEquals($this->_example, $unsorted->toAmo());
+        $this->assertEquals(self::$example, $unsorted->toAmo());
     }
 
     /**
@@ -118,11 +117,11 @@ final class BaseUnsortedTest extends TestCase
     public function testToAmoThrowValidateExceptionEmptySource()
     {
         $unsorted = $this->buildMock();
-        $unsorted->setSourceUid($this->_example['source_uid']);
-        $unsorted->setSourceData($this->_example['source_data']);
-        $unsorted->addLead(reset($this->_example['data'][Elements\Lead::TYPE_MANY]));
+        $unsorted->setSourceUid(self::$example['source_uid']);
+        $unsorted->setSourceData(self::$example['source_data']);
+        $unsorted->addLead(reset(self::$example['data'][Elements\Lead::TYPE_MANY]));
 
-        $this->assertEquals($this->_example, $unsorted->toAmo());
+        $this->assertEquals(self::$example, $unsorted->toAmo());
     }
 
     /**
@@ -132,11 +131,11 @@ final class BaseUnsortedTest extends TestCase
     public function testToAmoThrowValidateExceptionEmptySourceUid()
     {
         $unsorted = $this->buildMock();
-        $unsorted->setSource($this->_example['source']);
-        $unsorted->setSourceData($this->_example['source_data']);
-        $unsorted->addLead(reset($this->_example['data'][Elements\Lead::TYPE_MANY]));
+        $unsorted->setSource(self::$example['source']);
+        $unsorted->setSourceData(self::$example['source_data']);
+        $unsorted->addLead(reset(self::$example['data'][Elements\Lead::TYPE_MANY]));
 
-        $this->assertEquals($this->_example, $unsorted->toAmo());
+        $this->assertEquals(self::$example, $unsorted->toAmo());
     }
 
     /**
@@ -146,16 +145,16 @@ final class BaseUnsortedTest extends TestCase
     public function testToAmoThrowValidateExceptionEmptySourceData()
     {
         $unsorted = $this->buildMock();
-        $unsorted->setSource($this->_example['source']);
-        $unsorted->setSourceUid($this->_example['source_uid']);
-        $unsorted->addLead(reset($this->_example['data'][Elements\Lead::TYPE_MANY]));
+        $unsorted->setSource(self::$example['source']);
+        $unsorted->setSourceUid(self::$example['source_uid']);
+        $unsorted->addLead(reset(self::$example['data'][Elements\Lead::TYPE_MANY]));
 
-        $this->assertEquals($this->_example, $unsorted->toAmo());
+        $this->assertEquals(self::$example, $unsorted->toAmo());
     }
 
     public function testAddLead()
     {
-        $element = reset($this->_example['data'][Elements\Lead::TYPE_MANY]);
+        $element = reset(self::$example['data'][Elements\Lead::TYPE_MANY]);
         $unsorted = $this->buildMock();
         $unsorted->addLead($element);
 
@@ -164,7 +163,7 @@ final class BaseUnsortedTest extends TestCase
 
     public function testAddContact()
     {
-        $element = reset($this->_example['data'][Elements\Contact::TYPE_MANY]);
+        $element = reset(self::$example['data'][Elements\Contact::TYPE_MANY]);
         $unsorted = $this->buildMock();
         $unsorted->addContact($element);
 
@@ -173,7 +172,7 @@ final class BaseUnsortedTest extends TestCase
 
     public function testAddCompany()
     {
-        $element = reset($this->_example['data']['companies']);
+        $element = reset(self::$example['data']['companies']);
         $unsorted = $this->buildMock();
         $unsorted->addCompany($element);
 
