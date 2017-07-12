@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/6.2/phpunit.xsd"
         bootstrap="vendor/autoload.php"
         forceCoversAnnotation="true"
         beStrictAboutTestsThatDoNotTestAnything="true"
-        checkForUnintentionallyCoveredCode="true"
-        mapTestClassNameToCoveredClassName="true"
         beStrictAboutChangesToGlobalState="true"
         convertErrorsToExceptions="true"
         convertNoticesToExceptions="true"
@@ -14,6 +15,7 @@
         stopOnSkipped="false"
         stopOnRisky="false"
         verbose="true"
+        colors="true"
 >
     <testsuites>
         <testsuite name="PHP API Client amoCRM">
@@ -30,8 +32,5 @@
         <whitelist>
             <directory>lib</directory>
         </whitelist>
-        <exclude>
-            <directory>lib/*/*/Interfaces</directory>
-        </exclude>
     </filter>
 </phpunit>
