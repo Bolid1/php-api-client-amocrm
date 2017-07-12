@@ -1,7 +1,10 @@
 <phpunit
         bootstrap="vendor/autoload.php"
         forceCoversAnnotation="true"
+        beStrictAboutTestsThatDoNotTestAnything="true"
+        checkForUnintentionallyCoveredCode="true"
         mapTestClassNameToCoveredClassName="true"
+        beStrictAboutChangesToGlobalState="true"
         convertErrorsToExceptions="true"
         convertNoticesToExceptions="true"
         convertWarningsToExceptions="true"
