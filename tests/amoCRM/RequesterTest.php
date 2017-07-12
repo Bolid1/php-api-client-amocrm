@@ -66,12 +66,15 @@ final class RequesterTest extends TestCase
     }
 
     /**
+     * @param int $usage_count
      * @return array
      */
-    private function mockResponse()
+    private function mockResponse($usage_count = 1)
     {
         $response = $this->createMock(ResponseInterface::class);
-        $response->expects($this->exactly(2))
+        // Let's include auth response
+        ++$usage_count;
+        $response->expects($this->exactly($usage_count))
             ->method('getStatusCode')
             ->willReturn(200);
 
@@ -82,6 +85,29 @@ final class RequesterTest extends TestCase
             ->willReturn($body);
 
         return [$response, $body];
+    }
+
+    public function testSlowDown()
+    {
+        $repeats_count = 3;
+
+        list($response) = $this->mockResponse($repeats_count);
+        $curl = $this->createMock(ClientInterface::class);
+        $curl->method('request')
+            ->willReturn($response);
+
+        $requester = new Requester($this->account, $this->user, $curl);
+
+        $start = microtime(true);
+        for ($i = 0; $i < $repeats_count; ++$i) {
+            $requester->get('test', ['type' => 'json']);
+        }
+
+        $end = microtime(true) - $start;
+
+        $delta = $end - $repeats_count;
+        // Ensure, that we spend $repeats_count seconds or greater to make all requests
+        $this->assertGreaterThan(0, $delta);
     }
 
     public function testSendPostRequest()
