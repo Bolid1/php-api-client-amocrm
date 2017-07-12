@@ -2,6 +2,7 @@
 
 namespace amoCRM\Filter;
 
+use amoCRM\Entity\Company;
 use amoCRM\Entity\Contact;
 use amoCRM\Exception\InvalidArgumentException;
 
@@ -21,7 +22,7 @@ final class ContactsFilter extends BaseEntityFilter
      */
     public function setType($type)
     {
-        $available_types = [Contact::TYPE_SINGLE, 'company', 'all'];
+        $available_types = [Contact::TYPE_SINGLE, Company::TYPE_SINGLE, 'all'];
 
         if (!in_array($type, $available_types, true)) {
             $message = sprintf(

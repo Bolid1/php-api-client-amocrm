@@ -26,7 +26,7 @@ abstract class BaseUnsorted
         $this->data = [
             Entity\Lead::TYPE_MANY => [],
             Entity\Contact::TYPE_MANY => [],
-            'companies' => []
+            Entity\Company::TYPE_MANY => [],
         ];
     }
 
@@ -51,7 +51,7 @@ abstract class BaseUnsorted
      */
     public function addCompany(array $company)
     {
-        $this->data['companies'][] = $company;
+        $this->data[Entity\Company::TYPE_MANY][] = $company;
     }
 
     /**

@@ -22,7 +22,7 @@ final class BaseUnsortedTest extends TestCase
         'data' => [
             Entity\Lead::TYPE_MANY => [['name' => 'some name']],
             Entity\Contact::TYPE_MANY => [['name' => 'some name']],
-            'companies' => [['name' => 'some name']],
+            Entity\Company::TYPE_MANY => [['name' => 'some name']],
         ],
     ];
 
@@ -76,7 +76,7 @@ final class BaseUnsortedTest extends TestCase
         $unsorted->setSourceData(self::$example['source_data']);
         $unsorted->addLead(reset(self::$example['data'][Entity\Lead::TYPE_MANY]));
         $unsorted->addContact(reset(self::$example['data'][Entity\Contact::TYPE_MANY]));
-        $unsorted->addCompany(reset(self::$example['data']['companies']));
+        $unsorted->addCompany(reset(self::$example['data'][Entity\Company::TYPE_MANY]));
 
         $this->assertEquals(self::$example, $unsorted->toAmo());
     }
@@ -172,10 +172,10 @@ final class BaseUnsortedTest extends TestCase
 
     public function testAddCompany()
     {
-        $element = reset(self::$example['data']['companies']);
+        $element = reset(self::$example['data'][Entity\Company::TYPE_MANY]);
         $unsorted = $this->buildMock();
         $unsorted->addCompany($element);
 
-        $this->assertEquals(['companies' => [$element]], $unsorted->getData());
+        $this->assertEquals([Entity\Company::TYPE_MANY => [$element]], $unsorted->getData());
     }
 }
