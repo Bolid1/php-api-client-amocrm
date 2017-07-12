@@ -9,8 +9,7 @@ before_script:
   - php composer.phar install --dev --no-interaction
 script:
   - composer test
-  - composer code-style-check
-  - composer code-style-compatibility
+  - composer code-style
 after_script:
   - php vendor/bin/coveralls -v
 notifications:

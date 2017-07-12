@@ -15,6 +15,10 @@
     "code-style-check": "phpcs --standard=./standard.xml",
     "code-style-compatibility": "phpcs --standard=PHPCompatibility --runtime-set testVersion 5.6 ./lib",
     "code-style-fix": "phpcbf --standard=./standard.xml",
+    "code-style": [
+      "@code-style-check",
+      "@code-style-compatibility"
+    ],
     "test": "phpunit --configuration phpunit.xml",
     "post-install-cmd": [
       "@code-style-install"
