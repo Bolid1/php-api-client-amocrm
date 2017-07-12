@@ -1,6 +1,6 @@
 <?php
 
-namespace amoCRM\Exceptions;
+namespace amoCRM\Exception;
 
 class ValidateException extends Exception
 {

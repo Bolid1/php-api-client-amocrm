@@ -42,7 +42,7 @@ final class ContactsFilterTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      * @expectedExceptionMessageRegExp /^Must on of \[[a-z, ]+\], but test given/
      */
     public function testThrowInvalidType()

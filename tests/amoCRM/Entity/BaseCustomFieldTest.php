@@ -48,7 +48,7 @@ final class BaseCustomFieldTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetIdThrowInvalidArgumentNaN()
     {
@@ -56,7 +56,7 @@ final class BaseCustomFieldTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetIdThrowInvalidArgumentPositive()
     {
@@ -64,7 +64,7 @@ final class BaseCustomFieldTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetIdThrowInvalidArgumentZero()
     {

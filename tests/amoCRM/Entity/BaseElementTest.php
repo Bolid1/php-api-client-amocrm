@@ -38,7 +38,7 @@ final class BaseElementTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetIdThrowInvalidArgument()
     {
@@ -80,7 +80,7 @@ final class BaseElementTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetDateCreateThrowInvalidArgument()
     {
@@ -98,7 +98,7 @@ final class BaseElementTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetCreatedByThrowInvalidArgument()
     {
@@ -127,7 +127,7 @@ final class BaseElementTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetDateModifyThrowInvalidArgument()
     {
@@ -145,7 +145,7 @@ final class BaseElementTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetModifiedByThrowInvalidArgument()
     {
@@ -163,7 +163,7 @@ final class BaseElementTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetResponsibleThrowInvalidArgument()
     {

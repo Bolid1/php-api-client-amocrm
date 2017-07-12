@@ -2,7 +2,7 @@
 
 namespace amoCRM\Entity;
 
-use amoCRM\Exceptions;
+use amoCRM\Exception;
 
 /**
  * Class Account
@@ -27,7 +27,7 @@ final class Account implements Interfaces\Account
      * Account constructor.
      * @param string $subdomain
      * @param string [$top_level_domain = 'ru']
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function __construct($subdomain, $top_level_domain = self::TOP_LEVEL_DOMAIN_RU)
     {
@@ -41,19 +41,19 @@ final class Account implements Interfaces\Account
      * Check if subdomain is valid
      *
      * @param string $subdomain
-     * @throws Exceptions\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     private function ensureIsValidSubdomain($subdomain)
     {
         if (!preg_match('/^[a-z0-9]{3,}$/', $subdomain)) {
             $message = sprintf('"%s" is not a valid subdomain', $subdomain);
-            throw new Exceptions\InvalidArgumentException($message);
+            throw new Exception\InvalidArgumentException($message);
         }
     }
 
     /**
      * @param string $top_level_domain
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function setTopLevelDomain($top_level_domain)
     {
@@ -65,7 +65,7 @@ final class Account implements Interfaces\Account
      * Check if top level domain is valid
      *
      * @param string $top_level_domain
-     * @throws Exceptions\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     private function ensureIsValidTopLevelDomain($top_level_domain)
     {
@@ -76,7 +76,7 @@ final class Account implements Interfaces\Account
 
         if (!in_array($top_level_domain, $top_level_domains, true)) {
             $message = sprintf('"%s" is not a valid top level domain', $top_level_domain);
-            throw new Exceptions\InvalidArgumentException($message);
+            throw new Exception\InvalidArgumentException($message);
         }
     }
 

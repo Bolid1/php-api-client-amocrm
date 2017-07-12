@@ -3,7 +3,7 @@
 namespace Tests\amoCRM\Unsorted;
 
 use amoCRM\Entity;
-use amoCRM\Exceptions\InvalidResponseException;
+use amoCRM\Exception\InvalidResponseException;
 use amoCRM\Interfaces\Requester;
 use amoCRM\Unsorted\BaseUnsortedRequester;
 use amoCRM\Unsorted\UnsortedForm;
@@ -134,7 +134,7 @@ final class BaseUnsortedRequesterTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testAddUnsortedThrowInvalidArgumentException()
     {

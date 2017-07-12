@@ -2,7 +2,7 @@
 
 namespace Tests\amoCRM;
 
-use amoCRM\Exceptions\AuthFailed;
+use amoCRM\Exception\AuthFailed;
 use amoCRM\Interfaces\Requester;
 use amoCRM\Interfaces\RequesterPromo;
 use amoCRM\RequesterFactory;

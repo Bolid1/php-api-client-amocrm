@@ -17,7 +17,7 @@ final class RequesterFactory
      * @param string $login
      * @param string $api_key
      * @return Interfaces\Requester
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public static function make($subdomain, $login, $api_key)
     {
@@ -31,7 +31,7 @@ final class RequesterFactory
      * @param $login
      * @param $api_key
      * @return array
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     private static function buildConstructorArgs($subdomain, $login, $api_key)
     {
@@ -62,7 +62,7 @@ final class RequesterFactory
      * @param string $login
      * @param string $api_key
      * @return RequesterUnsorted
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public static function makeUnsorted($subdomain, $login, $api_key)
     {

@@ -31,7 +31,7 @@ final class RequesterPromo extends BaseRequester implements Interfaces\Requester
      *
      * @param array|string $subdomains
      * @return array
-     * @throws \amoCRM\Exceptions\AuthFailed
+     * @throws \amoCRM\Exception\AuthFailed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function domains($subdomains)

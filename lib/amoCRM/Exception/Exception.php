@@ -1,10 +1,10 @@
 <?php
 
-namespace amoCRM\Exceptions;
+namespace amoCRM\Exception;
 
 /**
  * Class Exception
- * @package amoCRM\Exceptions
+ * @package amoCRM\Exception
  */
 class Exception extends \Exception
 {

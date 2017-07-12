@@ -32,7 +32,7 @@ final class LeadTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetPriceThrowInvalidArgument()
     {
@@ -51,7 +51,7 @@ final class LeadTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetStatusIdThrowInvalidArgument()
     {
@@ -70,7 +70,7 @@ final class LeadTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetPipelineIdThrowInvalidArgument()
     {
@@ -89,7 +89,7 @@ final class LeadTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetCompanyIdThrowInvalidArgument()
     {

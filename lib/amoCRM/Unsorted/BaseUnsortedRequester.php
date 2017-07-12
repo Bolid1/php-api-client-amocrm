@@ -2,7 +2,7 @@
 
 namespace amoCRM\Unsorted;
 
-use amoCRM\Exceptions;
+use amoCRM\Exception;
 use amoCRM\Interfaces\Requester;
 
 /**
@@ -45,10 +45,10 @@ abstract class BaseUnsortedRequester implements Interfaces\BaseUnsortedRequester
      *
      * @param array $elements
      * @return bool
-     * @throws \amoCRM\Exceptions\ValidateException
-     * @throws \amoCRM\Exceptions\RuntimeException
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
-     * @throws Exceptions\InvalidResponseException
+     * @throws \amoCRM\Exception\ValidateException
+     * @throws \amoCRM\Exception\RuntimeException
+     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws Exception\InvalidResponseException
      */
     public function add(array $elements)
     {
@@ -76,7 +76,7 @@ abstract class BaseUnsortedRequester implements Interfaces\BaseUnsortedRequester
         $response = $this->requester->post(self::BASE_PATH . 'add/', $data);
 
         if (!isset($response['unsorted']['add']['status'])) {
-            throw new Exceptions\InvalidResponseException(json_encode($response));
+            throw new Exception\InvalidResponseException(json_encode($response));
         }
 
         return $response['unsorted']['add']['status'] === 'success';
@@ -87,9 +87,9 @@ abstract class BaseUnsortedRequester implements Interfaces\BaseUnsortedRequester
      *
      * @param array $elements
      * @return array
-     * @throws \amoCRM\Exceptions\ValidateException
-     * @throws \amoCRM\Exceptions\RuntimeException
-     * @throws Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
+     * @throws \amoCRM\Exception\RuntimeException
+     * @throws Exception\InvalidArgumentException
      */
     private function ensureIsArrayOfElements(array $elements)
     {
@@ -98,7 +98,7 @@ abstract class BaseUnsortedRequester implements Interfaces\BaseUnsortedRequester
         foreach ($elements as $element) {
             if (!is_array($element) && !($element instanceof BaseUnsorted)) {
                 $message = sprintf('Element "%s" is not an array and not unsorted', var_export($element, true));
-                throw new Exceptions\InvalidArgumentException($message);
+                throw new Exception\InvalidArgumentException($message);
             }
 
             if ($element instanceof BaseUnsorted) {

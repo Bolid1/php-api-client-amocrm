@@ -32,7 +32,7 @@ final class ContactTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetCompanyIdThrowInvalidArgument()
     {
@@ -58,7 +58,7 @@ final class ContactTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testAddLeadIdThrowInvalidArgument()
     {

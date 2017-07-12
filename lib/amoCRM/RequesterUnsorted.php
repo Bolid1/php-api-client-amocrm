@@ -29,7 +29,7 @@ final class RequesterUnsorted extends BaseRequester
      * @param array|string [$query=null]
      *
      * @return array
-     * @throws \amoCRM\Exceptions\AuthFailed
+     * @throws \amoCRM\Exception\AuthFailed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function get($path, $query = null)
@@ -68,7 +68,7 @@ final class RequesterUnsorted extends BaseRequester
      * @param array|string [$query=null]
      *
      * @return array
-     * @throws \amoCRM\Exceptions\AuthFailed
+     * @throws \amoCRM\Exception\AuthFailed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function post($path, $data, $query = null)

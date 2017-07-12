@@ -21,7 +21,7 @@ final class UserTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testCannotBeCreatedFromInvalidEmailAddress()
     {
@@ -29,7 +29,7 @@ final class UserTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testCannotBeCreatedFromInvalidAPIKey()
     {

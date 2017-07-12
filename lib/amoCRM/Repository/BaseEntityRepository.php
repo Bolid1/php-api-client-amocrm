@@ -2,7 +2,7 @@
 
 namespace amoCRM\Repository;
 
-use amoCRM\Exceptions;
+use amoCRM\Exception;
 use amoCRM\Filter\Interfaces\SearchFilter;
 use amoCRM\Interfaces\Requester;
 
@@ -32,7 +32,7 @@ abstract class BaseEntityRepository
      * @param Requester $_requester
      * @param array $names
      * @param array $paths
-     * @throws Exceptions\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function __construct(Requester $_requester, array $names, array $paths)
     {
@@ -44,13 +44,13 @@ abstract class BaseEntityRepository
 
     /**
      * @param array $names
-     * @throws Exceptions\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     private function setNames(array $names)
     {
         foreach ($this->names as $key => &$name) {
             if (empty($names[$key])) {
-                throw new Exceptions\InvalidArgumentException(sprintf('Empty name "%s"', $key));
+                throw new Exception\InvalidArgumentException(sprintf('Empty name "%s"', $key));
             }
             $name = $names[$key];
         }
@@ -59,13 +59,13 @@ abstract class BaseEntityRepository
 
     /**
      * @param array $paths
-     * @throws Exceptions\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     private function setPaths(array $paths)
     {
         foreach ($this->paths as $key => &$path) {
             if (empty($paths[$key])) {
-                throw new Exceptions\InvalidArgumentException(sprintf('Empty path "%s"', $key));
+                throw new Exception\InvalidArgumentException(sprintf('Empty path "%s"', $key));
             }
             $path = Requester::API_PATH . $paths[$key];
         }
@@ -77,7 +77,7 @@ abstract class BaseEntityRepository
      *
      * @param array $elements
      * @return array
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function add(array $elements)
     {
@@ -90,14 +90,14 @@ abstract class BaseEntityRepository
      * Check for possible wrong nesting level
      *
      * @param array $elements
-     * @throws Exceptions\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     private function ensureIsArrayOfElements(array $elements)
     {
         foreach ($elements as $element) {
             if (!is_array($element)) {
                 $message = sprintf('Element "%s" is not an array', var_export($element, true));
-                throw new Exceptions\InvalidArgumentException($message);
+                throw new Exception\InvalidArgumentException($message);
             }
         }
     }
@@ -143,7 +143,7 @@ abstract class BaseEntityRepository
      *
      * @param array $elements
      * @return array
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function update(array $elements)
     {
@@ -157,14 +157,14 @@ abstract class BaseEntityRepository
      * Check for possible invalid data format
      *
      * @param array $elements
-     * @throws Exceptions\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     private function ensureIsArrayOfElementsWithIds(array $elements)
     {
         foreach ($elements as $element) {
             if (!isset($element['id']) || !is_numeric($element['id'])) {
                 $message = sprintf('Element "%s" without numeric id', var_export($element, true));
-                throw new Exceptions\InvalidArgumentException($message);
+                throw new Exception\InvalidArgumentException($message);
             }
         }
     }
@@ -176,7 +176,7 @@ abstract class BaseEntityRepository
      * @param array $nav
      *
      * @return array
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function search(SearchFilter $filter = null, array $nav = [])
     {
@@ -204,7 +204,7 @@ abstract class BaseEntityRepository
      *
      * @param array $nav
      * @return array
-     * @throws Exceptions\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     private function parseNavigation(array $nav)
     {
@@ -223,13 +223,13 @@ abstract class BaseEntityRepository
             // Offset and limit can't be less zero
             if ($value < 0) {
                 $message = sprintf('Invalid navigation field "%s" value: "%s"', $field, $nav[$field]);
-                throw new Exceptions\InvalidArgumentException($message);
+                throw new Exception\InvalidArgumentException($message);
             }
 
             // Limit must be between 1 and 500
             if (($value > 500 || $value === 0) && $field === 'limit') {
                 $message = sprintf('Invalid navigation field "%s" value: "%s"', $field, $nav[$field]);
-                throw new Exceptions\InvalidArgumentException($message);
+                throw new Exception\InvalidArgumentException($message);
             }
 
             $result[$names_match[$field]] = $value;

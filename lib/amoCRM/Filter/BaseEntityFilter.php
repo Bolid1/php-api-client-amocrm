@@ -2,7 +2,7 @@
 
 namespace amoCRM\Filter;
 
-use amoCRM\Exceptions\InvalidArgumentException;
+use amoCRM\Exception\InvalidArgumentException;
 
 /**
  * Class BaseEntityFilter
@@ -20,7 +20,7 @@ abstract class BaseEntityFilter implements Interfaces\SearchFilter
 
     /**
      * @param array|integer $id
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function setId($id)
     {
@@ -59,7 +59,7 @@ abstract class BaseEntityFilter implements Interfaces\SearchFilter
 
     /**
      * @param array|integer $responsible_user
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function setResponsibleUser($responsible_user)
     {

@@ -2,7 +2,7 @@
 
 namespace amoCRM\Unsorted\UnsortedFormFields;
 
-use amoCRM\Exceptions\InvalidArgumentException;
+use amoCRM\Exception\InvalidArgumentException;
 
 /**
  * Class FormFieldFactory

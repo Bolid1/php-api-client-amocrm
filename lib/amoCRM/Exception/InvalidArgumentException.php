@@ -1,10 +1,10 @@
 <?php
 
-namespace amoCRM\Exceptions;
+namespace amoCRM\Exception;
 
 /**
  * Class InvalidArgumentException
- * @package amoCRM\Exceptions
+ * @package amoCRM\Exception
  */
 class InvalidArgumentException extends Exception
 {

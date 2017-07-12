@@ -28,7 +28,7 @@ final class Lead extends BaseElement
 
     /**
      * @param integer $price
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function setPrice($price)
     {
@@ -38,7 +38,7 @@ final class Lead extends BaseElement
 
     /**
      * @param integer $status_id
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function setStatusId($status_id)
     {
@@ -47,7 +47,7 @@ final class Lead extends BaseElement
 
     /**
      * @param integer $pipeline_id
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function setPipelineId($pipeline_id)
     {
@@ -56,7 +56,7 @@ final class Lead extends BaseElement
 
     /**
      * @param integer $linked_company_id
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function setCompanyId($linked_company_id)
     {

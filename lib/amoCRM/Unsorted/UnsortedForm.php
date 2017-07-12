@@ -3,7 +3,7 @@
 namespace amoCRM\Unsorted;
 
 use amoCRM\Entity;
-use amoCRM\Exceptions\ValidateException;
+use amoCRM\Exception\ValidateException;
 use amoCRM\Unsorted\UnsortedFormFields\BaseFormField;
 use amoCRM\Unsorted\UnsortedFormFields\FormFieldFactory;
 
@@ -56,7 +56,7 @@ final class UnsortedForm extends BaseUnsorted
     /**
      * Convert fields array to array of BaseFormField
      * @param array $fields
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function parseFieldsValues(array $fields)
     {
@@ -72,7 +72,7 @@ final class UnsortedForm extends BaseUnsorted
     /**
      * @param array $source_data
      * @return array
-     * @throws \amoCRM\Exceptions\ValidateException
+     * @throws \amoCRM\Exception\ValidateException
      */
     protected function validateSourceData($source_data)
     {
@@ -131,7 +131,7 @@ final class UnsortedForm extends BaseUnsorted
 
     /**
      * @param array $origin
-     * @throws \amoCRM\Exceptions\ValidateException
+     * @throws \amoCRM\Exception\ValidateException
      */
     private function ensureWordPressOrigin($origin)
     {
@@ -158,7 +158,7 @@ final class UnsortedForm extends BaseUnsorted
 
     /**
      * @param array $source_data
-     * @throws \amoCRM\Exceptions\ValidateException
+     * @throws \amoCRM\Exception\ValidateException
      */
     protected function ensureFormRequiredFields(array $source_data)
     {
@@ -205,7 +205,7 @@ final class UnsortedForm extends BaseUnsorted
     /**
      * Convert fields to elements
      * @return array
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     protected function getDataToAmo()
     {

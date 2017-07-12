@@ -25,7 +25,7 @@ final class CustomFieldNumberTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetValueToAmoThrowInvalidArgumentNaN()
     {
@@ -36,7 +36,7 @@ final class CustomFieldNumberTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetValueToAmoThrowInvalidArgumentPositive()
     {

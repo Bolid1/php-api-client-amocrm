@@ -3,8 +3,8 @@
 namespace amoCRM\Unsorted;
 
 use amoCRM\Entity;
-use amoCRM\Exceptions\RuntimeException;
-use amoCRM\Exceptions\ValidateException;
+use amoCRM\Exception\RuntimeException;
+use amoCRM\Exception\ValidateException;
 
 /**
  * Class BaseUnsorted
@@ -57,7 +57,7 @@ abstract class BaseUnsorted
     /**
      * Prepare current unsorted element for send to amoCRM
      * @return array
-     * @throws \amoCRM\Exceptions\ValidateException
+     * @throws \amoCRM\Exception\ValidateException
      * @throws RuntimeException
      */
     public function toAmo()

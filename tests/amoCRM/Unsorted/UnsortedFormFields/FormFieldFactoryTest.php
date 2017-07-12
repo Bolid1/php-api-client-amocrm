@@ -50,7 +50,7 @@ final class FormFieldFactoryTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      * @expectedExceptionMessage Unknown field type "test"
      */
     public function testMakeThrowInvalidArgumentException()

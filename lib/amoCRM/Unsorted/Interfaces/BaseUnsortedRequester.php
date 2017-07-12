@@ -15,7 +15,7 @@ interface BaseUnsortedRequester
      *
      * @param array $elements
      * @return bool
-     * @throws \amoCRM\Exceptions\InvalidResponseException
+     * @throws \amoCRM\Exception\InvalidResponseException
      */
     public function add(array $elements);
 }

@@ -36,7 +36,7 @@ abstract class BaseRequester implements Interfaces\Requester
      * @param array|string [$query=null]
      *
      * @return array
-     * @throws \amoCRM\Exceptions\AuthFailed
+     * @throws \amoCRM\Exception\AuthFailed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function get($path, $query = null)
@@ -63,14 +63,14 @@ abstract class BaseRequester implements Interfaces\Requester
      *
      * @param ResponseInterface $curl_result
      * @return array
-     * @throws Exceptions\AuthFailed
+     * @throws Exception\AuthFailed
      */
     private function extractResponse(ResponseInterface $curl_result)
     {
         $http_code = $curl_result->getStatusCode();
 
         if (in_array($http_code, [401, 403], true)) {
-            throw new Exceptions\AuthFailed('Auth failed', $http_code);
+            throw new Exception\AuthFailed('Auth failed', $http_code);
         }
 
         $result = $http_code === 204 ? [] : json_decode((string)$curl_result->getBody(), true);
@@ -86,7 +86,7 @@ abstract class BaseRequester implements Interfaces\Requester
      * @param array|string [$query=null]
      *
      * @return array
-     * @throws \amoCRM\Exceptions\AuthFailed
+     * @throws \amoCRM\Exception\AuthFailed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function post($path, $data, $query = null)

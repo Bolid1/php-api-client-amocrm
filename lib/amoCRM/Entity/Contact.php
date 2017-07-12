@@ -21,7 +21,7 @@ final class Contact extends BaseElement
 
     /**
      * @param integer $company_id
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function setCompanyId($company_id)
     {
@@ -30,7 +30,7 @@ final class Contact extends BaseElement
 
     /**
      * @param integer $lead_id
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function addLeadId($lead_id)
     {

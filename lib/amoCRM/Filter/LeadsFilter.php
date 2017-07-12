@@ -14,7 +14,7 @@ final class LeadsFilter extends BaseEntityFilter
 
     /**
      * @param array|integer $status
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function setStatus($status)
     {

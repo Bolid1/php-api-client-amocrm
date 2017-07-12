@@ -42,7 +42,7 @@ final class CustomFieldMultiTextTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testAddValueThrowInvalidArgumentException()
     {

@@ -59,7 +59,7 @@ final class BaseFormFieldTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      * @expectedExceptionMessage Incorrect element type "21"
      */
     public function testManageElementTypeThrowInvalidArgument()

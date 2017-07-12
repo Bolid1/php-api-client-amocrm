@@ -40,7 +40,7 @@ final class CustomFieldRadioButtonTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetValueThrowInvalidArgumentException()
     {
@@ -64,7 +64,7 @@ final class CustomFieldRadioButtonTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetEnumThrowInvalidArgumentException()
     {

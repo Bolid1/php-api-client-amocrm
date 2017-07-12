@@ -99,7 +99,7 @@ final class BaseRequesterTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\RuntimeException
+     * @expectedException \amoCRM\Exception\RuntimeException
      */
     public function testExceptionOnAuthFailed()
     {

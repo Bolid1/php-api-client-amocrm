@@ -2,7 +2,7 @@
 
 namespace amoCRM\Entity;
 
-use amoCRM\Exceptions\InvalidArgumentException;
+use amoCRM\Exception\InvalidArgumentException;
 
 abstract class CustomFieldMultiText extends BaseCustomField
 {
@@ -16,7 +16,7 @@ abstract class CustomFieldMultiText extends BaseCustomField
      * CustomFieldMultiText constructor.
      * @param integer $id
      * @param array $enums
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function __construct($id, array $enums)
     {

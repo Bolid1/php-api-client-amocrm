@@ -2,7 +2,7 @@
 
 namespace amoCRM\Entity;
 
-use amoCRM\Exceptions;
+use amoCRM\Exception;
 
 /**
  * Class CustomFieldRadioButton
@@ -17,7 +17,7 @@ class CustomFieldRadioButton extends CustomFieldSingleValue
      * CustomFieldSelect constructor.
      * @param integer $id
      * @param array $enums
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function __construct($id, $enums)
     {
@@ -29,14 +29,14 @@ class CustomFieldRadioButton extends CustomFieldSingleValue
 
     /**
      * @param string $value
-     * @throws Exceptions\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function setValue($value)
     {
         $enum = array_search((string)$value, $this->enums, true);
 
         if ($enum === false) {
-            throw new Exceptions\InvalidArgumentException(sprintf('"%s" is not in enums', $value));
+            throw new Exception\InvalidArgumentException(sprintf('"%s" is not in enums', $value));
         }
 
         $this->setEnum($enum);
@@ -44,14 +44,14 @@ class CustomFieldRadioButton extends CustomFieldSingleValue
 
     /**
      * @param integer $enum
-     * @throws Exceptions\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function setEnum($enum)
     {
         $this->value = $this->parseNumber($enum, true);
 
         if (!isset($this->enums[$this->value])) {
-            throw new Exceptions\InvalidArgumentException(sprintf('"%s" is not enum of this field', $enum));
+            throw new Exception\InvalidArgumentException(sprintf('"%s" is not enum of this field', $enum));
         }
     }
 

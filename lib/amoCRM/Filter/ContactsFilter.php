@@ -3,7 +3,7 @@
 namespace amoCRM\Filter;
 
 use amoCRM\Entity\Contact;
-use amoCRM\Exceptions\InvalidArgumentException;
+use amoCRM\Exception\InvalidArgumentException;
 
 /**
  * Class ContactsFilter

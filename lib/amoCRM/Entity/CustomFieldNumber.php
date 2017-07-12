@@ -12,7 +12,7 @@ final class CustomFieldNumber extends CustomFieldSingleValue
 {
     /**
      * @param integer $value
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function setValue($value)
     {

@@ -3,7 +3,7 @@
 namespace amoCRM\Repository\Factory;
 
 use amoCRM\Entity;
-use amoCRM\Exceptions\InvalidArgumentException;
+use amoCRM\Exception\InvalidArgumentException;
 use amoCRM\Interfaces\Requester;
 use amoCRM\Repository\ContactsRepository;
 use amoCRM\Repository\LeadsRepository;

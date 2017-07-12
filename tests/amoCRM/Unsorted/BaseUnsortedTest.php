@@ -82,7 +82,7 @@ final class BaseUnsortedTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedException \amoCRM\Exception\ValidateException
      * @expectedExceptionMessage Data can't be empty
      */
     public function testToAmoThrowValidateExceptionEmptyData()
@@ -96,7 +96,7 @@ final class BaseUnsortedTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedException \amoCRM\Exception\ValidateException
      * @expectedExceptionMessage Can't create unsorted without at least one lead
      */
     public function testToAmoThrowValidateExceptionEmptyLeadName()
@@ -111,7 +111,7 @@ final class BaseUnsortedTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedException \amoCRM\Exception\ValidateException
      * @expectedExceptionMessage Source can't be empty
      */
     public function testToAmoThrowValidateExceptionEmptySource()
@@ -125,7 +125,7 @@ final class BaseUnsortedTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedException \amoCRM\Exception\ValidateException
      * @expectedExceptionMessage Source Uid can't be empty
      */
     public function testToAmoThrowValidateExceptionEmptySourceUid()
@@ -139,7 +139,7 @@ final class BaseUnsortedTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedException \amoCRM\Exception\ValidateException
      * @expectedExceptionMessage Source Data can't be empty
      */
     public function testToAmoThrowValidateExceptionEmptySourceData()

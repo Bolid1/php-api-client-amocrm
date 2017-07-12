@@ -2,7 +2,7 @@
 
 namespace amoCRM\Entity;
 
-use amoCRM\Exceptions;
+use amoCRM\Exception;
 
 /**
  * Class User
@@ -28,7 +28,7 @@ final class User implements Interfaces\User
      *
      * @param string $login
      * @param string $api_key
-     * @throws Exceptions\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function __construct($login, $api_key)
     {
@@ -43,13 +43,13 @@ final class User implements Interfaces\User
      * Check if email is valid
      *
      * @param string $email
-     * @throws Exceptions\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     private function ensureIsValidEmail($email)
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $message = sprintf('"%s" is not a valid email address', $email);
-            throw new Exceptions\InvalidArgumentException($message);
+            throw new Exception\InvalidArgumentException($message);
         }
     }
 
@@ -57,13 +57,13 @@ final class User implements Interfaces\User
      * Check if api key is valid
      *
      * @param string $hash
-     * @throws Exceptions\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     private function ensureIsValidHash($hash)
     {
         if (!preg_match('/^[a-z0-9]{32}$/', $hash)) {
             $message = sprintf('"%s" is not a valid api key', $hash);
-            throw new Exceptions\InvalidArgumentException($message);
+            throw new Exception\InvalidArgumentException($message);
         }
     }
 

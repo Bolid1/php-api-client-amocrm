@@ -158,7 +158,7 @@ final class UnsortedFormTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedException \amoCRM\Exception\ValidateException
      * @expectedExceptionMessage Source data elements data empty
      */
     public function testEnsureDataNotEmptyThrowValidateException()
@@ -171,7 +171,7 @@ final class UnsortedFormTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedException \amoCRM\Exception\ValidateException
      * @expectedExceptionMessage Form type is empty
      */
     public function testEnsureFormTypeThrowValidateException()
@@ -184,7 +184,7 @@ final class UnsortedFormTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedException \amoCRM\Exception\ValidateException
      * @expectedExceptionMessage Not allowed form type "12"
      */
     public function testEnsureFormTypeThrowValidateExceptionOnInvalid()
@@ -197,7 +197,7 @@ final class UnsortedFormTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedException \amoCRM\Exception\ValidateException
      * @expectedExceptionMessage Not allowed form type "2"
      */
     public function testEnsureFormTypeThrowValidateExceptionOnString()
@@ -210,7 +210,7 @@ final class UnsortedFormTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedException \amoCRM\Exception\ValidateException
      * @expectedExceptionMessage l
      */
     public function testEnsureOriginNotEmptyArrayThrowValidateException()
@@ -223,7 +223,7 @@ final class UnsortedFormTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedException \amoCRM\Exception\ValidateException
      * @expectedExceptionMessage l
      */
     public function testEnsureWordPressOriginUrlThrowValidateException()
@@ -236,7 +236,7 @@ final class UnsortedFormTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedException \amoCRM\Exception\ValidateException
      * @expectedExceptionMessage Empty request_id
      */
     public function testEnsureWordPressOriginRequestIdThrowValidateException()
@@ -249,7 +249,7 @@ final class UnsortedFormTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedException \amoCRM\Exception\ValidateException
      * @expectedExceptionMessage Empty form_type
      */
     public function testEnsureWordPressOriginFormTypeThrowValidateException()
@@ -262,7 +262,7 @@ final class UnsortedFormTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedException \amoCRM\Exception\ValidateException
      * @expectedExceptionMessage Empty form_id
      */
     public function testEnsureFormRequiredThrowValidateExceptionFieldFormId()
@@ -275,7 +275,7 @@ final class UnsortedFormTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedException \amoCRM\Exception\ValidateException
      * @expectedExceptionMessage Invalid form_id type
      */
     public function testEnsureFormRequiredThrowValidateExceptionFieldFormIdType()
@@ -288,7 +288,7 @@ final class UnsortedFormTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedException \amoCRM\Exception\ValidateException
      * @expectedExceptionMessage Empty date
      */
     public function testEnsureFormRequiredThrowValidateExceptionFieldDate()
@@ -301,7 +301,7 @@ final class UnsortedFormTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedException \amoCRM\Exception\ValidateException
      * @expectedExceptionMessage Invalid date type
      */
     public function testEnsureFormRequiredThrowValidateExceptionFieldDateType()
@@ -314,7 +314,7 @@ final class UnsortedFormTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedException \amoCRM\Exception\ValidateException
      * @expectedExceptionMessage Empty from
      */
     public function testEnsureFormRequiredThrowValidateExceptionFieldFrom()
@@ -327,7 +327,7 @@ final class UnsortedFormTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\ValidateException
+     * @expectedException \amoCRM\Exception\ValidateException
      * @expectedExceptionMessage Invalid from type
      */
     public function testEnsureFormRequiredThrowValidateExceptionFieldFromType()

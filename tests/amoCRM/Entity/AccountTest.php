@@ -29,7 +29,7 @@ final class AccountTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testCannotBeCreatedFromInvalidSubdomain()
     {
@@ -37,7 +37,7 @@ final class AccountTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testCannotBeCreatedFromInvalidTopLevelDomain()
     {
@@ -57,7 +57,7 @@ final class AccountTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testCannotSetInvalidTopLevelDomain()
     {

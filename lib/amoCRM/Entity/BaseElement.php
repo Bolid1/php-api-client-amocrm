@@ -2,7 +2,7 @@
 
 namespace amoCRM\Entity;
 
-use amoCRM\Exceptions;
+use amoCRM\Exception;
 
 /**
  * Class BaseElement
@@ -53,7 +53,7 @@ abstract class BaseElement
 
     /**
      * @param integer $id
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function setId($id)
     {
@@ -64,18 +64,18 @@ abstract class BaseElement
      * @param integer $number
      * @param bool $can_be_less_one
      * @return int
-     * @throws Exceptions\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     protected function parseInteger($number, $can_be_less_one = false)
     {
         if (!is_numeric($number)) {
-            throw new Exceptions\InvalidArgumentException(sprintf('Invalid integer "%s"', $number));
+            throw new Exception\InvalidArgumentException(sprintf('Invalid integer "%s"', $number));
         }
 
         $number = (int)$number;
 
         if ($can_be_less_one !== true && $number < 1) {
-            throw new Exceptions\InvalidArgumentException(sprintf('Invalid integer "%s"', $number));
+            throw new Exception\InvalidArgumentException(sprintf('Invalid integer "%s"', $number));
         }
 
         return $number;
@@ -91,7 +91,7 @@ abstract class BaseElement
 
     /**
      * @param string|integer $date_create
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function setDateCreate($date_create)
     {
@@ -101,7 +101,7 @@ abstract class BaseElement
     /**
      * @param integer|string $date
      * @return int
-     * @throws Exceptions\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     private function parseDate($date)
     {
@@ -116,7 +116,7 @@ abstract class BaseElement
         }
 
         if ($result === null) {
-            throw new Exceptions\InvalidArgumentException(sprintf('Invalid date "%s"', $date));
+            throw new Exception\InvalidArgumentException(sprintf('Invalid date "%s"', $date));
         }
 
         return $result;
@@ -124,7 +124,7 @@ abstract class BaseElement
 
     /**
      * @param integer $created_by
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function setCreatedBy($created_by)
     {
@@ -133,7 +133,7 @@ abstract class BaseElement
 
     /**
      * @param string|integer $date_modify
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function setDateModify($date_modify)
     {
@@ -142,7 +142,7 @@ abstract class BaseElement
 
     /**
      * @param integer $modified_by
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function setModifiedBy($modified_by)
     {
@@ -151,7 +151,7 @@ abstract class BaseElement
 
     /**
      * @param integer $responsible
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function setResponsible($responsible)
     {

@@ -3,7 +3,7 @@
 namespace amoCRM\Unsorted\UnsortedFormFields;
 
 use amoCRM\Entity;
-use amoCRM\Exceptions\InvalidArgumentException;
+use amoCRM\Exception\InvalidArgumentException;
 
 /**
  * Class BaseFormField
@@ -31,7 +31,7 @@ abstract class BaseFormField
      * @param int $id
      * @param string $type
      * @param integer $element_type
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function __construct($id, $type, $element_type)
     {

@@ -30,9 +30,9 @@ final class Requester extends BaseRequester
      * @param array|string [$query=null]
      *
      * @return array
-     * @throws \amoCRM\Exceptions\AuthFailed
+     * @throws \amoCRM\Exception\AuthFailed
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \amoCRM\Exceptions\RuntimeException
+     * @throws \amoCRM\Exception\RuntimeException
      */
     public function get($path, $query = null)
     {
@@ -43,9 +43,9 @@ final class Requester extends BaseRequester
 
     /**
      * If auth not initialized, initialize it
-     * @throws Exceptions\RuntimeException if auth failed
+     * @throws Exception\RuntimeException if auth failed
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \amoCRM\Exceptions\AuthFailed
+     * @throws \amoCRM\Exception\AuthFailed
      */
     private function checkHasAuth()
     {
@@ -66,9 +66,9 @@ final class Requester extends BaseRequester
      * @param array|string [$query=null]
      *
      * @return array
-     * @throws \amoCRM\Exceptions\AuthFailed
+     * @throws \amoCRM\Exception\AuthFailed
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \amoCRM\Exceptions\RuntimeException
+     * @throws \amoCRM\Exception\RuntimeException
      */
     public function post($path, $data, $query = null)
     {

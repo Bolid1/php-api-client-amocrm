@@ -2,7 +2,7 @@
 
 namespace amoCRM\Entity;
 
-use amoCRM\Exceptions;
+use amoCRM\Exception;
 
 /**
  * Class BaseCustomField
@@ -17,7 +17,7 @@ abstract class BaseCustomField
     /**
      * BaseCustomField constructor.
      * @param integer $id
-     * @throws \amoCRM\Exceptions\InvalidArgumentException
+     * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function __construct($id)
     {
@@ -26,7 +26,7 @@ abstract class BaseCustomField
 
     /**
      * @param integer $id
-     * @throws Exceptions\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     private function setId($id)
     {
@@ -38,21 +38,21 @@ abstract class BaseCustomField
      * @param bool $can_be_equal_zero
      * @param bool $can_be_less_zero
      * @return int
-     * @throws Exceptions\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     protected function parseNumber($int, $can_be_equal_zero = false, $can_be_less_zero = false)
     {
         if (!is_numeric($int)) {
-            throw new Exceptions\InvalidArgumentException(sprintf('"%s" is not a number', $int));
+            throw new Exception\InvalidArgumentException(sprintf('"%s" is not a number', $int));
         }
 
         $tmp = (int)$int;
         if ($can_be_less_zero !== true && $tmp < 0) {
-            throw new Exceptions\InvalidArgumentException(sprintf('"%s" is less zero', $int));
+            throw new Exception\InvalidArgumentException(sprintf('"%s" is less zero', $int));
         }
 
         if ($can_be_equal_zero !== true && $tmp === 0) {
-            throw new Exceptions\InvalidArgumentException(sprintf('"%s" is equal zero', $int));
+            throw new Exception\InvalidArgumentException(sprintf('"%s" is equal zero', $int));
         }
 
         return $tmp;

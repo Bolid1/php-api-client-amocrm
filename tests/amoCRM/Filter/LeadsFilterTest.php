@@ -42,7 +42,7 @@ final class LeadsFilterTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      * @expectedExceptionMessage Must be greater than zero, "0" given
      */
     public function testThrowNotPositiveStatus()

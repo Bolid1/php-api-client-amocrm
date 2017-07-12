@@ -35,7 +35,7 @@ final class BaseEntityRepositoryTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testCannotBeCreatedFromInvalidNames()
     {
@@ -52,7 +52,7 @@ final class BaseEntityRepositoryTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testCannotBeCreatedFromInvalidPaths()
     {
@@ -69,7 +69,7 @@ final class BaseEntityRepositoryTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testBuildFailedForAdd()
     {
@@ -96,7 +96,7 @@ final class BaseEntityRepositoryTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testBuildFailedForUpdate()
     {
@@ -123,7 +123,7 @@ final class BaseEntityRepositoryTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testBuildFailedForUpdateWithoutId()
     {
@@ -332,7 +332,7 @@ final class BaseEntityRepositoryTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      * @expectedExceptionMessage Invalid navigation field "offset" value: "-1"
      */
     public function testSearchThrowInvalidArgumentExceptionLessZero()
@@ -367,7 +367,7 @@ final class BaseEntityRepositoryTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      * @expectedExceptionMessage Invalid navigation field "limit" value: "0"
      */
     public function testSearchThrowInvalidArgumentExceptionLimitEqualZero()
@@ -377,7 +377,7 @@ final class BaseEntityRepositoryTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exceptions\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\InvalidArgumentException
      * @expectedExceptionMessage Invalid navigation field "limit" value: "501"
      */
     public function testSearchThrowInvalidArgumentExceptionLimitGreater500()
