@@ -8,35 +8,40 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class BaseCustomFieldTest
  * @package Tests\amoCRM\Entity
- * @covers \amoCRM\Entity\BaseCustomField
+ * @coversDefaultClass \amoCRM\Entity\BaseCustomField
  */
 final class BaseCustomFieldTest extends TestCase
 {
     /** @var string */
     private static $default_value = 'result';
-    /** @var int */
-    protected $default_id = 25;
 
+    /**
+     * @TODO: Less covered methods
+     * @covers ::__construct
+     * @covers ::setId
+     * @covers ::getId
+     * @covers ::parseNumber
+     * @covers ::ensureIsNumeric
+     * @covers ::ensureGreaterOrEqualZero
+     * @covers ::ensureNotEqualZero
+     */
     public function testSetId()
     {
-        $stub = $this->buildMock();
+        $id = 25;
+        $stub = $this->buildMock($id);
 
-        $this->assertEquals(['id' => $this->default_id, 'values' => self::$default_value], $stub->toAmo());
+        $this->assertEquals($id, $stub->getId());
     }
 
     /**
      * @param integer $id
      * @return BaseCustomField
      */
-    private function buildMock($id = null)
+    private function buildMock($id)
     {
-        if ($id === null) {
-            $id = $this->default_id;
-        }
-
         $stub = $this->getMockBuilder(BaseCustomField::class)
             ->setConstructorArgs([$id])
-            ->setMethodsExcept(['toAmo'])
+            ->setMethodsExcept(['toAmo', 'getId'])
             ->getMock();
 
         $stub
@@ -48,6 +53,20 @@ final class BaseCustomFieldTest extends TestCase
     }
 
     /**
+     * @covers ::toAmo
+     */
+    public function testToAmo()
+    {
+        $id = 25;
+        $stub = $this->buildMock($id);
+
+        $this->assertEquals(['id' => $id, 'values' => self::$default_value], $stub->toAmo());
+    }
+
+    /**
+     * @covers ::setId
+     * @covers ::parseNumber
+     * @covers ::ensureIsNumeric
      * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetIdThrowInvalidArgumentNaN()
@@ -56,6 +75,9 @@ final class BaseCustomFieldTest extends TestCase
     }
 
     /**
+     * @covers ::setId
+     * @covers ::parseNumber
+     * @covers ::ensureGreaterOrEqualZero
      * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetIdThrowInvalidArgumentPositive()
@@ -64,6 +86,9 @@ final class BaseCustomFieldTest extends TestCase
     }
 
     /**
+     * @covers ::setId
+     * @covers ::parseNumber
+     * @covers ::ensureNotEqualZero
      * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testSetIdThrowInvalidArgumentZero()
