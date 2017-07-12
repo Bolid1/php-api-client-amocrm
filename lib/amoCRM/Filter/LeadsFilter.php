@@ -1,11 +1,11 @@
 <?php
 
-namespace amoCRM\Entities\Filters;
+namespace amoCRM\Filter;
 
 /**
  * Class LeadsFilter
  * @link https://developers.amocrm.ru/rest_api/leads_list.php
- * @package amoCRM\Entities\Filters
+ * @package amoCRM\Filter
  */
 final class LeadsFilter extends BaseEntityFilter
 {

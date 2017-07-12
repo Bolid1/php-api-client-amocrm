@@ -1,16 +1,16 @@
 <?php
 
-namespace Tests\amoCRM\Entities\Filters;
+namespace Tests\amoCRM\Filter;
 
-use amoCRM\Entities\Filters\BaseEntityFilter;
-use amoCRM\Entities\Filters\ContactsFilter;
-use amoCRM\Entities\Filters\Interfaces\SearchFilter;
+use amoCRM\Filter\BaseEntityFilter;
+use amoCRM\Filter\ContactsFilter;
+use amoCRM\Filter\Interfaces\SearchFilter;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class ContactsFilterTest
- * @package Tests\amoCRM\Entities\Filters
- * @covers \amoCRM\Entities\Filters\ContactsFilter
+ * @package Tests\amoCRM\Filter
+ * @covers \amoCRM\Filter\ContactsFilter
  */
 final class ContactsFilterTest extends TestCase
 {

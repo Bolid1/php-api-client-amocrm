@@ -2,8 +2,8 @@
 
 namespace amoCRM\Entities;
 
-use amoCRM\Entities\Filters\Interfaces\SearchFilter;
 use amoCRM\Exceptions;
+use amoCRM\Filter\Interfaces\SearchFilter;
 use amoCRM\Interfaces\Requester;
 
 /**

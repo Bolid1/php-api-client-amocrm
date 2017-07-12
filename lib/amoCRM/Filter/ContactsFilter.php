@@ -1,6 +1,6 @@
 <?php
 
-namespace amoCRM\Entities\Filters;
+namespace amoCRM\Filter;
 
 use amoCRM\Entity\Contact;
 use amoCRM\Exceptions\InvalidArgumentException;
@@ -8,7 +8,7 @@ use amoCRM\Exceptions\InvalidArgumentException;
 /**
  * Class ContactsFilter
  * @link https://developers.amocrm.ru/rest_api/contacts_list.php Parameters
- * @package amoCRM\Entities\Filters
+ * @package amoCRM\Filter
  */
 final class ContactsFilter extends BaseEntityFilter
 {

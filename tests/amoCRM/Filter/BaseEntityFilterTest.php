@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests\amoCRM\Entities\Filters;
+namespace Tests\amoCRM\Filter;
 
-use amoCRM\Entities\Filters\BaseEntityFilter;
+use amoCRM\Filter\BaseEntityFilter;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class BaseEntityFilterTest
- * @package Tests\amoCRM\Entities\Filters
- * @covers \amoCRM\Entities\Filters\BaseEntityFilter
+ * @package Tests\amoCRM\Filter
+ * @covers \amoCRM\Filter\BaseEntityFilter
  */
 final class BaseEntityFilterTest extends TestCase
 {

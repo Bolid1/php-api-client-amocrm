@@ -1,13 +1,13 @@
 <?php
 
-namespace amoCRM\Entities\Filters;
+namespace amoCRM\Filter;
 
 use amoCRM\Exceptions\InvalidArgumentException;
 
 /**
  * Class BaseEntityFilter
  * Common methods for filters
- * @package amoCRM\Entities\Filters
+ * @package amoCRM\Filter
  */
 abstract class BaseEntityFilter implements Interfaces\SearchFilter
 {

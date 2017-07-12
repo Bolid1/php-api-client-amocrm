@@ -3,7 +3,7 @@
 namespace Tests\amoCRM\Entities;
 
 use amoCRM\Entities\BaseEntityRequester;
-use amoCRM\Entities\Filters\Interfaces\SearchFilter;
+use amoCRM\Filter\Interfaces\SearchFilter;
 use amoCRM\Interfaces\Requester;
 use PHPUnit\Framework\TestCase;
 
@@ -328,7 +328,6 @@ final class BaseEntityRequesterTest extends TestCase
             ->setMethods()
             ->getMock();
 
-        /** @var BaseEntityRequester $stub */
         $this->assertEquals($elements, $stub->search($filter, $nav));
     }
 

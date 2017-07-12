@@ -1,11 +1,11 @@
 <?php
 
-namespace amoCRM\Entities\Filters\Interfaces;
+namespace amoCRM\Filter\Interfaces;
 
 /**
  * Interface SearchFilter
  * Base search interface for elements/list requests
- * @package amoCRM\Entities\Filters\Interfaces
+ * @package amoCRM\Filter\Interfaces
  */
 interface SearchFilter
 {
