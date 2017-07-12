@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class AccountTest
  * @package Tests\amoCRM
- * @covers \amoCRM\Entity\Account
+ * @coversDefaultClass \amoCRM\Entity\Account
  */
 final class AccountTest extends TestCase
 {
@@ -20,6 +20,9 @@ final class AccountTest extends TestCase
         );
     }
 
+    /**
+     * @covers ::__construct
+     */
     public function testCanBeCreatedFromValidSubdomainAndTopLevelDomain()
     {
         $this->assertInstanceOf(
@@ -29,6 +32,7 @@ final class AccountTest extends TestCase
     }
 
     /**
+     * @covers ::ensureIsValidSubdomain
      * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testCannotBeCreatedFromInvalidSubdomain()
@@ -37,14 +41,10 @@ final class AccountTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
+     * @covers ::setTopLevelDomain
+     * @covers ::ensureIsValidSubdomain
      */
-    public function testCannotBeCreatedFromInvalidTopLevelDomain()
-    {
-        new Account('subdomain', 'some string');
-    }
-
-    public function testCanSetInvalidTopLevelDomain()
+    public function testSetTopLevelDomain()
     {
         $account = new Account('subdomain');
 
@@ -57,6 +57,7 @@ final class AccountTest extends TestCase
     }
 
     /**
+     * @covers ::ensureIsValidTopLevelDomain
      * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testCannotSetInvalidTopLevelDomain()
@@ -65,6 +66,9 @@ final class AccountTest extends TestCase
         $account->setTopLevelDomain('bar');
     }
 
+    /**
+     * @covers ::getAddress
+     */
     public function testReturnValidAddress()
     {
         $account = new Account('subdomain', Account::TOP_LEVEL_DOMAIN_RU);
@@ -72,6 +76,10 @@ final class AccountTest extends TestCase
         $this->assertEquals($base_url, $account->getAddress());
     }
 
+    /**
+     * @covers ::getSubdomain
+     * @covers ::setSubdomain
+     */
     public function testGetSubdomain()
     {
         $subdomain = 'subdomain';

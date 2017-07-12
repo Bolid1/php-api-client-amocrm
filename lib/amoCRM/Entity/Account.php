@@ -31,10 +31,19 @@ final class Account implements Interfaces\Account
      */
     public function __construct($subdomain, $top_level_domain = self::TOP_LEVEL_DOMAIN_RU)
     {
+        $this->setSubdomain($subdomain);
+        $this->setTopLevelDomain($top_level_domain);
+    }
+
+    /**
+     * @param string $subdomain
+     * @throws \amoCRM\Exception\InvalidArgumentException
+     */
+    private function setSubdomain($subdomain)
+    {
         $this->ensureIsValidSubdomain($subdomain);
 
         $this->subdomain = $subdomain;
-        $this->setTopLevelDomain($top_level_domain);
     }
 
     /**
