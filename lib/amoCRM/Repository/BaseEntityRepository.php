@@ -1,6 +1,6 @@
 <?php
 
-namespace amoCRM\Entities;
+namespace amoCRM\Repository;
 
 use amoCRM\Exceptions;
 use amoCRM\Filter\Interfaces\SearchFilter;
@@ -11,7 +11,7 @@ use amoCRM\Interfaces\Requester;
  * @package amoCRM\Entities
  * Base class for amoCRM entities requests manager
  */
-abstract class BaseEntityRequester
+abstract class BaseEntityRepository
 {
     /** @var  Requester */
     private $requester;

@@ -1,11 +1,11 @@
 <?php
 
-namespace amoCRM\Entities;
+namespace amoCRM\Repository;
 
 use amoCRM\Entity\Contact;
 use amoCRM\Interfaces\Requester;
 
-class ContactsRequester extends BaseEntityRequester
+class ContactsRepository extends BaseEntityRepository
 {
     public function __construct(Requester $_requester)
     {

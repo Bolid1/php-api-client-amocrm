@@ -1,16 +1,18 @@
 <?php
 
-namespace amoCRM\Entities;
+namespace amoCRM\Repository\Factory;
 
 use amoCRM\Entity;
 use amoCRM\Exceptions\InvalidArgumentException;
 use amoCRM\Interfaces\Requester;
+use amoCRM\Repository\ContactsRepository;
+use amoCRM\Repository\LeadsRepository;
 
 /**
  * Class EntitiesRequesterFactory
  * @package amoCRM\Entities
  */
-final class EntitiesRequesterFactory
+final class EntitiesRepositoryFactory
 {
     /** @var Requester */
     private $requester;
@@ -25,8 +27,8 @@ final class EntitiesRequesterFactory
     }
 
     /**
-     * @param $element_type
-     * @return BaseEntityRequester
+     * @param string|integer $element_type
+     * @return ContactsRepository|LeadsRepository
      * @throws InvalidArgumentException
      */
     public function make($element_type)
@@ -35,12 +37,12 @@ final class EntitiesRequesterFactory
             case Entity\Lead::TYPE_NUMERIC:
             case Entity\Lead::TYPE_SINGLE:
             case Entity\Lead::TYPE_MANY:
-                $result = new LeadsRequester($this->requester);
+                $result = new LeadsRepository($this->requester);
                 break;
             case Entity\Contact::TYPE_NUMERIC:
             case Entity\Contact::TYPE_SINGLE:
             case Entity\Contact::TYPE_MANY:
-                $result = new ContactsRequester($this->requester);
+                $result = new ContactsRepository($this->requester);
                 break;
             default:
                 throw new InvalidArgumentException(sprintf('Unknown element type "%s"', $element_type));

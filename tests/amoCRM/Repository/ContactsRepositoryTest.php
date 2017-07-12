@@ -2,18 +2,18 @@
 
 namespace Tests\amoCRM\Entities;
 
-use amoCRM\Entities\BaseEntityRequester;
-use amoCRM\Entities\ContactsRequester;
 use amoCRM\Entity\Contact;
 use amoCRM\Interfaces\Requester;
+use amoCRM\Repository\BaseEntityRepository;
+use amoCRM\Repository\ContactsRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class ContactsRequesterTest
  * @package Tests\amoCRM\Entities
- * @covers \amoCRM\Entities\ContactsRequester
+ * @covers \amoCRM\Repository\ContactsRepository
  */
-final class ContactsRequesterTest extends TestCase
+final class ContactsRepositoryTest extends TestCase
 {
     /** @var Requester */
     private $requester;
@@ -21,8 +21,8 @@ final class ContactsRequesterTest extends TestCase
     public function testInstanceOfBaseEntityRequester()
     {
         $this->assertInstanceOf(
-            BaseEntityRequester::class,
-            new ContactsRequester($this->requester)
+            BaseEntityRepository::class,
+            new ContactsRepository($this->requester)
         );
     }
 
@@ -57,14 +57,14 @@ final class ContactsRequesterTest extends TestCase
             $requester,
         ];
 
-        $stub = $this->getMockBuilder(ContactsRequester::class)
+        $stub = $this->getMockBuilder(ContactsRepository::class)
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
             ->setMethods()
             ->getMock();
 
-        /** @var BaseEntityRequester $stub */
+        /** @var BaseEntityRepository $stub */
         $this->assertEquals($post_result[Contact::TYPE_MANY]['add'], $stub->add($elements));
     }
 

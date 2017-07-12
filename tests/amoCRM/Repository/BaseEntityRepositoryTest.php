@@ -2,17 +2,17 @@
 
 namespace Tests\amoCRM\Entities;
 
-use amoCRM\Entities\BaseEntityRequester;
 use amoCRM\Filter\Interfaces\SearchFilter;
 use amoCRM\Interfaces\Requester;
+use amoCRM\Repository\BaseEntityRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class BaseEntityRequesterTest
  * @package Tests\amoCRM\Entities
- * @covers \amoCRM\Entities\BaseEntityRequester
+ * @covers \amoCRM\Repository\BaseEntityRepository
  */
-final class BaseEntityRequesterTest extends TestCase
+final class BaseEntityRepositoryTest extends TestCase
 {
     public function testCanBeCreatedFromValidNamesAndPaths()
     {
@@ -22,14 +22,14 @@ final class BaseEntityRequesterTest extends TestCase
             ['list' => 'elements/list', 'set' => 'elements/set'],
         ];
 
-        $stub = $this->getMockBuilder(BaseEntityRequester::class)
+        $stub = $this->getMockBuilder(BaseEntityRepository::class)
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             ->getMock();
 
 
         $this->assertInstanceOf(
-            BaseEntityRequester::class,
+            BaseEntityRepository::class,
             $stub
         );
     }
@@ -45,7 +45,7 @@ final class BaseEntityRequesterTest extends TestCase
             ['list' => 'elements/list', 'set' => 'elements/set'],
         ];
 
-        $this->getMockBuilder(BaseEntityRequester::class)
+        $this->getMockBuilder(BaseEntityRepository::class)
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             ->getMock();
@@ -62,7 +62,7 @@ final class BaseEntityRequesterTest extends TestCase
             ['set' => null],
         ];
 
-        $this->getMockBuilder(BaseEntityRequester::class)
+        $this->getMockBuilder(BaseEntityRepository::class)
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             ->getMock();
@@ -84,14 +84,14 @@ final class BaseEntityRequesterTest extends TestCase
             ['list' => 'elements/list', 'set' => 'elements/set'],
         ];
 
-        $stub = $this->getMockBuilder(BaseEntityRequester::class)
+        $stub = $this->getMockBuilder(BaseEntityRepository::class)
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
             ->setMethods()
             ->getMock();
 
-        /** @var BaseEntityRequester $stub */
+        /** @var BaseEntityRepository $stub */
         $stub->add($elements);
     }
 
@@ -111,14 +111,14 @@ final class BaseEntityRequesterTest extends TestCase
             ['list' => 'elements/list', 'set' => 'elements/set'],
         ];
 
-        $stub = $this->getMockBuilder(BaseEntityRequester::class)
+        $stub = $this->getMockBuilder(BaseEntityRepository::class)
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
             ->setMethods()
             ->getMock();
 
-        /** @var BaseEntityRequester $stub */
+        /** @var BaseEntityRepository $stub */
         $stub->update($elements);
     }
 
@@ -138,14 +138,14 @@ final class BaseEntityRequesterTest extends TestCase
             ['list' => 'elements/list', 'set' => 'elements/set'],
         ];
 
-        $stub = $this->getMockBuilder(BaseEntityRequester::class)
+        $stub = $this->getMockBuilder(BaseEntityRepository::class)
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
             ->setMethods()
             ->getMock();
 
-        /** @var BaseEntityRequester $stub */
+        /** @var BaseEntityRepository $stub */
         $stub->update($elements);
     }
 
@@ -182,14 +182,14 @@ final class BaseEntityRequesterTest extends TestCase
             ['list' => 'elements/list', 'set' => 'elements/set'],
         ];
 
-        $stub = $this->getMockBuilder(BaseEntityRequester::class)
+        $stub = $this->getMockBuilder(BaseEntityRepository::class)
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
             ->setMethods()
             ->getMock();
 
-        /** @var BaseEntityRequester $stub */
+        /** @var BaseEntityRepository $stub */
         $this->assertEquals($post_result['elements']['add'], $stub->add($elements));
     }
 
@@ -227,14 +227,14 @@ final class BaseEntityRequesterTest extends TestCase
             ['list' => 'elements/list', 'set' => 'elements/set'],
         ];
 
-        $stub = $this->getMockBuilder(BaseEntityRequester::class)
+        $stub = $this->getMockBuilder(BaseEntityRepository::class)
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
             ->setMethods()
             ->getMock();
 
-        /** @var BaseEntityRequester $stub */
+        /** @var BaseEntityRepository $stub */
         $this->assertEquals($post_result['elements']['update'], $stub->update($elements));
     }
 
@@ -265,14 +265,14 @@ final class BaseEntityRequesterTest extends TestCase
             ['list' => 'elements/list', 'set' => 'elements/set'],
         ];
 
-        $stub = $this->getMockBuilder(BaseEntityRequester::class)
+        $stub = $this->getMockBuilder(BaseEntityRepository::class)
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
             ->setMethods()
             ->getMock();
 
-        /** @var BaseEntityRequester $stub */
+        /** @var BaseEntityRepository $stub */
         $this->assertEquals($elements, $stub->search());
     }
 
@@ -321,7 +321,7 @@ final class BaseEntityRequesterTest extends TestCase
             ['list' => 'elements/list', 'set' => 'elements/set'],
         ];
 
-        $stub = $this->getMockBuilder(BaseEntityRequester::class)
+        $stub = $this->getMockBuilder(BaseEntityRepository::class)
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
@@ -342,7 +342,7 @@ final class BaseEntityRequesterTest extends TestCase
     }
 
     /**
-     * @return BaseEntityRequester
+     * @return BaseEntityRepository
      *
      */
     private function buildStubForSearchException()
@@ -355,14 +355,14 @@ final class BaseEntityRequesterTest extends TestCase
             ['list' => 'elements/list', 'set' => 'elements/set'],
         ];
 
-        $stub = $this->getMockBuilder(BaseEntityRequester::class)
+        $stub = $this->getMockBuilder(BaseEntityRepository::class)
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
             ->setMethods()
             ->getMock();
 
-        /** @var BaseEntityRequester $stub */
+        /** @var BaseEntityRepository $stub */
         return $stub;
     }
 
@@ -418,14 +418,14 @@ final class BaseEntityRequesterTest extends TestCase
             ['list' => 'elements/list', 'set' => 'elements/set'],
         ];
 
-        $stub = $this->getMockBuilder(BaseEntityRequester::class)
+        $stub = $this->getMockBuilder(BaseEntityRepository::class)
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
             ->setMethods()
             ->getMock();
 
-        /** @var BaseEntityRequester $stub */
+        /** @var BaseEntityRepository $stub */
         $this->assertEquals($post_result, $stub->add($elements));
     }
 
@@ -462,14 +462,14 @@ final class BaseEntityRequesterTest extends TestCase
             ['list' => 'elements/list', 'set' => 'elements/set'],
         ];
 
-        $stub = $this->getMockBuilder(BaseEntityRequester::class)
+        $stub = $this->getMockBuilder(BaseEntityRepository::class)
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
             ->setMethods()
             ->getMock();
 
-        /** @var BaseEntityRequester $stub */
+        /** @var BaseEntityRepository $stub */
         $this->assertEquals($post_result, $stub->update($elements));
     }
 }
