@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\amoCRM;
+namespace Tests\amoCRM\Service;
 
-use amoCRM\BaseRequester;
 use amoCRM\Entity\Interfaces\Account;
+use amoCRM\Service\BaseRequester;
 use GuzzleHttp\ClientInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Class BaseRequesterTest
  * @package Tests\amoCRM
- * @covers \amoCRM\BaseRequester
+ * @covers \amoCRM\Service\BaseRequester
  */
 final class BaseRequesterTest extends TestCase
 {
@@ -37,9 +37,7 @@ final class BaseRequesterTest extends TestCase
             ->with($this->equalTo('get'))
             ->willReturn($response);
 
-        /** @var ClientInterface $curl */
         $requester = $this->buildMock($curl);
-
         $result = $requester->get('/private/api/auth.php', ['type' => 'json']);
         $expected = json_decode($body, true);
         $this->assertEquals($expected['response'], $result);
@@ -76,7 +74,6 @@ final class BaseRequesterTest extends TestCase
             ->setMethods()
             ->getMock();
 
-        /** @var BaseRequester $requester */
         return $requester;
     }
 

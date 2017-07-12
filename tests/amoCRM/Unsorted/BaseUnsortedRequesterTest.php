@@ -4,7 +4,7 @@ namespace Tests\amoCRM\Unsorted;
 
 use amoCRM\Entity;
 use amoCRM\Exception\InvalidResponseException;
-use amoCRM\Interfaces\Requester;
+use amoCRM\Service\Interfaces\Requester;
 use amoCRM\Unsorted\BaseUnsortedRequester;
 use amoCRM\Unsorted\UnsortedForm;
 use PHPUnit\Framework\TestCase;

@@ -3,7 +3,7 @@
 namespace amoCRM\Repository;
 
 use amoCRM\Entity\Contact;
-use amoCRM\Interfaces\Requester;
+use amoCRM\Service\Interfaces\Requester;
 
 class ContactsRepository extends BaseEntityRepository
 {

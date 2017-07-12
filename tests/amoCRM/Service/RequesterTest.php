@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\amoCRM;
+namespace Tests\amoCRM\Service;
 
-use amoCRM\BaseRequester;
 use amoCRM\Entity\Interfaces\Account;
 use amoCRM\Entity\Interfaces\User;
-use amoCRM\Requester;
+use amoCRM\Service\BaseRequester;
+use amoCRM\Service\Requester;
 use GuzzleHttp\ClientInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -13,7 +13,7 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Class RequesterTest
  * @package Tests\amoCRM
- * @covers \amoCRM\Requester
+ * @covers \amoCRM\Service\Requester
  */
 final class RequesterTest extends TestCase
 {

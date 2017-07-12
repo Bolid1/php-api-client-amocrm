@@ -1,6 +1,6 @@
 <?php
 
-namespace amoCRM\Interfaces;
+namespace amoCRM\Service\Interfaces;
 
 interface RequesterPromo extends Requester
 {

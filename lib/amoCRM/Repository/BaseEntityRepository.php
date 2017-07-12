@@ -4,7 +4,7 @@ namespace amoCRM\Repository;
 
 use amoCRM\Exception;
 use amoCRM\Filter\Interfaces\SearchFilter;
-use amoCRM\Interfaces\Requester;
+use amoCRM\Service\Interfaces\Requester;
 
 /**
  * Class BaseEntityRequester

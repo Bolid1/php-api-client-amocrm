@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\amoCRM;
+namespace Tests\amoCRM\Service;
 
 use amoCRM\Entity\Interfaces\Account;
-use amoCRM\RequesterPromo;
+use amoCRM\Service\RequesterPromo;
 use GuzzleHttp\ClientInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Class RequesterPromoTest
  * @package Tests\amoCRM
- * @covers \amoCRM\RequesterPromo
+ * @covers \amoCRM\Service\RequesterPromo
  */
 final class RequesterPromoTest extends TestCase
 {

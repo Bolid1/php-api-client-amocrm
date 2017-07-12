@@ -1,7 +1,9 @@
 <?php
 
-namespace amoCRM;
+namespace amoCRM\Service;
 
+use amoCRM\Entity;
+use amoCRM\Exception;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;

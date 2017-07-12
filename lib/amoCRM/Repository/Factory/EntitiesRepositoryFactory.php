@@ -4,9 +4,9 @@ namespace amoCRM\Repository\Factory;
 
 use amoCRM\Entity;
 use amoCRM\Exception\InvalidArgumentException;
-use amoCRM\Interfaces\Requester;
 use amoCRM\Repository\ContactsRepository;
 use amoCRM\Repository\LeadsRepository;
+use amoCRM\Service\Interfaces\Requester;
 
 /**
  * Class EntitiesRequesterFactory

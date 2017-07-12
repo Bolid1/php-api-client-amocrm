@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\amoCRM;
+namespace Tests\amoCRM\Service;
 
-use amoCRM\BaseRequester;
 use amoCRM\Entity\Interfaces\Account;
 use amoCRM\Entity\Interfaces\User;
-use amoCRM\RequesterUnsorted;
+use amoCRM\Service\BaseRequester;
+use amoCRM\Service\RequesterUnsorted;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\RequestOptions;
 use PHPUnit\Framework\TestCase;
@@ -14,7 +14,7 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Class RequesterUnsortedTest
  * @package Tests\amoCRM
- * @covers \amoCRM\RequesterUnsorted
+ * @covers \amoCRM\Service\RequesterUnsorted
  */
 final class RequesterUnsortedTest extends TestCase
 {

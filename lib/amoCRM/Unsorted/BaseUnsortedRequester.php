@@ -3,7 +3,7 @@
 namespace amoCRM\Unsorted;
 
 use amoCRM\Exception;
-use amoCRM\Interfaces\Requester;
+use amoCRM\Service\Interfaces\Requester;
 
 /**
  * Class BaseUnsortedRequester

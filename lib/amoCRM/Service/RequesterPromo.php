@@ -1,7 +1,8 @@
 <?php
 
-namespace amoCRM;
+namespace amoCRM\Service;
 
+use amoCRM\Entity;
 use GuzzleHttp\ClientInterface;
 
 /**

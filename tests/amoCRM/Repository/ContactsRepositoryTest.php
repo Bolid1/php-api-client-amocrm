@@ -3,9 +3,9 @@
 namespace Tests\amoCRM\Entities;
 
 use amoCRM\Entity\Contact;
-use amoCRM\Interfaces\Requester;
 use amoCRM\Repository\BaseEntityRepository;
 use amoCRM\Repository\ContactsRepository;
+use amoCRM\Service\Interfaces\Requester;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -3,10 +3,10 @@
 namespace Tests\amoCRM\Repository\Factory;
 
 use amoCRM\Entity;
-use amoCRM\Interfaces\Requester;
 use amoCRM\Repository\ContactsRepository;
 use amoCRM\Repository\Factory\EntitiesRepositoryFactory;
 use amoCRM\Repository\LeadsRepository;
+use amoCRM\Service\Interfaces\Requester;
 use PHPUnit\Framework\TestCase;
 
 /**

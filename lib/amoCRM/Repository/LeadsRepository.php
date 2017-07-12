@@ -3,7 +3,7 @@
 namespace amoCRM\Repository;
 
 use amoCRM\Entity\Lead;
-use amoCRM\Interfaces\Requester;
+use amoCRM\Service\Interfaces\Requester;
 
 class LeadsRepository extends BaseEntityRepository
 {

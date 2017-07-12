@@ -3,8 +3,8 @@
 namespace Tests\amoCRM\Entities;
 
 use amoCRM\Filter\Interfaces\SearchFilter;
-use amoCRM\Interfaces\Requester;
 use amoCRM\Repository\BaseEntityRepository;
+use amoCRM\Service\Interfaces\Requester;
 use PHPUnit\Framework\TestCase;
 
 /**

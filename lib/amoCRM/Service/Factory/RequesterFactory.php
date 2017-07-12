@@ -1,7 +1,12 @@
 <?php
 
-namespace amoCRM;
+namespace amoCRM\Service\Factory;
 
+use amoCRM\Entity;
+use amoCRM\Service\Interfaces;
+use amoCRM\Service\Requester;
+use amoCRM\Service\RequesterPromo;
+use amoCRM\Service\RequesterUnsorted;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\RequestOptions;
@@ -72,7 +77,7 @@ final class RequesterFactory
     }
 
     /**
-     * @return \amoCRM\Interfaces\RequesterPromo
+     * @return \amoCRM\Service\Interfaces\RequesterPromo
      */
     public static function makePromo()
     {

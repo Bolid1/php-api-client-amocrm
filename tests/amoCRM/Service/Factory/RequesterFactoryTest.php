@@ -1,18 +1,18 @@
 <?php
 
-namespace Tests\amoCRM;
+namespace Tests\amoCRM\Factory;
 
 use amoCRM\Exception\AuthFailed;
-use amoCRM\Interfaces\Requester;
-use amoCRM\Interfaces\RequesterPromo;
-use amoCRM\RequesterFactory;
-use amoCRM\RequesterUnsorted;
+use amoCRM\Service\Factory\RequesterFactory;
+use amoCRM\Service\Requester;
+use amoCRM\Service\RequesterPromo;
+use amoCRM\Service\RequesterUnsorted;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class RequesterFactoryTest
  * @package amoCRM
- * @covers \amoCRM\RequesterFactory
+ * @covers \amoCRM\Service\Factory\RequesterFactory
  */
 final class RequesterFactoryTest extends TestCase
 {
