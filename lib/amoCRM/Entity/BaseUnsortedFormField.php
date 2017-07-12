@@ -1,15 +1,15 @@
 <?php
 
-namespace amoCRM\Unsorted\UnsortedFormFields;
+namespace amoCRM\Entity;
 
 use amoCRM\Entity;
 use amoCRM\Exception\InvalidArgumentException;
 
 /**
  * Class BaseFormField
- * @package amoCRM\Unsorted\UnsortedFormFields
+ * @package amoCRM\Entity
  */
-abstract class BaseFormField
+abstract class BaseUnsortedFormField
 {
     /** @var integer */
     private $id;

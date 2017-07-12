@@ -1,15 +1,14 @@
 <?php
 
-namespace amoCRM\Unsorted;
+namespace amoCRM\Entity;
 
 use amoCRM\Entity;
+use amoCRM\Entity\Factory\FormFieldFactory;
 use amoCRM\Exception\ValidateException;
-use amoCRM\Unsorted\UnsortedFormFields\BaseFormField;
-use amoCRM\Unsorted\UnsortedFormFields\FormFieldFactory;
 
 /**
  * Class UnsortedForm
- * @package amoCRM\Unsorted
+ * @package amoCRM\Entity
  */
 final class UnsortedForm extends BaseUnsorted
 {
@@ -19,9 +18,9 @@ final class UnsortedForm extends BaseUnsorted
     const FORM_TYPE_ID_WORDPRESS = 2;
 
     /**
-     * @param BaseFormField $field
+     * @param BaseUnsortedFormField $field
      */
-    public function addFieldValue(BaseFormField $field)
+    public function addFieldValue(BaseUnsortedFormField $field)
     {
         $data = $this->getSourceData('data') ?: [];
         $data[implode('_', [$field->getId(), $field->getElementType()])] = $field;
@@ -194,7 +193,7 @@ final class UnsortedForm extends BaseUnsorted
         $fields = $this->getSourceData('data') ?: [];
 
         foreach ($fields as $key => $field) {
-            if ($field instanceof BaseFormField) {
+            if ($field instanceof BaseUnsortedFormField) {
                 $result[$key] = $field->toAmo();
             }
         }
@@ -237,15 +236,15 @@ final class UnsortedForm extends BaseUnsorted
 
             $cf = null;
             switch ($field['type']) {
-                case UnsortedFormFields\FormFieldText::TYPE:
+                case UnsortedFormFieldText::TYPE:
                     $cf = new Entity\CustomFieldText($field['id']);
                     $cf->setValue($field['value']);
                     break;
-                case UnsortedFormFields\FormFieldNumber::TYPE:
+                case UnsortedFormFieldNumber::TYPE:
                     $cf = new Entity\CustomFieldNumber($field['id']);
                     $cf->setValue($field['value']);
                     break;
-                case UnsortedFormFields\FormFieldMultiText::TYPE:
+                case UnsortedFormFieldMultiText::TYPE:
                     $cf = new Entity\CustomFieldPhones($field['id']);
                     foreach ((array)$field['value'] as $value) {
                         $cf->addValue($cf->getDefaultEnum(), $value);

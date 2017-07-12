@@ -1,20 +1,20 @@
 <?php
 
-namespace Tests\amoCRM\Unsorted;
+namespace Tests\amoCRM\Entity;
 
 use amoCRM\Entity;
+use amoCRM\Entity\UnsortedForm;
 use amoCRM\Exception\InvalidResponseException;
+use amoCRM\Repository\BaseUnsortedRepository;
 use amoCRM\Service\Interfaces\Requester;
-use amoCRM\Unsorted\BaseUnsortedRequester;
-use amoCRM\Unsorted\UnsortedForm;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class BaseUnsortedRequesterTest
- * @package Tests\amoCRM\Unsorted
- * @covers \amoCRM\Unsorted\BaseUnsortedRequester
+ * Class BaseUnsortedRepositoryTest
+ * @package Tests\amoCRM\Entity
+ * @covers \amoCRM\Repository\BaseUnsortedRepository
  */
-final class BaseUnsortedRequesterTest extends TestCase
+final class BaseUnsortedRepositoryTest extends TestCase
 {
     public function testAddUnsorted()
     {
@@ -114,13 +114,13 @@ final class BaseUnsortedRequesterTest extends TestCase
         $requester
             ->expects($this->exactly(3))
             ->method('post')->with(
-                $this->equalTo(BaseUnsortedRequester::BASE_PATH . 'add/'),
+                $this->equalTo(BaseUnsortedRepository::BASE_PATH . 'add/'),
                 $this->equalTo($post_data)
             )
             ->willReturn($success_result, $failed_result, $invalid_result);
 
-        /** @var BaseUnsortedRequester $stub */
-        $stub = $this->getMockBuilder(BaseUnsortedRequester::class)
+        /** @var BaseUnsortedRepository $stub */
+        $stub = $this->getMockBuilder(BaseUnsortedRepository::class)
             ->enableOriginalConstructor()
             ->setConstructorArgs([$requester, UnsortedForm::CATEGORY])
             ->setMethods()
@@ -140,8 +140,8 @@ final class BaseUnsortedRequesterTest extends TestCase
     {
         $requester = $this->createMock(Requester::class);
 
-        /** @var BaseUnsortedRequester $stub */
-        $stub = $this->getMockBuilder(BaseUnsortedRequester::class)
+        /** @var BaseUnsortedRepository $stub */
+        $stub = $this->getMockBuilder(BaseUnsortedRepository::class)
             ->enableOriginalConstructor()
             ->setConstructorArgs([$requester, UnsortedForm::CATEGORY])
             ->setMethods()

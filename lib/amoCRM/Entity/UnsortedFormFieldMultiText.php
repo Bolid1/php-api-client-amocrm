@@ -1,12 +1,12 @@
 <?php
 
-namespace amoCRM\Unsorted\UnsortedFormFields;
+namespace amoCRM\Entity;
 
 /**
  * Class FormFieldMultiText
- * @package amoCRM\Unsorted\UnsortedFormFields
+ * @package amoCRM\Entity
  */
-final class FormFieldMultiText extends BaseFormField
+final class UnsortedFormFieldMultiText extends BaseUnsortedFormField
 {
     const TYPE = 'multitext';
 

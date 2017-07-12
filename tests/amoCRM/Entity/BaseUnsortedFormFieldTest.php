@@ -1,17 +1,17 @@
 <?php
 
-namespace Tests\amoCRM\Unsorted\UnsortedFormFields;
+namespace Tests\amoCRM\Entity;
 
+use amoCRM\Entity\BaseUnsortedFormField;
 use amoCRM\Entity\Lead;
-use amoCRM\Unsorted\UnsortedFormFields\BaseFormField;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class BaseFormFieldTest
- * @package Tests\amoCRM\Unsorted\UnsortedFormFields
- * @covers \amoCRM\Unsorted\UnsortedFormFields\BaseFormField
+ * Class BaseUnsortedFormFieldTest
+ * @package Tests\amoCRM\Entity
+ * @covers \amoCRM\Entity\BaseUnsortedFormField
  */
-final class BaseFormFieldTest extends TestCase
+final class BaseUnsortedFormFieldTest extends TestCase
 {
     private static $default = [
         'id' => 'name',
@@ -27,7 +27,7 @@ final class BaseFormFieldTest extends TestCase
 
     /**
      * @param array $args
-     * @return BaseFormField
+     * @return BaseUnsortedFormField
      */
     protected function buildMock($args = null)
     {
@@ -36,13 +36,13 @@ final class BaseFormFieldTest extends TestCase
         }
 
         $field = $this
-            ->getMockBuilder(BaseFormField::class)
+            ->getMockBuilder(BaseUnsortedFormField::class)
             ->enableOriginalConstructor()
             ->setConstructorArgs($args)
             ->setMethods()
             ->getMock();
 
-        /** @var BaseFormField $field */
+        /** @var BaseUnsortedFormField $field */
         return $field;
     }
 

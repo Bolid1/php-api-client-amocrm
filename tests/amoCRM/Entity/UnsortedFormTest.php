@@ -1,15 +1,15 @@
 <?php
 
-namespace Tests\amoCRM\Unsorted;
+namespace Tests\amoCRM\Entity;
 
 use amoCRM\Entity;
-use amoCRM\Unsorted\UnsortedForm;
+use amoCRM\Entity\UnsortedForm;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class UnsortedFormTest
- * @package Tests\amoCRM\Unsorted
- * @covers \amoCRM\Unsorted\UnsortedForm
+ * @package Tests\amoCRM\Entity
+ * @covers \amoCRM\Entity\UnsortedForm
  */
 final class UnsortedFormTest extends TestCase
 {

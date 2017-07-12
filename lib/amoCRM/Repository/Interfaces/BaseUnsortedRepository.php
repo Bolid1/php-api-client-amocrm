@@ -1,13 +1,13 @@
 <?php
 
-namespace amoCRM\Unsorted\Interfaces;
+namespace amoCRM\Repository\Interfaces;
 
 /**
- * Interface BaseUnsortedRequester
+ * Interface BaseUnsortedRepository
  * Common methods for unsorted requests
  * @package amoCRM\Unsorted\Interfaces
  */
-interface BaseUnsortedRequester
+interface BaseUnsortedRepository
 {
     /**
      * Send request to add unsorted

@@ -1,6 +1,6 @@
 <?php
 
-namespace amoCRM\Unsorted;
+namespace amoCRM\Entity;
 
 use amoCRM\Entity;
 use amoCRM\Exception\RuntimeException;
@@ -8,7 +8,7 @@ use amoCRM\Exception\ValidateException;
 
 /**
  * Class BaseUnsorted
- * @package amoCRM\Unsorted
+ * @package amoCRM\Entity
  */
 abstract class BaseUnsorted
 {

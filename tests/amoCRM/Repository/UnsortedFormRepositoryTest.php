@@ -1,18 +1,18 @@
 <?php
 
-namespace Tests\amoCRM\Unsorted;
+namespace Tests\amoCRM\Entity;
 
+use amoCRM\Repository\BaseUnsortedRepository;
+use amoCRM\Repository\UnsortedFormRequester;
 use amoCRM\Service\Interfaces\Requester;
-use amoCRM\Unsorted\BaseUnsortedRequester;
-use amoCRM\Unsorted\UnsortedFormRequester;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class UnsortedFormRequesterTest
- * @package Tests\amoCRM\Unsorted
- * @covers \amoCRM\Unsorted\UnsortedFormRequester
+ * @package Tests\amoCRM\Entity
+ * @covers \amoCRM\Repository\UnsortedFormRequester
  */
-final class UnsortedFormRequesterTest extends TestCase
+final class UnsortedFormRepositoryTest extends TestCase
 {
 
     public function testInstanceOfBaseUnsortedRequester()
@@ -21,7 +21,7 @@ final class UnsortedFormRequesterTest extends TestCase
         $requester = $this->createMock(Requester::class);
 
         $this->assertInstanceOf(
-            BaseUnsortedRequester::class,
+            BaseUnsortedRepository::class,
             new UnsortedFormRequester($requester)
         );
     }

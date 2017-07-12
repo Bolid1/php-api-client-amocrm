@@ -1,12 +1,12 @@
 <?php
 
-namespace amoCRM\Unsorted\UnsortedFormFields;
+namespace amoCRM\Entity;
 
 /**
  * Class FormFieldNumber
- * @package amoCRM\Unsorted\UnsortedFormFields
+ * @package amoCRM\Entity
  */
-final class FormFieldNumber extends BaseFormField
+final class UnsortedFormFieldNumber extends BaseUnsortedFormField
 {
     const TYPE = 'numeric';
 
