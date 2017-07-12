@@ -2,7 +2,7 @@
 
 namespace amoCRM\Unsorted;
 
-use amoCRM\Entities\Elements;
+use amoCRM\Entity;
 use amoCRM\Exceptions\RuntimeException;
 use amoCRM\Exceptions\ValidateException;
 
@@ -24,8 +24,8 @@ abstract class BaseUnsorted
     public function __construct()
     {
         $this->data = [
-            Elements\Lead::TYPE_MANY => [],
-            Elements\Contact::TYPE_MANY => [],
+            Entity\Lead::TYPE_MANY => [],
+            Entity\Contact::TYPE_MANY => [],
             'companies' => []
         ];
     }
@@ -35,7 +35,7 @@ abstract class BaseUnsorted
      */
     public function addLead(array $lead)
     {
-        $this->data[Elements\Lead::TYPE_MANY][] = $lead;
+        $this->data[Entity\Lead::TYPE_MANY][] = $lead;
     }
 
     /**
@@ -43,7 +43,7 @@ abstract class BaseUnsorted
      */
     public function addContact(array $contact)
     {
-        $this->data[Elements\Contact::TYPE_MANY][] = $contact;
+        $this->data[Entity\Contact::TYPE_MANY][] = $contact;
     }
 
     /**
@@ -225,7 +225,7 @@ abstract class BaseUnsorted
             throw new ValidateException('Data can\'t be empty');
         }
 
-        if (empty($data[Elements\Lead::TYPE_MANY][0]['name'])) {
+        if (empty($data[Entity\Lead::TYPE_MANY][0]['name'])) {
             throw new ValidateException('Can\'t create unsorted without at least one lead');
         }
 

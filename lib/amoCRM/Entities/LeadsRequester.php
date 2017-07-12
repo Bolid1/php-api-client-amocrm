@@ -2,7 +2,7 @@
 
 namespace amoCRM\Entities;
 
-use amoCRM\Entities\Elements\Lead;
+use amoCRM\Entity\Lead;
 use amoCRM\Interfaces\Requester;
 
 class LeadsRequester extends BaseEntityRequester

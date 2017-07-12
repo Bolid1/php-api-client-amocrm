@@ -2,7 +2,7 @@
 
 namespace Tests\amoCRM\Unsorted;
 
-use amoCRM\Entities\Elements;
+use amoCRM\Entity;
 use amoCRM\Exceptions\InvalidResponseException;
 use amoCRM\Interfaces\Requester;
 use amoCRM\Unsorted\BaseUnsortedRequester;
@@ -23,38 +23,38 @@ final class BaseUnsortedRequesterTest extends TestCase
             'source_uid' => '1498585325fd4e2ca0e372af6593cd69a991d37585806383581',
             'source_data' => [
                 'data' => [
-                    'name_' . Elements\Contact::TYPE_NUMERIC => [
+                    'name_'.Entity\Contact::TYPE_NUMERIC => [
                         'type' => 'text',
                         'id' => 'name',
-                        'element_type' => Elements\Contact::TYPE_NUMERIC,
+                        'element_type' => Entity\Contact::TYPE_NUMERIC,
                         'name' => 'ФИО',
                         'value' => '0c0gaCbr0',
                     ],
-                    'name_' . Elements\Lead::TYPE_NUMERIC => [
+                    'name_'.Entity\Lead::TYPE_NUMERIC => [
                         'type' => 'text',
                         'id' => 'name',
-                        'element_type' => Elements\Lead::TYPE_NUMERIC,
+                        'element_type' => Entity\Lead::TYPE_NUMERIC,
                         'name' => 'ФИО',
                         'value' => 'Lead name',
                     ],
-                    '61237_' . Elements\Contact::TYPE_NUMERIC => [
+                    '61237_'.Entity\Contact::TYPE_NUMERIC => [
                         'type' => 'multitext',
                         'id' => '61237',
-                        'element_type' => Elements\Contact::TYPE_NUMERIC,
+                        'element_type' => Entity\Contact::TYPE_NUMERIC,
                         'name' => 'Телефон',
                         'value' => ['+7 999 999 99-99'],
                     ],
-                    '61238_' . Elements\Lead::TYPE_NUMERIC => [
+                    '61238_'.Entity\Lead::TYPE_NUMERIC => [
                         'type' => 'numeric',
                         'id' => '61238',
-                        'element_type' => Elements\Lead::TYPE_NUMERIC,
+                        'element_type' => Entity\Lead::TYPE_NUMERIC,
                         'name' => 'Number',
                         'value' => 123,
                     ],
-                    '61239_' . Elements\Contact::TYPE_NUMERIC => [
+                    '61239_'.Entity\Contact::TYPE_NUMERIC => [
                         'type' => 'text',
                         'id' => '61239',
-                        'element_type' => Elements\Contact::TYPE_NUMERIC,
+                        'element_type' => Entity\Contact::TYPE_NUMERIC,
                         'name' => 'Email',
                         'value' => 'test@example.com',
                     ],

@@ -2,7 +2,7 @@
 
 namespace Tests\amoCRM\Unsorted\UnsortedFormFields;
 
-use amoCRM\Entities\Elements\Lead;
+use amoCRM\Entity\Lead;
 use amoCRM\Unsorted\UnsortedFormFields\BaseFormField;
 use PHPUnit\Framework\TestCase;
 

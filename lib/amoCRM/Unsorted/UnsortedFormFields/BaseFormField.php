@@ -2,7 +2,7 @@
 
 namespace amoCRM\Unsorted\UnsortedFormFields;
 
-use amoCRM\Entities\Elements;
+use amoCRM\Entity;
 use amoCRM\Exceptions\InvalidArgumentException;
 
 /**
@@ -63,8 +63,8 @@ abstract class BaseFormField
     private function setElementType($element_type)
     {
         $available_element_types = [
-            Elements\Contact::TYPE_NUMERIC,
-            Elements\Lead::TYPE_NUMERIC,
+            Entity\Contact::TYPE_NUMERIC,
+            Entity\Lead::TYPE_NUMERIC,
         ];
 
         if (!in_array($element_type, $available_element_types, true)) {

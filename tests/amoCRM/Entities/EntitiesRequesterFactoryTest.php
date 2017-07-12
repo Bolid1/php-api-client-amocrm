@@ -3,9 +3,9 @@
 namespace Tests\amoCRM\Entities;
 
 use amoCRM\Entities\ContactsRequester;
-use amoCRM\Entities\Elements;
 use amoCRM\Entities\EntitiesRequesterFactory;
 use amoCRM\Entities\LeadsRequester;
+use amoCRM\Entity;
 use amoCRM\Interfaces\Requester;
 use PHPUnit\Framework\TestCase;
 
@@ -36,7 +36,7 @@ final class EntitiesRequesterFactoryTest extends TestCase
         $fabric = new EntitiesRequesterFactory($this->requester);
         $this->assertInstanceOf(
             LeadsRequester::class,
-            $fabric->make(Elements\Lead::TYPE_SINGLE)
+            $fabric->make(Entity\Lead::TYPE_SINGLE)
         );
     }
 
@@ -45,7 +45,7 @@ final class EntitiesRequesterFactoryTest extends TestCase
         $fabric = new EntitiesRequesterFactory($this->requester);
         $this->assertInstanceOf(
             LeadsRequester::class,
-            $fabric->make(Elements\Lead::TYPE_MANY)
+            $fabric->make(Entity\Lead::TYPE_MANY)
         );
     }
 
@@ -54,7 +54,7 @@ final class EntitiesRequesterFactoryTest extends TestCase
         $fabric = new EntitiesRequesterFactory($this->requester);
         $this->assertInstanceOf(
             ContactsRequester::class,
-            $fabric->make(Elements\Contact::TYPE_SINGLE)
+            $fabric->make(Entity\Contact::TYPE_SINGLE)
         );
     }
 
@@ -63,7 +63,7 @@ final class EntitiesRequesterFactoryTest extends TestCase
         $fabric = new EntitiesRequesterFactory($this->requester);
         $this->assertInstanceOf(
             ContactsRequester::class,
-            $fabric->make(Elements\Contact::TYPE_MANY)
+            $fabric->make(Entity\Contact::TYPE_MANY)
         );
     }
 

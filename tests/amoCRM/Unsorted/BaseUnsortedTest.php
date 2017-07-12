@@ -2,7 +2,7 @@
 
 namespace Tests\amoCRM\Unsorted;
 
-use amoCRM\Entities\Elements;
+use amoCRM\Entity;
 use amoCRM\Unsorted\BaseUnsorted;
 use PHPUnit\Framework\TestCase;
 
@@ -20,8 +20,8 @@ final class BaseUnsortedTest extends TestCase
             'foo' => 'bar',
         ],
         'data' => [
-            Elements\Lead::TYPE_MANY => [['name' => 'some name']],
-            Elements\Contact::TYPE_MANY => [['name' => 'some name']],
+            Entity\Lead::TYPE_MANY => [['name' => 'some name']],
+            Entity\Contact::TYPE_MANY => [['name' => 'some name']],
             'companies' => [['name' => 'some name']],
         ],
     ];
@@ -74,8 +74,8 @@ final class BaseUnsortedTest extends TestCase
         $unsorted->setSource(self::$example['source']);
         $unsorted->setSourceUid(self::$example['source_uid']);
         $unsorted->setSourceData(self::$example['source_data']);
-        $unsorted->addLead(reset(self::$example['data'][Elements\Lead::TYPE_MANY]));
-        $unsorted->addContact(reset(self::$example['data'][Elements\Contact::TYPE_MANY]));
+        $unsorted->addLead(reset(self::$example['data'][Entity\Lead::TYPE_MANY]));
+        $unsorted->addContact(reset(self::$example['data'][Entity\Contact::TYPE_MANY]));
         $unsorted->addCompany(reset(self::$example['data']['companies']));
 
         $this->assertEquals(self::$example, $unsorted->toAmo());
@@ -119,7 +119,7 @@ final class BaseUnsortedTest extends TestCase
         $unsorted = $this->buildMock();
         $unsorted->setSourceUid(self::$example['source_uid']);
         $unsorted->setSourceData(self::$example['source_data']);
-        $unsorted->addLead(reset(self::$example['data'][Elements\Lead::TYPE_MANY]));
+        $unsorted->addLead(reset(self::$example['data'][Entity\Lead::TYPE_MANY]));
 
         $this->assertEquals(self::$example, $unsorted->toAmo());
     }
@@ -133,7 +133,7 @@ final class BaseUnsortedTest extends TestCase
         $unsorted = $this->buildMock();
         $unsorted->setSource(self::$example['source']);
         $unsorted->setSourceData(self::$example['source_data']);
-        $unsorted->addLead(reset(self::$example['data'][Elements\Lead::TYPE_MANY]));
+        $unsorted->addLead(reset(self::$example['data'][Entity\Lead::TYPE_MANY]));
 
         $this->assertEquals(self::$example, $unsorted->toAmo());
     }
@@ -147,27 +147,27 @@ final class BaseUnsortedTest extends TestCase
         $unsorted = $this->buildMock();
         $unsorted->setSource(self::$example['source']);
         $unsorted->setSourceUid(self::$example['source_uid']);
-        $unsorted->addLead(reset(self::$example['data'][Elements\Lead::TYPE_MANY]));
+        $unsorted->addLead(reset(self::$example['data'][Entity\Lead::TYPE_MANY]));
 
         $this->assertEquals(self::$example, $unsorted->toAmo());
     }
 
     public function testAddLead()
     {
-        $element = reset(self::$example['data'][Elements\Lead::TYPE_MANY]);
+        $element = reset(self::$example['data'][Entity\Lead::TYPE_MANY]);
         $unsorted = $this->buildMock();
         $unsorted->addLead($element);
 
-        $this->assertEquals([Elements\Lead::TYPE_MANY => [$element]], $unsorted->getData());
+        $this->assertEquals([Entity\Lead::TYPE_MANY => [$element]], $unsorted->getData());
     }
 
     public function testAddContact()
     {
-        $element = reset(self::$example['data'][Elements\Contact::TYPE_MANY]);
+        $element = reset(self::$example['data'][Entity\Contact::TYPE_MANY]);
         $unsorted = $this->buildMock();
         $unsorted->addContact($element);
 
-        $this->assertEquals([Elements\Contact::TYPE_MANY => [$element]], $unsorted->getData());
+        $this->assertEquals([Entity\Contact::TYPE_MANY => [$element]], $unsorted->getData());
     }
 
     public function testAddCompany()

@@ -2,7 +2,7 @@
 
 namespace Tests\amoCRM\Unsorted;
 
-use amoCRM\Entities\Elements;
+use amoCRM\Entity;
 use amoCRM\Unsorted\UnsortedForm;
 use PHPUnit\Framework\TestCase;
 
@@ -18,38 +18,38 @@ final class UnsortedFormTest extends TestCase
         'source_uid' => '1498585325fd4e2ca0e372af6593cd69a991d37585806383581',
         'source_data' => [
             'data' => [
-                'name_' . Elements\Contact::TYPE_NUMERIC => [
+                'name_'.Entity\Contact::TYPE_NUMERIC => [
                     'type' => 'text',
                     'id' => 'name',
-                    'element_type' => Elements\Contact::TYPE_NUMERIC,
+                    'element_type' => Entity\Contact::TYPE_NUMERIC,
                     'name' => 'ФИО',
                     'value' => '0c0gaCbr0',
                 ],
-                'name_' . Elements\Lead::TYPE_NUMERIC => [
+                'name_'.Entity\Lead::TYPE_NUMERIC => [
                     'type' => 'text',
                     'id' => 'name',
-                    'element_type' => Elements\Lead::TYPE_NUMERIC,
+                    'element_type' => Entity\Lead::TYPE_NUMERIC,
                     'name' => 'ФИО',
                     'value' => 'Lead name',
                 ],
-                '61237_' . Elements\Contact::TYPE_NUMERIC => [
+                '61237_'.Entity\Contact::TYPE_NUMERIC => [
                     'type' => 'multitext',
                     'id' => '61237',
-                    'element_type' => Elements\Contact::TYPE_NUMERIC,
+                    'element_type' => Entity\Contact::TYPE_NUMERIC,
                     'name' => 'Телефон',
                     'value' => ['+7 999 999 99-99'],
                 ],
-                '61238_' . Elements\Lead::TYPE_NUMERIC => [
+                '61238_'.Entity\Lead::TYPE_NUMERIC => [
                     'type' => 'numeric',
                     'id' => '61238',
-                    'element_type' => Elements\Lead::TYPE_NUMERIC,
+                    'element_type' => Entity\Lead::TYPE_NUMERIC,
                     'name' => 'Number',
                     'value' => 123,
                 ],
-                '61239_' . Elements\Contact::TYPE_NUMERIC => [
+                '61239_'.Entity\Contact::TYPE_NUMERIC => [
                     'type' => 'text',
                     'id' => '61239',
-                    'element_type' => Elements\Contact::TYPE_NUMERIC,
+                    'element_type' => Entity\Contact::TYPE_NUMERIC,
                     'name' => 'Email',
                     'value' => 'some@example.com',
                 ],
@@ -66,7 +66,7 @@ final class UnsortedFormTest extends TestCase
             'from' => 'http://example.info',
         ],
         'data' => [
-            Elements\Lead::TYPE_MANY => [
+            Entity\Lead::TYPE_MANY => [
                 [
                     'name' => 'Lead name',
                     'custom_fields' => [
@@ -81,7 +81,7 @@ final class UnsortedFormTest extends TestCase
                     ],
                 ],
             ],
-            Elements\Contact::TYPE_MANY => [
+            Entity\Contact::TYPE_MANY => [
                 [
                     'name' => '0c0gaCbr0',
                     'custom_fields' => [
@@ -126,10 +126,10 @@ final class UnsortedFormTest extends TestCase
     {
         $unsorted = new UnsortedForm;
         if (empty($options['skip_lead'])) {
-            $unsorted->addLead(reset(self::$example['data'][Elements\Lead::TYPE_MANY]));
+            $unsorted->addLead(reset(self::$example['data'][Entity\Lead::TYPE_MANY]));
         }
         if (empty($options['skip_contact'])) {
-            $unsorted->addContact(reset(self::$example['data'][Elements\Contact::TYPE_MANY]));
+            $unsorted->addContact(reset(self::$example['data'][Entity\Contact::TYPE_MANY]));
         }
         $unsorted->setSource(self::$example['source']);
         $unsorted->setSourceUid(self::$example['source_uid']);

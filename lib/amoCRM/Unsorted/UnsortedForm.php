@@ -2,9 +2,7 @@
 
 namespace amoCRM\Unsorted;
 
-use amoCRM\Entities\Elements\Contact;
-use amoCRM\Entities\Elements\CustomFields;
-use amoCRM\Entities\Elements\Lead;
+use amoCRM\Entity;
 use amoCRM\Exceptions\ValidateException;
 use amoCRM\Unsorted\UnsortedFormFields\BaseFormField;
 use amoCRM\Unsorted\UnsortedFormFields\FormFieldFactory;
@@ -217,15 +215,15 @@ final class UnsortedForm extends BaseUnsorted
             return $elements;
         }
 
-        $lead = new Lead;
-        $contact = new Contact;
+        $lead = new Entity\Lead;
+        $contact = new Entity\Contact;
 
         foreach ($fields as $field) {
             switch ($field['element_type']) {
-                case Contact::TYPE_NUMERIC:
+                case Entity\Contact::TYPE_NUMERIC:
                     $obj = &$contact;
                     break;
-                case Lead::TYPE_NUMERIC:
+                case Entity\Lead::TYPE_NUMERIC:
                 default:
                     $obj = &$lead;
                     break;
@@ -240,15 +238,15 @@ final class UnsortedForm extends BaseUnsorted
             $cf = null;
             switch ($field['type']) {
                 case UnsortedFormFields\FormFieldText::TYPE:
-                    $cf = new CustomFields\CustomFieldText($field['id']);
+                    $cf = new Entity\CustomFieldText($field['id']);
                     $cf->setValue($field['value']);
                     break;
                 case UnsortedFormFields\FormFieldNumber::TYPE:
-                    $cf = new CustomFields\CustomFieldNumber($field['id']);
+                    $cf = new Entity\CustomFieldNumber($field['id']);
                     $cf->setValue($field['value']);
                     break;
                 case UnsortedFormFields\FormFieldMultiText::TYPE:
-                    $cf = new CustomFields\CustomFieldPhones($field['id']);
+                    $cf = new Entity\CustomFieldPhones($field['id']);
                     foreach ((array)$field['value'] as $value) {
                         $cf->addValue($cf->getDefaultEnum(), $value);
                     }
@@ -263,11 +261,11 @@ final class UnsortedForm extends BaseUnsorted
         }
 
         if ($lead = $lead->toAmo()) {
-            $elements[Lead::TYPE_MANY][] = $lead;
+            $elements[Entity\Lead::TYPE_MANY][] = $lead;
         }
 
         if ($contact = $contact->toAmo()) {
-            $elements[Contact::TYPE_MANY][] = $contact;
+            $elements[Entity\Contact::TYPE_MANY][] = $contact;
         }
 
         return $elements;

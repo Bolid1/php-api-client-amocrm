@@ -2,10 +2,10 @@
 
 namespace Tests\amoCRM\Unsorted\UnsortedFormFields;
 
-use PHPUnit\Framework\TestCase;
-use amoCRM\Entities\Elements\Lead;
+use amoCRM\Entity\Lead;
 use amoCRM\Unsorted\UnsortedFormFields\BaseFormField;
 use amoCRM\Unsorted\UnsortedFormFields\FormFieldText;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class FormFieldTextTest

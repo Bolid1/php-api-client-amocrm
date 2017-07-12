@@ -2,7 +2,7 @@
 
 namespace amoCRM\Entities;
 
-use amoCRM\Entities\Elements\Contact;
+use amoCRM\Entity\Contact;
 use amoCRM\Interfaces\Requester;
 
 class ContactsRequester extends BaseEntityRequester

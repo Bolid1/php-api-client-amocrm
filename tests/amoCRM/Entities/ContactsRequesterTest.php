@@ -4,7 +4,7 @@ namespace Tests\amoCRM\Entities;
 
 use amoCRM\Entities\BaseEntityRequester;
 use amoCRM\Entities\ContactsRequester;
-use amoCRM\Entities\Elements\Contact;
+use amoCRM\Entity\Contact;
 use amoCRM\Interfaces\Requester;
 use PHPUnit\Framework\TestCase;
 
