@@ -2,7 +2,7 @@
 
 namespace Tests\amoCRM;
 
-use amoCRM\Interfaces\Account;
+use amoCRM\Entity\Interfaces\Account;
 use amoCRM\RequesterPromo;
 use GuzzleHttp\ClientInterface;
 use PHPUnit\Framework\TestCase;

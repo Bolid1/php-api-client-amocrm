@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests\amoCRM;
+namespace Tests\amoCRM\Entity;
 
-use amoCRM\User;
+use amoCRM\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class UserTest
  * @package Tests\amoCRM
- * @covers \amoCRM\User
+ * @covers \amoCRM\Entity\User
  */
 final class UserTest extends TestCase
 {

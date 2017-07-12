@@ -14,7 +14,7 @@ final class RequesterPromo extends BaseRequester implements Interfaces\Requester
 {
     public function __construct(ClientInterface $curl)
     {
-        $account = new Account('www');
+        $account = new Entity\Account('www');
         parent::__construct($account, $curl);
     }
 

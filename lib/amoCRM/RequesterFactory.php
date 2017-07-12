@@ -35,8 +35,8 @@ final class RequesterFactory
      */
     private static function buildConstructorArgs($subdomain, $login, $api_key)
     {
-        $account = new Account($subdomain);
-        $user = new User($login, $api_key);
+        $account = new Entity\Account($subdomain);
+        $user = new Entity\User($login, $api_key);
         $curl = self::buildClient();
 
         return [$account, $user, $curl];

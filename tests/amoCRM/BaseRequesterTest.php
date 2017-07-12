@@ -3,7 +3,7 @@
 namespace Tests\amoCRM;
 
 use amoCRM\BaseRequester;
-use amoCRM\Interfaces\Account;
+use amoCRM\Entity\Interfaces\Account;
 use GuzzleHttp\ClientInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;

@@ -1,6 +1,6 @@
 <?php
 
-namespace amoCRM\Interfaces;
+namespace amoCRM\Entity\Interfaces;
 
 /**
  * Class Account

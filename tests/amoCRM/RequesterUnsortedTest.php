@@ -3,8 +3,8 @@
 namespace Tests\amoCRM;
 
 use amoCRM\BaseRequester;
-use amoCRM\Interfaces\Account;
-use amoCRM\Interfaces\User;
+use amoCRM\Entity\Interfaces\Account;
+use amoCRM\Entity\Interfaces\User;
 use amoCRM\RequesterUnsorted;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\RequestOptions;
@@ -30,8 +30,8 @@ final class RequesterUnsortedTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->account = new \amoCRM\Account('test');
-        $this->user = new \amoCRM\User('test@test.test', '098f6bcd4621d373cade4e832627b4f6');
+        $this->account = new \amoCRM\Entity\Account('test');
+        $this->user = new \amoCRM\Entity\User('test@test.test', '098f6bcd4621d37312344e832627b4f6');
     }
 
     public function testSendGetRequest()

@@ -3,8 +3,8 @@
 namespace Tests\amoCRM;
 
 use amoCRM\BaseRequester;
-use amoCRM\Interfaces\Account;
-use amoCRM\Interfaces\User;
+use amoCRM\Entity\Interfaces\Account;
+use amoCRM\Entity\Interfaces\User;
 use amoCRM\Requester;
 use GuzzleHttp\ClientInterface;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +20,7 @@ final class RequesterTest extends TestCase
     const BASE_URL = 'https://test.amocrm.ru';
     const CREDENTIALS = [
         'USER_LOGIN' => 'test@test.test',
-        'USER_HASH' => '098f6bcd4621d373cade4e832627b4f6',
+        'USER_HASH' => '098f6bcd4621d37345674e832627b4f6',
     ];
 
     /** @var Account */

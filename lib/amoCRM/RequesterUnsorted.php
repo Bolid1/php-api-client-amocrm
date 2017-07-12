@@ -13,10 +13,10 @@ use GuzzleHttp\ClientInterface;
  */
 final class RequesterUnsorted extends BaseRequester
 {
-    /** @var Interfaces\User */
+    /** @var Entity\Interfaces\User */
     private $user;
 
-    public function __construct(Interfaces\Account $account, Interfaces\User $user, ClientInterface $curl)
+    public function __construct(Entity\Interfaces\Account $account, Entity\Interfaces\User $user, ClientInterface $curl)
     {
         $this->user = $user;
         parent::__construct($account, $curl);
@@ -48,12 +48,12 @@ final class RequesterUnsorted extends BaseRequester
         }
 
         if (is_array($query)) {
-            $credentials = $this->user->getCredentialsAsArray(Interfaces\User::CREDENTIALS_TYPE_UNSORTED);
+            $credentials = $this->user->getCredentialsAsArray(Entity\Interfaces\User::CREDENTIALS_TYPE_UNSORTED);
             $query = array_merge($query, $credentials);
         } elseif (is_string($query) && $query === '') {
-            $query = $this->user->getCredentials(Interfaces\User::CREDENTIALS_TYPE_UNSORTED);
+            $query = $this->user->getCredentials(Entity\Interfaces\User::CREDENTIALS_TYPE_UNSORTED);
         } else {
-            $credentials = $this->user->getCredentials(Interfaces\User::CREDENTIALS_TYPE_UNSORTED);
+            $credentials = $this->user->getCredentials(Entity\Interfaces\User::CREDENTIALS_TYPE_UNSORTED);
             $query = rtrim($query, '&') . '&' . $credentials;
         }
 

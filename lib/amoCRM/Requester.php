@@ -12,12 +12,12 @@ use GuzzleHttp\ClientInterface;
  */
 final class Requester extends BaseRequester
 {
-    /** @var Interfaces\User */
+    /** @var Entity\Interfaces\User */
     private $user;
     /** @var boolean */
     private $auth;
 
-    public function __construct(Interfaces\Account $account, Interfaces\User $user, ClientInterface $curl)
+    public function __construct(Entity\Interfaces\Account $account, Entity\Interfaces\User $user, ClientInterface $curl)
     {
         $this->user = $user;
         parent::__construct($account, $curl);

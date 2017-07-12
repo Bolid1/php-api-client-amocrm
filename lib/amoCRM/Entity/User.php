@@ -1,6 +1,8 @@
 <?php
 
-namespace amoCRM;
+namespace amoCRM\Entity;
+
+use amoCRM\Exceptions;
 
 /**
  * Class User
