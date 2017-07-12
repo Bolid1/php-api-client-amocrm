@@ -23,4 +23,9 @@ interface Account
      * @return string
      */
     public function getAddress();
+
+    /**
+     * @return string
+     */
+    public function getSubdomain();
 }

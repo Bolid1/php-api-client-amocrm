@@ -97,4 +97,20 @@ final class User implements Interfaces\User
 
         return $result;
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getApiKey()
+    {
+        return $this->api_key;
+    }
 }

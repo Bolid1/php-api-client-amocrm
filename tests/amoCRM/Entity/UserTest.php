@@ -87,4 +87,22 @@ final class UserTest extends TestCase
         ];
         $this->assertEquals($credentials, $user->getCredentialsAsArray(User::CREDENTIALS_TYPE_UNSORTED));
     }
+
+    public function testGetLogin()
+    {
+        $login = 'test@test.test';
+        $api_key = md5('some string');
+        $user = new User($login, $api_key);
+
+        $this->assertEquals($login, $user->getLogin());
+    }
+
+    public function testGetApiKey()
+    {
+        $login = 'test@test.test';
+        $api_key = md5('some string');
+        $user = new User($login, $api_key);
+
+        $this->assertEquals($api_key, $user->getApiKey());
+    }
 }

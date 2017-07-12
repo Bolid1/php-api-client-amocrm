@@ -27,4 +27,14 @@ interface User
      * @return array
      */
     public function getCredentialsAsArray($type = self::CREDENTIALS_TYPE_API);
+
+    /**
+     * @return string
+     */
+    public function getLogin();
+
+    /**
+     * @return string
+     */
+    public function getApiKey();
 }

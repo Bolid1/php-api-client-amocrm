@@ -20,15 +20,6 @@ final class Contact extends BaseElement
     private $leads_id = [];
 
     /**
-     * @param integer $company_id
-     * @throws \amoCRM\Exception\InvalidArgumentException
-     */
-    public function setCompanyId($company_id)
-    {
-        $this->company_id = $this->parseInteger($company_id);
-    }
-
-    /**
      * @param integer $lead_id
      * @throws \amoCRM\Exception\InvalidArgumentException
      */
@@ -59,5 +50,39 @@ final class Contact extends BaseElement
         }
 
         return $contact;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLeadsId()
+    {
+        return $this->leads_id;
+    }
+
+    /**
+     * @param array $leads_id
+     */
+    public function setLeadsId(array $leads_id)
+    {
+        $this->leads_id = [];
+        array_map([$this, 'addLeadId'], $leads_id);
+    }
+
+    /**
+     * @return int
+     */
+    public function getCompanyId()
+    {
+        return $this->company_id;
+    }
+
+    /**
+     * @param integer $company_id
+     * @throws \amoCRM\Exception\InvalidArgumentException
+     */
+    public function setCompanyId($company_id)
+    {
+        $this->company_id = $this->parseInteger($company_id);
     }
 }

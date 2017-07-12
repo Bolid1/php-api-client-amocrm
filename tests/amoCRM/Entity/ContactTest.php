@@ -28,6 +28,7 @@ final class ContactTest extends TestCase
         $number = 10000;
         $element->setCompanyId($number);
 
+        $this->assertEquals($number, $element->getCompanyId());
         $this->assertEquals(['linked_company_id' => $number], $element->toAmo());
     }
 
@@ -55,6 +56,20 @@ final class ContactTest extends TestCase
         $ids[] = $number;
 
         $this->assertEquals(['linked_leads_id' => $ids], $element->toAmo());
+    }
+
+    public function testSetLeadsIds()
+    {
+        $element = new Contact;
+
+        $number = 10000;
+        $element->addLeadId($number);
+
+        $numbers = [10001, 10002];
+        $element->setLeadsId($numbers);
+
+        $this->assertEquals($numbers, $element->getLeadsId());
+        $this->assertEquals(['linked_leads_id' => $numbers], $element->toAmo());
     }
 
     /**

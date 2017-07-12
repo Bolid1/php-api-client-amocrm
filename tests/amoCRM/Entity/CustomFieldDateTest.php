@@ -24,10 +24,12 @@ final class CustomFieldDateTest extends TestCase
         );
     }
 
-    public function getDateFormat()
+    public function testSetDateFormat()
     {
         $cf = new CustomFieldDate($this->default_id);
         $this->assertEquals('d.m.Y', $cf->getDateFormat());
+        $cf->setDateFormat(\DateTime::ATOM);
+        $this->assertEquals(\DateTime::ATOM, $cf->getDateFormat());
     }
 
     public function testSetPositiveTimestamp()

@@ -78,4 +78,10 @@ final class CustomFieldSelectTest extends TestCase
         $this->assertFalse(isset(self::$default_enums[$enum]));
         $cf->setEnum($enum);
     }
+
+    public function testGetEnums()
+    {
+        $cf = new CustomFieldSelect($this->default_id, self::$default_enums);
+        $this->assertEquals(self::$default_enums, $cf->getEnums());
+    }
 }

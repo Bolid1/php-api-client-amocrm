@@ -28,6 +28,7 @@ final class LeadTest extends TestCase
         $number = 10000;
         $element->setPrice($number);
 
+        $this->assertEquals($number, $element->getPrice());
         $this->assertEquals(['price' => $number], $element->toAmo());
     }
 
@@ -47,6 +48,7 @@ final class LeadTest extends TestCase
         $number = 10000;
         $element->setStatusId($number);
 
+        $this->assertEquals($number, $element->getStatusId());
         $this->assertEquals(['status_id' => $number], $element->toAmo());
     }
 
@@ -66,6 +68,7 @@ final class LeadTest extends TestCase
         $number = 10000;
         $element->setPipelineId($number);
 
+        $this->assertEquals($number, $element->getPipelineId());
         $this->assertEquals(['pipeline_id' => $number], $element->toAmo());
     }
 
@@ -85,6 +88,7 @@ final class LeadTest extends TestCase
         $number = 10000;
         $element->setCompanyId($number);
 
+        $this->assertEquals($number, $element->getCompanyId());
         $this->assertEquals(['linked_company_id' => $number], $element->toAmo());
     }
 
@@ -103,6 +107,7 @@ final class LeadTest extends TestCase
         $string = 'some string';
         $element->setVisitorUid($string);
 
+        $this->assertEquals($string, $element->getVisitorUid());
         $this->assertEquals(['visitor_uid' => $string], $element->toAmo());
     }
 }

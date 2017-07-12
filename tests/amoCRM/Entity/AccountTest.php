@@ -71,4 +71,11 @@ final class AccountTest extends TestCase
         $base_url = 'https://subdomain.amocrm.ru';
         $this->assertEquals($base_url, $account->getAddress());
     }
+
+    public function testGetSubdomain()
+    {
+        $subdomain = 'subdomain';
+        $account = new Account($subdomain, Account::TOP_LEVEL_DOMAIN_RU);
+        $this->assertEquals($subdomain, $account->getSubdomain());
+    }
 }

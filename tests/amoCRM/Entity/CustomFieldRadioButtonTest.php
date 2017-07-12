@@ -63,6 +63,12 @@ final class CustomFieldRadioButtonTest extends TestCase
         $this->assertEquals(['id' => $this->default_id, 'values' => [['value' => $value]]], $data);
     }
 
+    public function testGetEnums()
+    {
+        $cf = new CustomFieldRadioButton($this->default_id, self::$default_enums);
+        $this->assertEquals(self::$default_enums, $cf->getEnums());
+    }
+
     /**
      * @expectedException \amoCRM\Exception\InvalidArgumentException
      */

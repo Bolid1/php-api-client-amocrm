@@ -52,113 +52,6 @@ abstract class BaseElement
     private $tags;
 
     /**
-     * @param integer $id
-     * @throws \amoCRM\Exception\InvalidArgumentException
-     */
-    public function setId($id)
-    {
-        $this->id = $this->parseInteger($id);
-    }
-
-    /**
-     * @param integer $number
-     * @param bool $can_be_less_one
-     * @return int
-     * @throws Exception\InvalidArgumentException
-     */
-    protected function parseInteger($number, $can_be_less_one = false)
-    {
-        if (!is_numeric($number)) {
-            throw new Exception\InvalidArgumentException(sprintf('Invalid integer "%s"', $number));
-        }
-
-        $number = (int)$number;
-
-        if ($can_be_less_one !== true && $number < 1) {
-            throw new Exception\InvalidArgumentException(sprintf('Invalid integer "%s"', $number));
-        }
-
-        return $number;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = (string)$name;
-    }
-
-    /**
-     * @param string|integer $date_create
-     * @throws \amoCRM\Exception\InvalidArgumentException
-     */
-    public function setDateCreate($date_create)
-    {
-        $this->date_create = $this->parseDate($date_create);
-    }
-
-    /**
-     * @param integer|string $date
-     * @return int
-     * @throws Exception\InvalidArgumentException
-     */
-    private function parseDate($date)
-    {
-        if (is_numeric($date)) {
-            return (int)$date;
-        }
-
-        $result = null;
-
-        if (is_string($date)) {
-            $result = strtotime($date) ?: null;
-        }
-
-        if ($result === null) {
-            throw new Exception\InvalidArgumentException(sprintf('Invalid date "%s"', $date));
-        }
-
-        return $result;
-    }
-
-    /**
-     * @param integer $created_by
-     * @throws \amoCRM\Exception\InvalidArgumentException
-     */
-    public function setCreatedBy($created_by)
-    {
-        $this->created_by = $this->parseInteger($created_by);
-    }
-
-    /**
-     * @param string|integer $date_modify
-     * @throws \amoCRM\Exception\InvalidArgumentException
-     */
-    public function setDateModify($date_modify)
-    {
-        $this->date_modify = $this->parseDate($date_modify);
-    }
-
-    /**
-     * @param integer $modified_by
-     * @throws \amoCRM\Exception\InvalidArgumentException
-     */
-    public function setModifiedBy($modified_by)
-    {
-        $this->modified_by = $this->parseInteger($modified_by);
-    }
-
-    /**
-     * @param integer $responsible
-     * @throws \amoCRM\Exception\InvalidArgumentException
-     */
-    public function setResponsible($responsible)
-    {
-        $this->responsible = $this->parseInteger($responsible);
-    }
-
-    /**
      * @param BaseCustomField $custom_fields
      */
     public function addCustomField(BaseCustomField $custom_fields)
@@ -254,5 +147,202 @@ abstract class BaseElement
         }
 
         return $element;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCustomFields()
+    {
+        return $this->custom_fields;
+    }
+
+    /**
+     * @param array $custom_fields
+     */
+    public function setCustomFields(array $custom_fields)
+    {
+        $this->custom_fields = [];
+        array_map([$this, 'addCustomField'], $custom_fields);
+    }
+
+    /**
+     * @return array
+     */
+    public function getTags()
+    {
+        return array_keys($this->tags);
+    }
+
+    /**
+     * @param array $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = [];
+        array_map([$this, 'addTag'], $tags);
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param integer $id
+     * @throws \amoCRM\Exception\InvalidArgumentException
+     */
+    public function setId($id)
+    {
+        $this->id = $this->parseInteger($id);
+    }
+
+    /**
+     * @param integer $number
+     * @param bool $can_be_less_one
+     * @return int
+     * @throws Exception\InvalidArgumentException
+     */
+    protected function parseInteger($number, $can_be_less_one = false)
+    {
+        if (!is_numeric($number)) {
+            throw new Exception\InvalidArgumentException(sprintf('Invalid integer "%s"', $number));
+        }
+
+        $number = (int)$number;
+
+        if ($can_be_less_one !== true && $number < 1) {
+            throw new Exception\InvalidArgumentException(sprintf('Invalid integer "%s"', $number));
+        }
+
+        return $number;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = (string)$name;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDateCreate()
+    {
+        return $this->date_create;
+    }
+
+    /**
+     * @param string|integer $date_create
+     * @throws \amoCRM\Exception\InvalidArgumentException
+     */
+    public function setDateCreate($date_create)
+    {
+        $this->date_create = $this->parseDate($date_create);
+    }
+
+    /**
+     * @param integer|string $date
+     * @return int
+     * @throws Exception\InvalidArgumentException
+     */
+    private function parseDate($date)
+    {
+        if (is_numeric($date)) {
+            return (int)$date;
+        }
+
+        $result = null;
+
+        if (is_string($date)) {
+            $result = strtotime($date) ?: null;
+        }
+
+        if ($result === null) {
+            throw new Exception\InvalidArgumentException(sprintf('Invalid date "%s"', $date));
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCreatedBy()
+    {
+        return $this->created_by;
+    }
+
+    /**
+     * @param integer $created_by
+     * @throws \amoCRM\Exception\InvalidArgumentException
+     */
+    public function setCreatedBy($created_by)
+    {
+        $this->created_by = $this->parseInteger($created_by);
+    }
+
+    /**
+     * @return int
+     */
+    public function getDateModify()
+    {
+        return $this->date_modify;
+    }
+
+    /**
+     * @param string|integer $date_modify
+     * @throws \amoCRM\Exception\InvalidArgumentException
+     */
+    public function setDateModify($date_modify)
+    {
+        $this->date_modify = $this->parseDate($date_modify);
+    }
+
+    /**
+     * @return int
+     */
+    public function getModifiedBy()
+    {
+        return $this->modified_by;
+    }
+
+    /**
+     * @param integer $modified_by
+     * @throws \amoCRM\Exception\InvalidArgumentException
+     */
+    public function setModifiedBy($modified_by)
+    {
+        $this->modified_by = $this->parseInteger($modified_by);
+    }
+
+    /**
+     * @return int
+     */
+    public function getResponsible()
+    {
+        return $this->responsible;
+    }
+
+    /**
+     * @param integer $responsible
+     * @throws \amoCRM\Exception\InvalidArgumentException
+     */
+    public function setResponsible($responsible)
+    {
+        $this->responsible = $this->parseInteger($responsible);
     }
 }

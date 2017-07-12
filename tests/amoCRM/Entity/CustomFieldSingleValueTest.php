@@ -19,9 +19,11 @@ final class CustomFieldSingleValueTest extends TestCase
             ->setMethods()
             ->getMock();
 
-        $field->setValue('test');
+        $value = 'test';
+        $field->setValue($value);
 
-        $expected = ['id' => null, 'values' => [['value' => 'test']]];
+        $expected = ['id' => null, 'values' => [['value' => $value]]];
+        $this->assertEquals($value, $field->getValue());
         $this->assertEquals($expected, $field->toAmo());
     }
 }

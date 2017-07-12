@@ -89,4 +89,12 @@ final class Account implements Interfaces\Account
     {
         return sprintf('https://%s.amocrm.%s', $this->subdomain, $this->top_level_domain);
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function getSubdomain()
+    {
+        return $this->subdomain;
+    }
 }

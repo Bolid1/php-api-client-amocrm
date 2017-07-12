@@ -22,6 +22,14 @@ final class CustomFieldDate extends CustomFieldSingleValue
     }
 
     /**
+     * @param string [$date_format]
+     */
+    public function setDateFormat($date_format = 'd.m.Y')
+    {
+        $this->date_format = $date_format;
+    }
+
+    /**
      * @param string $value - date in format $this->_date_format
      * @throws \amoCRM\Exception\InvalidArgumentException
      */

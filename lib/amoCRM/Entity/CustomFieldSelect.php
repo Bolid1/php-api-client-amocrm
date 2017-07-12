@@ -12,7 +12,7 @@ use amoCRM\Exception;
 class CustomFieldSelect extends CustomFieldSingleValue
 {
     /** @var array */
-    protected $enums;
+    private $enums;
 
     /**
      * CustomFieldSelect constructor.
@@ -54,5 +54,13 @@ class CustomFieldSelect extends CustomFieldSingleValue
         if (!isset($this->enums[$this->value])) {
             throw new Exception\InvalidArgumentException(sprintf('"%s" is not enum of this field', $enum));
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getEnums()
+    {
+        return $this->enums;
     }
 }
