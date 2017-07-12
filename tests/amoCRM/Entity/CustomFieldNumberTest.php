@@ -24,28 +24,6 @@ final class CustomFieldNumberTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
-     */
-    public function testSetValueToAmoThrowInvalidArgumentNaN()
-    {
-        $cf = new CustomFieldNumber($this->default_id);
-        $value = 'some text';
-
-        $cf->setValue($value);
-    }
-
-    /**
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
-     */
-    public function testSetValueToAmoThrowInvalidArgumentPositive()
-    {
-        $cf = new CustomFieldNumber($this->default_id);
-        $value = -1;
-
-        $cf->setValue($value);
-    }
-
     public function testSetValueToInteger()
     {
         $cf = new CustomFieldNumber($this->default_id);

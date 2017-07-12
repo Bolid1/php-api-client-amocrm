@@ -20,10 +20,6 @@ final class BaseCustomFieldTest extends TestCase
      * @covers ::__construct
      * @covers ::setId
      * @covers ::getId
-     * @covers ::parseNumber
-     * @covers ::ensureIsNumeric
-     * @covers ::ensureGreaterOrEqualZero
-     * @covers ::ensureNotEqualZero
      */
     public function testSetId()
     {
@@ -61,38 +57,5 @@ final class BaseCustomFieldTest extends TestCase
         $stub = $this->buildMock($id);
 
         $this->assertEquals(['id' => $id, 'values' => self::$default_value], $stub->toAmo());
-    }
-
-    /**
-     * @covers ::setId
-     * @covers ::parseNumber
-     * @covers ::ensureIsNumeric
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
-     */
-    public function testSetIdThrowInvalidArgumentNaN()
-    {
-        $this->buildMock('some string');
-    }
-
-    /**
-     * @covers ::setId
-     * @covers ::parseNumber
-     * @covers ::ensureGreaterOrEqualZero
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
-     */
-    public function testSetIdThrowInvalidArgumentPositive()
-    {
-        $this->buildMock(-1);
-    }
-
-    /**
-     * @covers ::setId
-     * @covers ::parseNumber
-     * @covers ::ensureNotEqualZero
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
-     */
-    public function testSetIdThrowInvalidArgumentZero()
-    {
-        $this->buildMock(0);
     }
 }

@@ -204,7 +204,7 @@ final class UnsortedForm extends BaseUnsorted
     /**
      * Convert fields to elements
      * @return array
-     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     protected function getDataToAmo()
     {

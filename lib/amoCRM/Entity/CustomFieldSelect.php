@@ -3,6 +3,7 @@
 namespace amoCRM\Entity;
 
 use amoCRM\Exception;
+use amoCRM\Validator\NumberValidator;
 
 /**
  * Class CustomFieldSelect
@@ -18,19 +19,20 @@ class CustomFieldSelect extends CustomFieldSingleValue
      * CustomFieldSelect constructor.
      * @param integer $id
      * @param array $enums
-     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function __construct($id, $enums)
     {
         parent::__construct($id);
         foreach ($enums as $enum => $value) {
-            $this->enums[$this->parseNumber($enum)] = (string)$value;
+            $this->enums[NumberValidator::parseInteger($enum)] = (string)$value;
         }
     }
 
     /**
      * @param string $value
      * @throws Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function setValue($value)
     {
@@ -46,10 +48,11 @@ class CustomFieldSelect extends CustomFieldSingleValue
     /**
      * @param integer $enum
      * @throws Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function setEnum($enum)
     {
-        $this->value = $this->parseNumber($enum, true);
+        $this->value = NumberValidator::parseInteger($enum, true);
 
         if (!isset($this->enums[$this->value])) {
             throw new Exception\InvalidArgumentException(sprintf('"%s" is not enum of this field', $enum));

@@ -16,7 +16,7 @@ abstract class CustomFieldMultiText extends BaseCustomField
      * CustomFieldMultiText constructor.
      * @param integer $id
      * @param array $enums
-     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function __construct($id, array $enums)
     {

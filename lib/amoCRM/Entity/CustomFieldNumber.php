@@ -2,6 +2,8 @@
 
 namespace amoCRM\Entity;
 
+use amoCRM\Validator\NumberValidator;
+
 /**
  * Class CustomFieldNumber
  * @package amoCRM\Entity
@@ -12,10 +14,10 @@ final class CustomFieldNumber extends CustomFieldSingleValue
 {
     /**
      * @param integer $value
-     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function setValue($value)
     {
-        $this->value = $this->parseNumber($value, true);
+        $this->value = NumberValidator::parseInteger($value, true);
     }
 }

@@ -3,6 +3,7 @@
 namespace amoCRM\Entity;
 
 use amoCRM\Exception;
+use amoCRM\Validator\NumberValidator;
 
 /**
  * Class CustomFieldDate
@@ -31,6 +32,7 @@ final class CustomFieldDate extends CustomFieldSingleValue
 
     /**
      * @param string $value - date in format $this->_date_format
+     * @throws \amoCRM\Exception\ValidateException
      * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public function setValue($value)
@@ -40,11 +42,11 @@ final class CustomFieldDate extends CustomFieldSingleValue
 
     /**
      * @param string $timestamp - date timestamp
-     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function setTimestamp($timestamp)
     {
-        $this->value = $this->parseNumber($timestamp, true, true);
+        $this->value = NumberValidator::parseInteger($timestamp, true, true);
     }
 
     /**

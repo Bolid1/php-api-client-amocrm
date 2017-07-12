@@ -2,7 +2,7 @@
 
 namespace amoCRM\Entity;
 
-use amoCRM\Exception;
+use amoCRM\Validator\NumberValidator;
 
 /**
  * Class BaseCustomField
@@ -17,7 +17,7 @@ abstract class BaseCustomField
     /**
      * BaseCustomField constructor.
      * @param integer $id
-     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function __construct($id)
     {
@@ -26,69 +26,11 @@ abstract class BaseCustomField
 
     /**
      * @param integer $id
-     * @throws Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     private function setId($id)
     {
-        $this->id = $this->parseNumber($id);
-    }
-
-    /**
-     * @param integer $int
-     * @param bool $can_be_equal_zero
-     * @param bool $can_be_less_zero
-     * @return int
-     * @throws Exception\InvalidArgumentException
-     */
-    protected function parseNumber($int, $can_be_equal_zero = false, $can_be_less_zero = false)
-    {
-        $this->ensureIsNumeric($int);
-
-        $tmp = (int)$int;
-        if ($can_be_less_zero !== true) {
-            $this->ensureGreaterOrEqualZero($int, $tmp);
-        }
-
-        if ($can_be_equal_zero !== true) {
-            $this->ensureNotEqualZero($int, $tmp);
-        }
-
-        return $tmp;
-    }
-
-    /**
-     * @param $int
-     * @throws Exception\InvalidArgumentException
-     */
-    private function ensureIsNumeric($int)
-    {
-        if (!is_numeric($int)) {
-            throw new Exception\InvalidArgumentException(sprintf('"%s" is not a number', $int));
-        }
-    }
-
-    /**
-     * @param $int
-     * @param $tmp
-     * @throws Exception\InvalidArgumentException
-     */
-    protected function ensureGreaterOrEqualZero($int, $tmp)
-    {
-        if ($tmp < 0) {
-            throw new Exception\InvalidArgumentException(sprintf('"%s" is less zero', $int));
-        }
-    }
-
-    /**
-     * @param $int
-     * @param $tmp
-     * @throws Exception\InvalidArgumentException
-     */
-    protected function ensureNotEqualZero($int, $tmp)
-    {
-        if ($tmp === 0) {
-            throw new Exception\InvalidArgumentException(sprintf('"%s" is equal zero', $int));
-        }
+        $this->id = NumberValidator::parseInteger($id);
     }
 
     /**
