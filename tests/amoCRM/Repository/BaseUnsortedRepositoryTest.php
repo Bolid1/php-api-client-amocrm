@@ -6,7 +6,7 @@ use amoCRM\Entity;
 use amoCRM\Entity\UnsortedForm;
 use amoCRM\Exception\InvalidResponseException;
 use amoCRM\Repository\BaseUnsortedRepository;
-use amoCRM\Service\Interfaces\RequesterService;
+use amoCRM\Service\Interfaces\UnsortedRequesterService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,6 +16,18 @@ use PHPUnit\Framework\TestCase;
  */
 final class BaseUnsortedRepositoryTest extends TestCase
 {
+    public function testGetCategory()
+    {
+        $requester = $this->createMock(UnsortedRequesterService::class);
+        $stub = $this->getMockBuilder(BaseUnsortedRepository::class)
+            ->enableOriginalConstructor()
+            ->setConstructorArgs([$requester, UnsortedForm::CATEGORY])
+            ->setMethods()
+            ->getMock();
+
+        $this->assertEquals(UnsortedForm::CATEGORY, $stub->getCategory());
+    }
+
     public function testAddUnsorted()
     {
         $example = [
@@ -72,7 +84,7 @@ final class BaseUnsortedRepositoryTest extends TestCase
             ],
         ];
 
-        $requester = $this->createMock(RequesterService::class);
+        $requester = $this->createMock(UnsortedRequesterService::class);
 
         $unsorted = new UnsortedForm;
         $unsorted->setSource($example['source']);
@@ -114,7 +126,7 @@ final class BaseUnsortedRepositoryTest extends TestCase
         $requester
             ->expects($this->exactly(3))
             ->method('post')->with(
-                $this->equalTo(BaseUnsortedRepository::BASE_PATH . 'add/'),
+                $this->equalTo(BaseUnsortedRepository::BASE_PATH.'add/'),
                 $this->equalTo($post_data)
             )
             ->willReturn($success_result, $failed_result, $invalid_result);
@@ -138,7 +150,7 @@ final class BaseUnsortedRepositoryTest extends TestCase
      */
     public function testAddUnsortedThrowInvalidArgumentException()
     {
-        $requester = $this->createMock(RequesterService::class);
+        $requester = $this->createMock(UnsortedRequesterService::class);
 
         /** @var BaseUnsortedRepository $stub */
         $stub = $this->getMockBuilder(BaseUnsortedRepository::class)

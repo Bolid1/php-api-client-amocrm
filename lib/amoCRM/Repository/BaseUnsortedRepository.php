@@ -41,6 +41,14 @@ abstract class BaseUnsortedRepository implements Interfaces\BaseUnsortedReposito
     }
 
     /**
+     * @return string
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
      * Send request to add unsorted
      * @link https://developers.amocrm.ru/rest_api/unsorted/add.php
      *
