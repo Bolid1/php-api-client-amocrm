@@ -8,16 +8,25 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class BaseEntityFilterTest
  * @package Tests\amoCRM\Filter
- * @covers \amoCRM\Filter\BaseEntityFilter
  */
 final class BaseEntityFilterTest extends TestCase
 {
-    public function testSetId()
+    /**
+     * @covers \amoCRM\Filter\BaseEntityFilter::toArray
+     */
+    public function testToArray()
     {
-        $value = 1;
         $filter = $this->buildMock();
-        $filter->setId($value);
-        $this->assertEquals(['id' => (array)$value], $filter->toArray());
+        $filter->setId(1);
+        $filter->setQuery('test');
+        $filter->setResponsibleUser(1);
+
+        $expected = [
+            'id' => $filter->getId(),
+            'query' => $filter->getQuery(),
+            'responsible_user_id' => $filter->getResponsibleUser(),
+        ];
+        $this->assertEquals($expected, $filter->toArray());
     }
 
     private function buildMock()
@@ -27,25 +36,46 @@ final class BaseEntityFilterTest extends TestCase
             ->getMock();
     }
 
+    /**
+     * @covers \amoCRM\Filter\BaseEntityFilter::setId
+     * @covers \amoCRM\Filter\BaseEntityFilter::getId
+     */
+    public function testSetId()
+    {
+        $value = 1;
+        $filter = $this->buildMock();
+        $filter->setId($value);
+        $this->assertEquals([$value], $filter->getId());
+    }
+
+    /**
+     * @covers \amoCRM\Filter\BaseEntityFilter::setQuery
+     * @covers \amoCRM\Filter\BaseEntityFilter::getQuery
+     */
     public function testSetQuery()
     {
         $value = 'test';
         $filter = $this->buildMock();
         $filter->setQuery($value);
-        $this->assertEquals(['query' => $value], $filter->toArray());
+        $this->assertEquals($value, $filter->getQuery());
     }
 
+    /**
+     * @covers \amoCRM\Filter\BaseEntityFilter::setResponsibleUser
+     * @covers \amoCRM\Filter\BaseEntityFilter::getResponsibleUser
+     */
     public function testSetResponsibleUser()
     {
         $value = 1;
         $filter = $this->buildMock();
         $filter->setResponsibleUser($value);
-        $this->assertEquals(['responsible_user_id' => (array)$value], $filter->toArray());
+        $this->assertEquals((array)$value, $filter->getResponsibleUser());
     }
 
     /**
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Must be greater than zero, "0" given
+     * @covers \amoCRM\Filter\BaseEntityFilter::setId
+     * @uses   \amoCRM\Validator\NumberValidator::parseIntegersArray
+     * @expectedException \amoCRM\Exception\ValidateException
      */
     public function testThrowNotPositiveId()
     {
@@ -53,8 +83,9 @@ final class BaseEntityFilterTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Must be greater than zero, "0" given
+     * @covers \amoCRM\Filter\BaseEntityFilter::setResponsibleUser
+     * @uses   \amoCRM\Validator\NumberValidator::parseIntegersArray
+     * @expectedException \amoCRM\Exception\ValidateException
      */
     public function testThrowNotPositiveResponsibleUser()
     {

@@ -26,6 +26,7 @@ final class NumberValidatorTest extends TestCase
 
     /**
      * @covers \amoCRM\Validator\NumberValidator::ensureIsNumeric
+     * @uses   \amoCRM\Validator\NumberValidator::parseInteger
      * @expectedException \amoCRM\Exception\ValidateException
      */
     public function testEnsureIsNumeric()
@@ -35,6 +36,7 @@ final class NumberValidatorTest extends TestCase
 
     /**
      * @covers \amoCRM\Validator\NumberValidator::ensureGreaterOrEqualZero
+     * @uses   \amoCRM\Validator\NumberValidator::parseInteger
      * @expectedException \amoCRM\Exception\ValidateException
      */
     public function testEnsureGreaterOrEqualZero()
@@ -44,10 +46,24 @@ final class NumberValidatorTest extends TestCase
 
     /**
      * @covers \amoCRM\Validator\NumberValidator::ensureNotEqualZero
+     * @uses   \amoCRM\Validator\NumberValidator::parseInteger
      * @expectedException \amoCRM\Exception\ValidateException
      */
     public function testEnsureNotEqualZero()
     {
         NumberValidator::parseInteger(0);
+    }
+
+    /**
+     * @covers \amoCRM\Validator\NumberValidator::parseIntegersArray
+     */
+    public function testParseIntegersArray()
+    {
+        $arr = ['1', '2', '3'];
+        $result = NumberValidator::parseIntegersArray($arr);
+        $this->assertEquals($arr, $result);
+        foreach ($result as $item) {
+            $this->assertInternalType('int', $item);
+        }
     }
 }

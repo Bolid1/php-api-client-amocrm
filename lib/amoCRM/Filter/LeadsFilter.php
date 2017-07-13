@@ -2,6 +2,8 @@
 
 namespace amoCRM\Filter;
 
+use amoCRM\Validator\NumberValidator;
+
 /**
  * Class LeadsFilter
  * @link https://developers.amocrm.ru/rest_api/leads_list.php
@@ -14,12 +16,11 @@ final class LeadsFilter extends BaseEntityFilter
 
     /**
      * @param array|integer $status
-     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function setStatus($status)
     {
-        $this->status = (array)$status;
-        $this->onlyPositiveIntegers($this->status);
+        $this->status = NumberValidator::parseIntegersArray((array)$status);
     }
 
     /**

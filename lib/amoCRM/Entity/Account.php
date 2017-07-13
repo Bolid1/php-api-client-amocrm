@@ -61,6 +61,14 @@ final class Account implements Interfaces\Account
     }
 
     /**
+     * @return string
+     */
+    public function getTopLevelDomain()
+    {
+        return $this->top_level_domain;
+    }
+
+    /**
      * @param string $top_level_domain
      * @throws \amoCRM\Exception\InvalidArgumentException
      */
@@ -68,6 +76,24 @@ final class Account implements Interfaces\Account
     {
         $this->ensureIsValidTopLevelDomain($top_level_domain);
         $this->top_level_domain = $top_level_domain;
+    }
+
+    /**
+     * Generates base url for account
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return sprintf('https://%s.amocrm.%s', $this->subdomain, $this->top_level_domain);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getSubdomain()
+    {
+        return $this->subdomain;
     }
 
     /**
@@ -87,23 +113,5 @@ final class Account implements Interfaces\Account
             $message = sprintf('"%s" is not a valid top level domain', $top_level_domain);
             throw new Exception\InvalidArgumentException($message);
         }
-    }
-
-    /**
-     * Generates base url for account
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return sprintf('https://%s.amocrm.%s', $this->subdomain, $this->top_level_domain);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getSubdomain()
-    {
-        return $this->subdomain;
     }
 }

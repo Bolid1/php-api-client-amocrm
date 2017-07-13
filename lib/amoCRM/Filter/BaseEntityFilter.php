@@ -2,7 +2,7 @@
 
 namespace amoCRM\Filter;
 
-use amoCRM\Exception\InvalidArgumentException;
+use amoCRM\Validator\NumberValidator;
 
 /**
  * Class BaseEntityFilter
@@ -19,34 +19,28 @@ abstract class BaseEntityFilter implements Interfaces\SearchFilter
     private $responsible_user = [];
 
     /**
-     * @param array|integer $id
-     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @return array
      */
-    public function setId($id)
+    public function getId()
     {
-
-        $this->id = (array)$id;
-        $this->onlyPositiveIntegers($this->id);
+        return $this->id;
     }
 
     /**
-     * @param array $array
-     * @throws InvalidArgumentException
+     * @param array|integer $id
+     * @throws \amoCRM\Exception\ValidateException
      */
-    protected function onlyPositiveIntegers(array $array)
+    public function setId($id)
     {
-        $options = [
-            'options' => [
-                'min_range' => 1,
-            ]
-        ];
+        $this->id = NumberValidator::parseIntegersArray((array)$id);
+    }
 
-        foreach ($array as $item) {
-            if (!filter_var($item, FILTER_VALIDATE_INT, $options)) {
-                $message = sprintf('Must be greater than zero, "%s" given', $item);
-                throw new InvalidArgumentException($message);
-            }
-        }
+    /**
+     * @return string
+     */
+    public function getQuery()
+    {
+        return $this->query;
     }
 
     /**
@@ -58,13 +52,20 @@ abstract class BaseEntityFilter implements Interfaces\SearchFilter
     }
 
     /**
+     * @return array
+     */
+    public function getResponsibleUser()
+    {
+        return $this->responsible_user;
+    }
+
+    /**
      * @param array|integer $responsible_user
-     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function setResponsibleUser($responsible_user)
     {
-        $this->responsible_user = (array)$responsible_user;
-        $this->onlyPositiveIntegers($this->responsible_user);
+        $this->responsible_user = NumberValidator::parseIntegersArray((array)$responsible_user);
     }
 
     /**

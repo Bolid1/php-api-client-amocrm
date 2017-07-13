@@ -5,6 +5,10 @@ namespace amoCRM\Repository;
 use amoCRM\Entity\Contact;
 use amoCRM\Service\Interfaces\Requester;
 
+/**
+ * Class ContactsRepository
+ * @package amoCRM\Repository
+ */
 class ContactsRepository extends BaseEntityRepository
 {
     public function __construct(Requester $_requester)

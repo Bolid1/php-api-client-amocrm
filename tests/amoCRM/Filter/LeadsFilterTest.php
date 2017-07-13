@@ -10,10 +10,12 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class LeadsFilterTest
  * @package Tests\amoCRM\Filter
- * @covers \amoCRM\Filter\LeadsFilter
  */
 final class LeadsFilterTest extends TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testInstanceOf()
     {
         $filter = new LeadsFilter();
@@ -29,6 +31,10 @@ final class LeadsFilterTest extends TestCase
         );
     }
 
+    /**
+     * @covers \amoCRM\Filter\LeadsFilter::setStatus
+     * @covers \amoCRM\Filter\LeadsFilter::toArray
+     */
     public function testCases()
     {
         $expected = [
@@ -42,8 +48,9 @@ final class LeadsFilterTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Must be greater than zero, "0" given
+     * @covers \amoCRM\Filter\LeadsFilter::setStatus
+     * @uses   \amoCRM\Validator\NumberValidator::parseIntegersArray
+     * @expectedException \amoCRM\Exception\ValidateException
      */
     public function testThrowNotPositiveStatus()
     {

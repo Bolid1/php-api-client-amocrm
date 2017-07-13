@@ -11,13 +11,15 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class ContactsRequesterTest
  * @package Tests\amoCRM\Entities
- * @covers \amoCRM\Repository\ContactsRepository
  */
 final class ContactsRepositoryTest extends TestCase
 {
     /** @var Requester */
     private $requester;
 
+    /**
+     * @coversNothing
+     */
     public function testInstanceOfBaseEntityRequester()
     {
         $this->assertInstanceOf(
@@ -26,6 +28,9 @@ final class ContactsRepositoryTest extends TestCase
         );
     }
 
+    /**
+     * @covers \amoCRM\Repository\ContactsRepository::__construct
+     */
     public function testBuildValidFormatForAdd()
     {
         $requester = $this->createMock(Requester::class);

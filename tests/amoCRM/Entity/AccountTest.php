@@ -8,20 +8,15 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class AccountTest
  * @package Tests\amoCRM
- * @coversDefaultClass \amoCRM\Entity\Account
  */
 final class AccountTest extends TestCase
 {
-    public function testCanBeCreatedFromValidSubdomain()
-    {
-        $this->assertInstanceOf(
-            Account::class,
-            new Account('subdomain')
-        );
-    }
-
     /**
-     * @covers ::__construct
+     * @covers \amoCRM\Entity\Account::__construct
+     * @covers \amoCRM\Entity\Account::ensureIsValidSubdomain
+     * @uses   \amoCRM\Entity\Account::ensureIsValidTopLevelDomain
+     * @uses   \amoCRM\Entity\Account::setSubdomain
+     * @uses   \amoCRM\Entity\Account::setTopLevelDomain
      */
     public function testCanBeCreatedFromValidSubdomainAndTopLevelDomain()
     {
@@ -32,7 +27,9 @@ final class AccountTest extends TestCase
     }
 
     /**
-     * @covers ::ensureIsValidSubdomain
+     * @covers \amoCRM\Entity\Account::ensureIsValidSubdomain
+     * @uses   \amoCRM\Entity\Account::__construct
+     * @uses   \amoCRM\Entity\Account::setSubdomain
      * @expectedException \amoCRM\Exception\InvalidArgumentException
      */
     public function testCannotBeCreatedFromInvalidSubdomain()
@@ -41,24 +38,29 @@ final class AccountTest extends TestCase
     }
 
     /**
-     * @covers ::setTopLevelDomain
-     * @covers ::ensureIsValidSubdomain
+     * @covers \amoCRM\Entity\Account::setTopLevelDomain
+     * @covers \amoCRM\Entity\Account::getTopLevelDomain
+     * @uses   \amoCRM\Entity\Account::ensureIsValidSubdomain
+     * @uses   \amoCRM\Entity\Account::__construct
+     * @uses   \amoCRM\Entity\Account::ensureIsValidTopLevelDomain
+     * @uses   \amoCRM\Entity\Account::setSubdomain
      */
     public function testSetTopLevelDomain()
     {
         $account = new Account('subdomain');
 
-        $base_url = 'https://subdomain.amocrm.';
-
-        $this->assertEquals($base_url . Account::TOP_LEVEL_DOMAIN_RU, $account->getAddress());
-
+        $this->assertEquals(Account::TOP_LEVEL_DOMAIN_RU, $account->getTopLevelDomain());
         $account->setTopLevelDomain(Account::TOP_LEVEL_DOMAIN_COM);
-        $this->assertEquals($base_url . Account::TOP_LEVEL_DOMAIN_COM, $account->getAddress());
+        $this->assertEquals(Account::TOP_LEVEL_DOMAIN_COM, $account->getTopLevelDomain());
     }
 
     /**
-     * @covers ::ensureIsValidTopLevelDomain
+     * @covers \amoCRM\Entity\Account::ensureIsValidTopLevelDomain
      * @expectedException \amoCRM\Exception\InvalidArgumentException
+     * @uses   \amoCRM\Entity\Account::__construct
+     * @uses   \amoCRM\Entity\Account::ensureIsValidSubdomain
+     * @uses   \amoCRM\Entity\Account::setSubdomain
+     * @uses   \amoCRM\Entity\Account::setTopLevelDomain
      */
     public function testCannotSetInvalidTopLevelDomain()
     {
@@ -67,7 +69,12 @@ final class AccountTest extends TestCase
     }
 
     /**
-     * @covers ::getAddress
+     * @covers \amoCRM\Entity\Account::getAddress
+     * @uses   \amoCRM\Entity\Account::__construct
+     * @uses   \amoCRM\Entity\Account::ensureIsValidSubdomain
+     * @uses   \amoCRM\Entity\Account::ensureIsValidTopLevelDomain
+     * @uses   \amoCRM\Entity\Account::setSubdomain
+     * @uses   \amoCRM\Entity\Account::setTopLevelDomain
      */
     public function testReturnValidAddress()
     {
@@ -77,8 +84,12 @@ final class AccountTest extends TestCase
     }
 
     /**
-     * @covers ::getSubdomain
-     * @covers ::setSubdomain
+     * @covers \amoCRM\Entity\Account::getSubdomain
+     * @covers \amoCRM\Entity\Account::setSubdomain
+     * @uses   \amoCRM\Entity\Account::__construct
+     * @uses   \amoCRM\Entity\Account::ensureIsValidSubdomain
+     * @uses   \amoCRM\Entity\Account::ensureIsValidTopLevelDomain
+     * @uses   \amoCRM\Entity\Account::setTopLevelDomain
      */
     public function testGetSubdomain()
     {

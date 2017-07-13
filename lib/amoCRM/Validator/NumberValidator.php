@@ -11,6 +11,22 @@ use amoCRM\Exception;
 final class NumberValidator
 {
     /**
+     * @param array .<int> $arr
+     * @param bool $can_be_equal_zero
+     * @param bool $can_be_less_zero
+     * @return array
+     * @throws \amoCRM\Exception\ValidateException
+     */
+    public static function parseIntegersArray(array $arr, $can_be_equal_zero = false, $can_be_less_zero = false)
+    {
+        foreach ($arr as &$item) {
+            $item = self::parseInteger($item, $can_be_equal_zero, $can_be_less_zero);
+        }
+
+        return $arr;
+    }
+
+    /**
      * @param integer $number
      * @param bool $can_be_equal_zero
      * @param bool $can_be_less_zero

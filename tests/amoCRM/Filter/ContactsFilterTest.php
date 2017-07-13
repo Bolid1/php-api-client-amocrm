@@ -10,10 +10,12 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class ContactsFilterTest
  * @package Tests\amoCRM\Filter
- * @covers \amoCRM\Filter\ContactsFilter
  */
 final class ContactsFilterTest extends TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testInstanceOf()
     {
         $filter = new ContactsFilter();
@@ -29,6 +31,10 @@ final class ContactsFilterTest extends TestCase
         );
     }
 
+    /**
+     * @covers \amoCRM\Filter\ContactsFilter::setType
+     * @covers \amoCRM\Filter\ContactsFilter::toArray
+     */
     public function testCases()
     {
         $expected = [
@@ -42,6 +48,7 @@ final class ContactsFilterTest extends TestCase
     }
 
     /**
+     * @covers \amoCRM\Filter\ContactsFilter::setType
      * @expectedException \amoCRM\Exception\InvalidArgumentException
      * @expectedExceptionMessageRegExp /^Must on of \[[a-z, ]+\], but test given/
      */

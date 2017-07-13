@@ -2,17 +2,17 @@
 
 namespace Tests\amoCRM\Entities;
 
-use amoCRM\Entity;
+use amoCRM\Entity\Company;
 use amoCRM\Repository\BaseEntityRepository;
-use amoCRM\Repository\LeadsRepository;
+use amoCRM\Repository\CompaniesRepository;
 use amoCRM\Service\Interfaces\Requester;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class LeadsRequesterTest
+ * Class CompaniesRequesterTest
  * @package Tests\amoCRM\Entities
  */
-final class LeadsRepositoryTest extends TestCase
+final class CompaniesRepositoryTest extends TestCase
 {
     /** @var Requester */
     private $requester;
@@ -24,27 +24,27 @@ final class LeadsRepositoryTest extends TestCase
     {
         $this->assertInstanceOf(
             BaseEntityRepository::class,
-            new LeadsRepository($this->requester)
+            new CompaniesRepository($this->requester)
         );
     }
 
     /**
-     * @covers \amoCRM\Repository\LeadsRepository::__construct
+     * @covers \amoCRM\Repository\CompaniesRepository::__construct
      */
     public function testBuildValidFormatForAdd()
     {
         $requester = $this->createMock(Requester::class);
 
-        $path = Requester::API_PATH.Entity\Lead::TYPE_MANY.'/set';
+        $path = Requester::API_PATH.Company::TYPE_MANY.'/set';
         $elements = [
             [
                 'name' => 'Test',
             ],
         ];
-        $post_result = [Entity\Lead::TYPE_MANY => ['add' => $elements]];
+        $post_result = [Company::TYPE_MANY => ['add' => $elements]];
         $post_data = [
             'request' => [
-                Entity\Lead::TYPE_MANY => [
+                Company::TYPE_MANY => [
                     'add' => $elements,
                 ],
             ],
@@ -62,7 +62,7 @@ final class LeadsRepositoryTest extends TestCase
             $requester,
         ];
 
-        $stub = $this->getMockBuilder(LeadsRepository::class)
+        $stub = $this->getMockBuilder(CompaniesRepository::class)
             ->setConstructorArgs($args)
             ->enableOriginalConstructor()
             // Disable mock of any methods
@@ -70,7 +70,7 @@ final class LeadsRepositoryTest extends TestCase
             ->getMock();
 
         /** @var BaseEntityRepository $stub */
-        $this->assertEquals($post_result[Entity\Lead::TYPE_MANY]['add'], $stub->add($elements));
+        $this->assertEquals($post_result[Company::TYPE_MANY]['add'], $stub->add($elements));
     }
 
     protected function setUp()

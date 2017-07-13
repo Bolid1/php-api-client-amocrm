@@ -2,24 +2,24 @@
 
 namespace amoCRM\Repository;
 
-use amoCRM\Entity\Lead;
+use amoCRM\Entity\Company;
 use amoCRM\Service\Interfaces\Requester;
 
 /**
- * Class LeadsRepository
+ * Class CompaniesRepository
  * @package amoCRM\Repository
  */
-class LeadsRepository extends BaseEntityRepository
+class CompaniesRepository extends BaseEntityRepository
 {
     public function __construct(Requester $_requester)
     {
         $names = [
-            'many' => Lead::TYPE_MANY,
+            'many' => Company::TYPE_MANY,
         ];
 
         $paths = [
-            'set' => Lead::TYPE_MANY . '/set',
-            'list' => Lead::TYPE_MANY . '/list',
+            'set' => Company::TYPE_MANY.'/set',
+            'list' => Company::TYPE_MANY.'/list',
         ];
 
         parent::__construct($_requester, $names, $paths);
