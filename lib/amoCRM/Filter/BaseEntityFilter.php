@@ -2,7 +2,7 @@
 
 namespace amoCRM\Filter;
 
-use amoCRM\Validator\NumberValidator;
+use amoCRM\Parser\NumberParser;
 
 /**
  * Class BaseEntityFilter
@@ -32,7 +32,7 @@ abstract class BaseEntityFilter implements Interfaces\SearchFilter
      */
     public function setId($id)
     {
-        $this->id = NumberValidator::parseIntegersArray((array)$id);
+        $this->id = NumberParser::parseIntegersArray((array)$id);
     }
 
     /**
@@ -65,7 +65,7 @@ abstract class BaseEntityFilter implements Interfaces\SearchFilter
      */
     public function setResponsibleUser($responsible_user)
     {
-        $this->responsible_user = NumberValidator::parseIntegersArray((array)$responsible_user);
+        $this->responsible_user = NumberParser::parseIntegersArray((array)$responsible_user);
     }
 
     /**

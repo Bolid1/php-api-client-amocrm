@@ -1,6 +1,6 @@
 <?php
 
-namespace amoCRM\Validator;
+namespace amoCRM\Parser;
 
 use amoCRM\Exception;
 
@@ -8,7 +8,7 @@ use amoCRM\Exception;
  * Class NumberValidator
  * @package amoCRM\Validator
  */
-final class NumberValidator
+final class NumberParser
 {
     /**
      * @param array .<int> $arr

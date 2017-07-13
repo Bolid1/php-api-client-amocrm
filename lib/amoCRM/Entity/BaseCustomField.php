@@ -2,7 +2,7 @@
 
 namespace amoCRM\Entity;
 
-use amoCRM\Validator\NumberValidator;
+use amoCRM\Parser\NumberParser;
 
 /**
  * Class BaseCustomField
@@ -30,7 +30,7 @@ abstract class BaseCustomField
      */
     private function setId($id)
     {
-        $this->id = NumberValidator::parseInteger($id);
+        $this->id = NumberParser::parseInteger($id);
     }
 
     /**

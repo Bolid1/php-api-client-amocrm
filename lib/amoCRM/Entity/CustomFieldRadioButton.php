@@ -3,7 +3,7 @@
 namespace amoCRM\Entity;
 
 use amoCRM\Exception;
-use amoCRM\Validator\NumberValidator;
+use amoCRM\Parser\NumberParser;
 
 /**
  * Class CustomFieldRadioButton
@@ -24,7 +24,7 @@ class CustomFieldRadioButton extends CustomFieldSingleValue
     {
         parent::__construct($id);
         foreach ($enums as $enum => $value) {
-            $this->enums[NumberValidator::parseInteger($enum)] = (string)$value;
+            $this->enums[NumberParser::parseInteger($enum)] = (string)$value;
         }
     }
 
@@ -51,7 +51,7 @@ class CustomFieldRadioButton extends CustomFieldSingleValue
      */
     public function setEnum($enum)
     {
-        $this->value = NumberValidator::parseInteger($enum, true);
+        $this->value = NumberParser::parseInteger($enum, true);
 
         if (!isset($this->enums[$this->value])) {
             throw new Exception\InvalidArgumentException(sprintf('"%s" is not enum of this field', $enum));

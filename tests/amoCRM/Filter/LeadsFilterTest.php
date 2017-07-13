@@ -49,7 +49,7 @@ final class LeadsFilterTest extends TestCase
 
     /**
      * @covers \amoCRM\Filter\LeadsFilter::setStatus
-     * @uses   \amoCRM\Validator\NumberValidator::parseIntegersArray
+     * @uses   \amoCRM\Parser\NumberParser::parseIntegersArray
      * @expectedException \amoCRM\Exception\ValidateException
      */
     public function testThrowNotPositiveStatus()

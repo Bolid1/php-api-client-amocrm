@@ -2,7 +2,7 @@
 
 namespace amoCRM\Filter;
 
-use amoCRM\Validator\NumberValidator;
+use amoCRM\Parser\NumberParser;
 
 /**
  * Class LeadsFilter
@@ -20,7 +20,7 @@ final class LeadsFilter extends BaseEntityFilter
      */
     public function setStatus($status)
     {
-        $this->status = NumberValidator::parseIntegersArray((array)$status);
+        $this->status = NumberParser::parseIntegersArray((array)$status);
     }
 
     /**

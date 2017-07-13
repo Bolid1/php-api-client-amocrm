@@ -74,7 +74,7 @@ final class BaseEntityFilterTest extends TestCase
 
     /**
      * @covers \amoCRM\Filter\BaseEntityFilter::setId
-     * @uses   \amoCRM\Validator\NumberValidator::parseIntegersArray
+     * @uses   \amoCRM\Parser\NumberParser::parseIntegersArray
      * @expectedException \amoCRM\Exception\ValidateException
      */
     public function testThrowNotPositiveId()
@@ -84,7 +84,7 @@ final class BaseEntityFilterTest extends TestCase
 
     /**
      * @covers \amoCRM\Filter\BaseEntityFilter::setResponsibleUser
-     * @uses   \amoCRM\Validator\NumberValidator::parseIntegersArray
+     * @uses   \amoCRM\Parser\NumberParser::parseIntegersArray
      * @expectedException \amoCRM\Exception\ValidateException
      */
     public function testThrowNotPositiveResponsibleUser()
