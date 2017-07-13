@@ -10,7 +10,7 @@ use amoCRM\Service\Interfaces\Requester;
  * Class for send requests to unsorted
  * @package amoCRM\Unsorted
  */
-final class UnsortedFormRequester extends BaseUnsortedRepository implements Interfaces\UnsortedFormRepository
+final class UnsortedFormRepository extends BaseUnsortedRepository implements Interfaces\UnsortedFormRepository
 {
     public function __construct(Requester $requester)
     {

@@ -3,14 +3,14 @@
 namespace Tests\amoCRM\Entity;
 
 use amoCRM\Repository\BaseUnsortedRepository;
-use amoCRM\Repository\UnsortedFormRequester;
+use amoCRM\Repository\UnsortedFormRepository;
 use amoCRM\Service\Interfaces\Requester;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class UnsortedFormRequesterTest
  * @package Tests\amoCRM\Entity
- * @covers \amoCRM\Repository\UnsortedFormRequester
+ * @covers \amoCRM\Repository\UnsortedFormRepository
  */
 final class UnsortedFormRepositoryTest extends TestCase
 {
@@ -22,7 +22,7 @@ final class UnsortedFormRepositoryTest extends TestCase
 
         $this->assertInstanceOf(
             BaseUnsortedRepository::class,
-            new UnsortedFormRequester($requester)
+            new UnsortedFormRepository($requester)
         );
     }
 }
