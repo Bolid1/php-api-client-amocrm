@@ -3,7 +3,7 @@
 namespace amoCRM\Repository;
 
 use amoCRM\Entity\UnsortedForm;
-use amoCRM\Service\Interfaces\RequesterService;
+use amoCRM\Service\Interfaces\UnsortedRequesterService;
 
 /**
  * Class UnsortedFormRepository
@@ -12,7 +12,7 @@ use amoCRM\Service\Interfaces\RequesterService;
  */
 final class UnsortedFormRepository extends BaseUnsortedRepository implements Interfaces\UnsortedFormRepository
 {
-    public function __construct(RequesterService $requester)
+    public function __construct(UnsortedRequesterService $requester)
     {
         parent::__construct($requester, UnsortedForm::CATEGORY);
     }
