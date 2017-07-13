@@ -3,10 +3,10 @@
 namespace amoCRM\Service\Factory;
 
 use amoCRM\Entity;
+use amoCRM\Service\APIRequesterService;
 use amoCRM\Service\Interfaces;
-use amoCRM\Service\Requester;
-use amoCRM\Service\RequesterPromo;
-use amoCRM\Service\RequesterUnsorted;
+use amoCRM\Service\PromoRequesterService;
+use amoCRM\Service\UnsortedRequesterService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\RequestOptions;
@@ -15,20 +15,20 @@ use GuzzleHttp\RequestOptions;
  * Class RequesterFactory
  * @package amoCRM
  */
-final class RequesterFactory
+final class RequesterServicesFactory
 {
     /**
      * @param string $subdomain
      * @param string $login
      * @param string $api_key
-     * @return Interfaces\Requester
+     * @return Interfaces\RequesterService
      * @throws \amoCRM\Exception\InvalidArgumentException
      */
-    public static function make($subdomain, $login, $api_key)
+    public static function makeAPI($subdomain, $login, $api_key)
     {
         list($account, $user, $curl) = self::buildConstructorArgs($subdomain, $login, $api_key);
 
-        return new Requester($account, $user, $curl);
+        return new APIRequesterService($account, $user, $curl);
     }
 
     /**
@@ -66,21 +66,21 @@ final class RequesterFactory
      * @param string $subdomain
      * @param string $login
      * @param string $api_key
-     * @return RequesterUnsorted
+     * @return Interfaces\UnsortedRequesterService
      * @throws \amoCRM\Exception\InvalidArgumentException
      */
     public static function makeUnsorted($subdomain, $login, $api_key)
     {
         list($account, $user, $curl) = self::buildConstructorArgs($subdomain, $login, $api_key);
 
-        return new RequesterUnsorted($account, $user, $curl);
+        return new UnsortedRequesterService($account, $user, $curl);
     }
 
     /**
-     * @return \amoCRM\Service\Interfaces\RequesterPromo
+     * @return \amoCRM\Service\Interfaces\PromoRequesterService
      */
     public static function makePromo()
     {
-        return new RequesterPromo(self::buildClient());
+        return new PromoRequesterService(self::buildClient());
     }
 }

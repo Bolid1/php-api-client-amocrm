@@ -4,7 +4,7 @@ namespace Tests\amoCRM\Entity;
 
 use amoCRM\Repository\BaseUnsortedRepository;
 use amoCRM\Repository\UnsortedFormRepository;
-use amoCRM\Service\Interfaces\Requester;
+use amoCRM\Service\Interfaces\RequesterService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -17,8 +17,8 @@ final class UnsortedFormRepositoryTest extends TestCase
 
     public function testInstanceOfBaseUnsortedRequester()
     {
-        /** @var Requester $requester */
-        $requester = $this->createMock(Requester::class);
+        /** @var RequesterService $requester */
+        $requester = $this->createMock(RequesterService::class);
 
         $this->assertInstanceOf(
             BaseUnsortedRepository::class,

@@ -13,7 +13,7 @@ use Psr\Http\Message\ResponseInterface;
  * Класс для отправки запросов в amoCRM.
  * @package amoCRM
  */
-abstract class BaseRequester implements Interfaces\Requester
+abstract class BaseRequesterService implements Interfaces\RequesterService
 {
     /** @var Entity\Interfaces\Account */
     protected $account;

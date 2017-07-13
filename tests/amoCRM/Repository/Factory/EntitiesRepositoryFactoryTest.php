@@ -6,7 +6,7 @@ use amoCRM\Entity;
 use amoCRM\Repository\ContactsRepository;
 use amoCRM\Repository\Factory\EntitiesRepositoryFactory;
 use amoCRM\Repository\LeadsRepository;
-use amoCRM\Service\Interfaces\Requester;
+use amoCRM\Service\Interfaces\RequesterService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class EntitiesRepositoryFactoryTest extends TestCase
 {
-    /** @var Requester */
+    /** @var RequesterService */
     private $requester;
 
     /**
@@ -70,6 +70,6 @@ final class EntitiesRepositoryFactoryTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->requester = $this->createMock(Requester::class);
+        $this->requester = $this->createMock(RequesterService::class);
     }
 }

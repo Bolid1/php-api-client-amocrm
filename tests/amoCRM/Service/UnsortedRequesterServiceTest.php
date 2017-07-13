@@ -4,8 +4,8 @@ namespace Tests\amoCRM\Service;
 
 use amoCRM\Entity\Interfaces\Account;
 use amoCRM\Entity\Interfaces\User;
-use amoCRM\Service\BaseRequester;
-use amoCRM\Service\RequesterUnsorted;
+use amoCRM\Service\BaseRequesterService;
+use amoCRM\Service\UnsortedRequesterService;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\RequestOptions;
 use PHPUnit\Framework\TestCase;
@@ -14,9 +14,9 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Class RequesterUnsortedTest
  * @package Tests\amoCRM
- * @covers \amoCRM\Service\RequesterUnsorted
+ * @covers \amoCRM\Service\UnsortedRequesterService
  */
-final class RequesterUnsortedTest extends TestCase
+final class UnsortedRequesterServiceTest extends TestCase
 {
     /** @var Account */
     private $account;
@@ -54,7 +54,7 @@ final class RequesterUnsortedTest extends TestCase
             ->willReturn($response);
 
         /** @var ClientInterface $curl */
-        $requester = new RequesterUnsorted($this->account, $this->user, $curl);
+        $requester = new UnsortedRequesterService($this->account, $this->user, $curl);
 
         $result = $requester->get('test', $query);
         $expected = json_decode($body, true);
@@ -93,7 +93,7 @@ final class RequesterUnsortedTest extends TestCase
         $curl = $this->buildPostCurl($params, $response);
 
         /** @var ClientInterface $curl */
-        $requester = new RequesterUnsorted($this->account, $this->user, $curl);
+        $requester = new UnsortedRequesterService($this->account, $this->user, $curl);
 
         $result = $requester->post('test', $this->data, $query);
         $expected = json_decode($body, true);
@@ -132,7 +132,7 @@ final class RequesterUnsortedTest extends TestCase
         $curl = $this->buildPostCurl($params, $response);
 
         /** @var ClientInterface $curl */
-        $requester = new RequesterUnsorted($this->account, $this->user, $curl);
+        $requester = new UnsortedRequesterService($this->account, $this->user, $curl);
 
         $result = $requester->post('test', $this->data, $query);
         $expected = json_decode($body, true);
@@ -150,7 +150,7 @@ final class RequesterUnsortedTest extends TestCase
         $curl = $this->buildPostCurl($params, $response);
 
         /** @var ClientInterface $curl */
-        $requester = new RequesterUnsorted($this->account, $this->user, $curl);
+        $requester = new UnsortedRequesterService($this->account, $this->user, $curl);
 
         $result = $requester->post('test', $this->data);
         $expected = json_decode($body, true);
@@ -163,8 +163,8 @@ final class RequesterUnsortedTest extends TestCase
         $curl = $this->createMock(ClientInterface::class);
 
         $this->assertInstanceOf(
-            BaseRequester::class,
-            new RequesterUnsorted($this->account, $this->user, $curl)
+            BaseRequesterService::class,
+            new UnsortedRequesterService($this->account, $this->user, $curl)
         );
     }
 }

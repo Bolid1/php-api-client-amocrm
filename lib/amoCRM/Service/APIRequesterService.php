@@ -12,7 +12,7 @@ use GuzzleHttp\ClientInterface;
  * Автоматически авторизуется перед первым запросом за сессию.
  * @package amoCRM
  */
-final class Requester extends BaseRequester
+final class APIRequesterService extends BaseRequesterService
 {
     /** @var Entity\Interfaces\User */
     private $user;

@@ -3,25 +3,25 @@
 namespace Tests\amoCRM\Factory;
 
 use amoCRM\Exception\AuthFailed;
-use amoCRM\Service\Factory\RequesterFactory;
-use amoCRM\Service\Requester;
-use amoCRM\Service\RequesterPromo;
-use amoCRM\Service\RequesterUnsorted;
+use amoCRM\Service\APIRequesterService;
+use amoCRM\Service\Factory\RequesterServicesFactory;
+use amoCRM\Service\PromoRequesterService;
+use amoCRM\Service\UnsortedRequesterService;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class RequesterFactoryTest
  * @package amoCRM
- * @covers \amoCRM\Service\Factory\RequesterFactory
+ * @covers \amoCRM\Service\Factory\RequesterServicesFactory
  */
-final class RequesterFactoryTest extends TestCase
+final class RequesterServicesFactoryTest extends TestCase
 {
     public function testReturnRequester()
     {
-        $requester = RequesterFactory::make('test', 'some@example.com', md5('string'));
+        $requester = RequesterServicesFactory::makeAPI('test', 'some@example.com', md5('string'));
 
         $this->assertInstanceOf(
-            Requester::class,
+            APIRequesterService::class,
             $requester
         );
 
@@ -34,10 +34,10 @@ final class RequesterFactoryTest extends TestCase
 
     public function testReturnRequesterUnsorted()
     {
-        $requester = RequesterFactory::makeUnsorted('test', 'some@example.com', md5('string'));
+        $requester = RequesterServicesFactory::makeUnsorted('test', 'some@example.com', md5('string'));
 
         $this->assertInstanceOf(
-            RequesterUnsorted::class,
+            UnsortedRequesterService::class,
             $requester
         );
 
@@ -50,10 +50,10 @@ final class RequesterFactoryTest extends TestCase
 
     public function testReturnRequesterPromo()
     {
-        $requester = RequesterFactory::makePromo();
+        $requester = RequesterServicesFactory::makePromo();
 
         $this->assertInstanceOf(
-            RequesterPromo::class,
+            PromoRequesterService::class,
             $requester
         );
 

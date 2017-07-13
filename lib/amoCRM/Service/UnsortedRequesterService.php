@@ -12,7 +12,7 @@ use GuzzleHttp\ClientInterface;
  * примешивается логин и ключ пользователя
  * @package amoCRM
  */
-final class RequesterUnsorted extends BaseRequester
+final class UnsortedRequesterService extends BaseRequesterService implements Interfaces\UnsortedRequesterService
 {
     /** @var Entity\Interfaces\User */
     private $user;

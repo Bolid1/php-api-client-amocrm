@@ -4,7 +4,7 @@ namespace amoCRM\Repository;
 
 use amoCRM\Exception;
 use amoCRM\Filter\Interfaces\SearchFilter;
-use amoCRM\Service\Interfaces\Requester;
+use amoCRM\Service\Interfaces\RequesterService;
 
 /**
  * Class BaseEntityRequester
@@ -13,7 +13,7 @@ use amoCRM\Service\Interfaces\Requester;
  */
 abstract class BaseEntityRepository
 {
-    /** @var  Requester */
+    /** @var  RequesterService */
     private $requester;
 
     /** @var array */
@@ -29,12 +29,12 @@ abstract class BaseEntityRepository
 
     /**
      * BaseEntityRequester constructor.
-     * @param Requester $_requester
+     * @param RequesterService $_requester
      * @param array $names
      * @param array $paths
      * @throws Exception\InvalidArgumentException
      */
-    public function __construct(Requester $_requester, array $names, array $paths)
+    public function __construct(RequesterService $_requester, array $names, array $paths)
     {
         $this->requester = $_requester;
 
@@ -67,7 +67,7 @@ abstract class BaseEntityRepository
             if (empty($paths[$key])) {
                 throw new Exception\InvalidArgumentException(sprintf('Empty path "%s"', $key));
             }
-            $path = Requester::API_PATH . $paths[$key];
+            $path = RequesterService::API_PATH.$paths[$key];
         }
         unset($path);
     }

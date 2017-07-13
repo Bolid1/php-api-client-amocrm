@@ -2,7 +2,7 @@
 
 namespace amoCRM\Service\Interfaces;
 
-interface RequesterPromo extends Requester
+interface PromoRequesterService extends RequesterService
 {
     /**
      * @param string $top_level_domain

@@ -2,7 +2,7 @@
 
 namespace amoCRM\Service\Interfaces;
 
-interface Requester
+interface RequesterService
 {
     const API_PATH = '/private/api/v2/json/';
 

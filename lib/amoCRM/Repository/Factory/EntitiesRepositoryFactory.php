@@ -6,7 +6,7 @@ use amoCRM\Entity;
 use amoCRM\Exception\InvalidArgumentException;
 use amoCRM\Repository\ContactsRepository;
 use amoCRM\Repository\LeadsRepository;
-use amoCRM\Service\Interfaces\Requester;
+use amoCRM\Service\Interfaces\RequesterService;
 
 /**
  * Class EntitiesRequesterFactory
@@ -14,14 +14,14 @@ use amoCRM\Service\Interfaces\Requester;
  */
 final class EntitiesRepositoryFactory
 {
-    /** @var Requester */
+    /** @var RequesterService */
     private $requester;
 
     /**
      * RequesterFactory constructor.
-     * @param Requester $requester
+     * @param RequesterService $requester
      */
-    public function __construct(Requester $requester)
+    public function __construct(RequesterService $requester)
     {
         $this->requester = $requester;
     }

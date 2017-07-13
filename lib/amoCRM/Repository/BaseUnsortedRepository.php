@@ -4,7 +4,7 @@ namespace amoCRM\Repository;
 
 use amoCRM\Entity\BaseUnsorted;
 use amoCRM\Exception;
-use amoCRM\Service\Interfaces\Requester;
+use amoCRM\Service\Interfaces\RequesterService;
 
 /**
  * Class BaseUnsortedRepository
@@ -15,7 +15,7 @@ abstract class BaseUnsortedRepository implements Interfaces\BaseUnsortedReposito
 {
     const BASE_PATH = 'api/unsorted/';
 
-    /** @var Requester */
+    /** @var RequesterService */
     private $requester;
 
     /** @var string */
@@ -23,10 +23,10 @@ abstract class BaseUnsortedRepository implements Interfaces\BaseUnsortedReposito
 
     /**
      * BaseUnsortedRepository constructor.
-     * @param Requester $requester
+     * @param RequesterService $requester
      * @param string $category
      */
-    public function __construct(Requester $requester, $category)
+    public function __construct(RequesterService $requester, $category)
     {
         $this->requester = $requester;
         $this->setCategory($category);

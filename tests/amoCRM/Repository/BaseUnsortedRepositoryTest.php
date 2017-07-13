@@ -6,7 +6,7 @@ use amoCRM\Entity;
 use amoCRM\Entity\UnsortedForm;
 use amoCRM\Exception\InvalidResponseException;
 use amoCRM\Repository\BaseUnsortedRepository;
-use amoCRM\Service\Interfaces\Requester;
+use amoCRM\Service\Interfaces\RequesterService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -72,7 +72,7 @@ final class BaseUnsortedRepositoryTest extends TestCase
             ],
         ];
 
-        $requester = $this->createMock(Requester::class);
+        $requester = $this->createMock(RequesterService::class);
 
         $unsorted = new UnsortedForm;
         $unsorted->setSource($example['source']);
@@ -138,7 +138,7 @@ final class BaseUnsortedRepositoryTest extends TestCase
      */
     public function testAddUnsortedThrowInvalidArgumentException()
     {
-        $requester = $this->createMock(Requester::class);
+        $requester = $this->createMock(RequesterService::class);
 
         /** @var BaseUnsortedRepository $stub */
         $stub = $this->getMockBuilder(BaseUnsortedRepository::class)

@@ -3,7 +3,7 @@
 namespace Tests\amoCRM\Service;
 
 use amoCRM\Entity\Interfaces\Account;
-use amoCRM\Service\BaseRequester;
+use amoCRM\Service\BaseRequesterService;
 use GuzzleHttp\ClientInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -11,9 +11,9 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Class BaseRequesterTest
  * @package Tests\amoCRM
- * @covers \amoCRM\Service\BaseRequester
+ * @covers \amoCRM\Service\BaseRequesterService
  */
-final class BaseRequesterTest extends TestCase
+final class BaseRequesterServiceTest extends TestCase
 {
     const BASE_URL = 'https://test.amocrm.ru';
 
@@ -64,11 +64,11 @@ final class BaseRequesterTest extends TestCase
 
     /**
      * @param ClientInterface $curl
-     * @return BaseRequester
+     * @return BaseRequesterService
      */
     private function buildMock(ClientInterface $curl)
     {
-        $requester = $this->getMockBuilder(BaseRequester::class)
+        $requester = $this->getMockBuilder(BaseRequesterService::class)
             ->enableOriginalConstructor()
             ->setConstructorArgs([$this->account, $curl])
             ->setMethods()

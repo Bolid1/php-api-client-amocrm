@@ -11,7 +11,7 @@ use GuzzleHttp\ClientInterface;
  * Автоматически авторизуется перед первым запросом за сессию.
  * @package amoCRM
  */
-final class RequesterPromo extends BaseRequester implements Interfaces\RequesterPromo
+final class PromoRequesterService extends BaseRequesterService implements Interfaces\PromoRequesterService
 {
     public function __construct(ClientInterface $curl)
     {

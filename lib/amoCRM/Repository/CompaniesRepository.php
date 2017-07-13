@@ -3,7 +3,7 @@
 namespace amoCRM\Repository;
 
 use amoCRM\Entity\Company;
-use amoCRM\Service\Interfaces\Requester;
+use amoCRM\Service\Interfaces\RequesterService;
 
 /**
  * Class CompaniesRepository
@@ -11,7 +11,7 @@ use amoCRM\Service\Interfaces\Requester;
  */
 class CompaniesRepository extends BaseEntityRepository
 {
-    public function __construct(Requester $_requester)
+    public function __construct(RequesterService $_requester)
     {
         $names = [
             'many' => Company::TYPE_MANY,

@@ -4,7 +4,7 @@ namespace Tests\amoCRM\Entities;
 
 use amoCRM\Filter\Interfaces\SearchFilter;
 use amoCRM\Repository\BaseEntityRepository;
-use amoCRM\Service\Interfaces\Requester;
+use amoCRM\Service\Interfaces\RequesterService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -17,7 +17,7 @@ final class BaseEntityRepositoryTest extends TestCase
     public function testCanBeCreatedFromValidNamesAndPaths()
     {
         $args = [
-            $this->createMock(Requester::class),
+            $this->createMock(RequesterService::class),
             ['many' => 'elements'],
             ['list' => 'elements/list', 'set' => 'elements/set'],
         ];
@@ -40,7 +40,7 @@ final class BaseEntityRepositoryTest extends TestCase
     public function testCannotBeCreatedFromInvalidNames()
     {
         $args = [
-            $this->createMock(Requester::class),
+            $this->createMock(RequesterService::class),
             ['many' => null],
             ['list' => 'elements/list', 'set' => 'elements/set'],
         ];
@@ -57,7 +57,7 @@ final class BaseEntityRepositoryTest extends TestCase
     public function testCannotBeCreatedFromInvalidPaths()
     {
         $args = [
-            $this->createMock(Requester::class),
+            $this->createMock(RequesterService::class),
             ['many' => 'elements'],
             ['set' => null],
         ];
@@ -73,7 +73,7 @@ final class BaseEntityRepositoryTest extends TestCase
      */
     public function testBuildFailedForAdd()
     {
-        $requester = $this->createMock(Requester::class);
+        $requester = $this->createMock(RequesterService::class);
 
         // Wrong nesting level
         $elements = ['name' => 'Test'];
@@ -87,10 +87,10 @@ final class BaseEntityRepositoryTest extends TestCase
     }
 
     /**
-     * @param Requester $requester
+     * @param RequesterService $requester
      * @return array
      */
-    private function buildConstructorArguments(Requester $requester)
+    private function buildConstructorArguments(RequesterService $requester)
     {
         return [
             $requester,
@@ -118,7 +118,7 @@ final class BaseEntityRepositoryTest extends TestCase
      */
     public function testBuildFailedForUpdate()
     {
-        $requester = $this->createMock(Requester::class);
+        $requester = $this->createMock(RequesterService::class);
 
         // Wrong nesting level
         $elements = ['id' => 12, 'name' => 'Test'];
@@ -136,7 +136,7 @@ final class BaseEntityRepositoryTest extends TestCase
      */
     public function testBuildFailedForUpdateWithoutId()
     {
-        $requester = $this->createMock(Requester::class);
+        $requester = $this->createMock(RequesterService::class);
 
         // Wrong nesting level
         $elements = [['name' => 'Test']];
@@ -151,9 +151,9 @@ final class BaseEntityRepositoryTest extends TestCase
 
     public function testBuildValidFormatForAdd()
     {
-        $requester = $this->createMock(Requester::class);
+        $requester = $this->createMock(RequesterService::class);
 
-        $path = Requester::API_PATH.'elements/set';
+        $path = RequesterService::API_PATH.'elements/set';
         $elements = [
             [
                 'name' => 'Test',
@@ -210,9 +210,9 @@ final class BaseEntityRepositoryTest extends TestCase
 
     public function testBuildValidFormatForUpdate()
     {
-        $requester = $this->createMock(Requester::class);
+        $requester = $this->createMock(RequesterService::class);
 
-        $path = Requester::API_PATH.'elements/set';
+        $path = RequesterService::API_PATH.'elements/set';
         $elements = [
             [
                 'id' => 12,
@@ -233,9 +233,9 @@ final class BaseEntityRepositoryTest extends TestCase
 
     public function testSearch()
     {
-        $requester = $this->createMock(Requester::class);
+        $requester = $this->createMock(RequesterService::class);
 
-        $path = Requester::API_PATH.'elements/list';
+        $path = RequesterService::API_PATH.'elements/list';
 
         $elements = [
             [
@@ -262,9 +262,9 @@ final class BaseEntityRepositoryTest extends TestCase
 
     public function testSearchWithFilterAndNav()
     {
-        $requester = $this->createMock(Requester::class);
+        $requester = $this->createMock(RequesterService::class);
 
-        $path = Requester::API_PATH.'elements/list';
+        $path = RequesterService::API_PATH.'elements/list';
 
         $elements = [
             [
@@ -322,7 +322,7 @@ final class BaseEntityRepositoryTest extends TestCase
      */
     private function buildStubForSearchException()
     {
-        $requester = $this->createMock(Requester::class);
+        $requester = $this->createMock(RequesterService::class);
 
         $args = $this->buildConstructorArguments($requester);
 
@@ -354,9 +354,9 @@ final class BaseEntityRepositoryTest extends TestCase
 
     public function testAddErrorResult()
     {
-        $requester = $this->createMock(Requester::class);
+        $requester = $this->createMock(RequesterService::class);
 
-        $path = Requester::API_PATH.'elements/set';
+        $path = RequesterService::API_PATH.'elements/set';
         $elements = [
             [
                 'name' => 'Test',
@@ -376,9 +376,9 @@ final class BaseEntityRepositoryTest extends TestCase
 
     public function testUpdateErrorResult()
     {
-        $requester = $this->createMock(Requester::class);
+        $requester = $this->createMock(RequesterService::class);
 
-        $path = Requester::API_PATH.'elements/set';
+        $path = RequesterService::API_PATH.'elements/set';
         $elements = [
             [
                 'id' => 12,

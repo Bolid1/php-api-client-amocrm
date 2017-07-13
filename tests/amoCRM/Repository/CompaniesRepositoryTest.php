@@ -5,7 +5,7 @@ namespace Tests\amoCRM\Entities;
 use amoCRM\Entity\Company;
 use amoCRM\Repository\BaseEntityRepository;
 use amoCRM\Repository\CompaniesRepository;
-use amoCRM\Service\Interfaces\Requester;
+use amoCRM\Service\Interfaces\RequesterService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class CompaniesRepositoryTest extends TestCase
 {
-    /** @var Requester */
+    /** @var RequesterService */
     private $requester;
 
     /**
@@ -33,9 +33,9 @@ final class CompaniesRepositoryTest extends TestCase
      */
     public function testBuildValidFormatForAdd()
     {
-        $requester = $this->createMock(Requester::class);
+        $requester = $this->createMock(RequesterService::class);
 
-        $path = Requester::API_PATH.Company::TYPE_MANY.'/set';
+        $path = RequesterService::API_PATH.Company::TYPE_MANY.'/set';
         $elements = [
             [
                 'name' => 'Test',
@@ -76,6 +76,6 @@ final class CompaniesRepositoryTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->requester = $this->createMock(Requester::class);
+        $this->requester = $this->createMock(RequesterService::class);
     }
 }

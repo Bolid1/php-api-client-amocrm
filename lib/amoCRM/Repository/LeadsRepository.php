@@ -3,7 +3,7 @@
 namespace amoCRM\Repository;
 
 use amoCRM\Entity\Lead;
-use amoCRM\Service\Interfaces\Requester;
+use amoCRM\Service\Interfaces\RequesterService;
 
 /**
  * Class LeadsRepository
@@ -11,7 +11,7 @@ use amoCRM\Service\Interfaces\Requester;
  */
 class LeadsRepository extends BaseEntityRepository
 {
-    public function __construct(Requester $_requester)
+    public function __construct(RequesterService $_requester)
     {
         $names = [
             'many' => Lead::TYPE_MANY,

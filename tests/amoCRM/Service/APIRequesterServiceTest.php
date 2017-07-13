@@ -4,8 +4,8 @@ namespace Tests\amoCRM\Service;
 
 use amoCRM\Entity\Interfaces\Account;
 use amoCRM\Entity\Interfaces\User;
-use amoCRM\Service\BaseRequester;
-use amoCRM\Service\Requester;
+use amoCRM\Service\APIRequesterService;
+use amoCRM\Service\BaseRequesterService;
 use GuzzleHttp\ClientInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -13,9 +13,9 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Class RequesterTest
  * @package Tests\amoCRM
- * @covers \amoCRM\Service\Requester
+ * @covers \amoCRM\Service\APIRequesterService
  */
-final class RequesterTest extends TestCase
+final class APIRequesterServiceTest extends TestCase
 {
     const BASE_URL = 'https://test.amocrm.ru';
     const CREDENTIALS = [
@@ -46,7 +46,7 @@ final class RequesterTest extends TestCase
 
         $curl = $this->buildCurl('get', $response);
 
-        $requester = new Requester($this->account, $this->user, $curl);
+        $requester = new APIRequesterService($this->account, $this->user, $curl);
 
         $result = $requester->get('test', ['type' => 'json']);
         $expected = json_decode($body, true);
@@ -107,7 +107,7 @@ final class RequesterTest extends TestCase
         $curl->method('request')
             ->willReturn($response);
 
-        $requester = new Requester($this->account, $this->user, $curl);
+        $requester = new APIRequesterService($this->account, $this->user, $curl);
 
         $start = microtime(true);
         for ($i = 0; $i < $repeats_count; ++$i) {
@@ -127,7 +127,7 @@ final class RequesterTest extends TestCase
 
         $curl = $this->buildCurl('post', $response);
 
-        $requester = new Requester($this->account, $this->user, $curl);
+        $requester = new APIRequesterService($this->account, $this->user, $curl);
 
         $result = $requester->post('test', ['type' => 'json']);
         $expected = json_decode($body, true);
@@ -152,7 +152,7 @@ final class RequesterTest extends TestCase
 
         $curl = $this->buildCurl('post', $response);
 
-        $requester = new Requester($this->account, $this->user, $curl);
+        $requester = new APIRequesterService($this->account, $this->user, $curl);
 
         // Now will return 401 and auth must be lost
         $requester->post('/private/api/auth.php', ['type' => 'json']);
@@ -163,8 +163,8 @@ final class RequesterTest extends TestCase
         $curl = $this->createMock(ClientInterface::class);
 
         $this->assertInstanceOf(
-            BaseRequester::class,
-            new Requester($this->account, $this->user, $curl)
+            BaseRequesterService::class,
+            new APIRequesterService($this->account, $this->user, $curl)
         );
     }
 }

@@ -3,7 +3,7 @@
 namespace Tests\amoCRM\Service;
 
 use amoCRM\Entity\Interfaces\Account;
-use amoCRM\Service\RequesterPromo;
+use amoCRM\Service\PromoRequesterService;
 use GuzzleHttp\ClientInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -11,9 +11,9 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Class RequesterPromoTest
  * @package Tests\amoCRM
- * @covers \amoCRM\Service\RequesterPromo
+ * @covers \amoCRM\Service\PromoRequesterService
  */
-final class RequesterPromoTest extends TestCase
+final class PromoRequesterServiceTest extends TestCase
 {
     const BASE_URL = 'https://www.amocrm.';
     const BASE_PATH = '/api/accounts/domains/';
@@ -30,7 +30,7 @@ final class RequesterPromoTest extends TestCase
             ->willReturn($this->createMock(ResponseInterface::class));
 
         /** @var ClientInterface $curl */
-        $requester = new RequesterPromo($curl);
+        $requester = new PromoRequesterService($curl);
         $requester->setTopLevelDomain(Account::TOP_LEVEL_DOMAIN_COM);
 
         $requester->post(self::BASE_PATH, ['foo' => 'bar']);
@@ -48,7 +48,7 @@ final class RequesterPromoTest extends TestCase
             ->willReturn($this->createMock(ResponseInterface::class));
 
         /** @var ClientInterface $curl */
-        $requester = new RequesterPromo($curl);
+        $requester = new PromoRequesterService($curl);
 
         $requester->get(self::BASE_PATH);
     }
@@ -86,7 +86,7 @@ final class RequesterPromoTest extends TestCase
             ->willReturn($response);
 
         /** @var ClientInterface $curl */
-        $requester = new RequesterPromo($curl);
+        $requester = new PromoRequesterService($curl);
 
         $result = $requester->domains($domain_info['subdomain']);
         $this->assertEquals($expected, $result);
