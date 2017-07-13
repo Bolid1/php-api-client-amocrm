@@ -163,9 +163,28 @@ final class UnsortedFormTest extends TestCase
      */
     public function testEnsureDataNotEmptyThrowValidateException()
     {
+        list($unsorted, $source_data) = $this->buildWithSourceData();
+        unset($source_data['data']);
+        $this->setSourceDataAndCallToAmo($unsorted, $source_data);
+    }
+
+    /**
+     * @return array
+     */
+    private function buildWithSourceData()
+    {
         $unsorted = $this->buildWithoutSourceData();
         $source_data = self::$example['source_data'];
-        unset($source_data['data']);
+
+        return array($unsorted, $source_data);
+    }
+
+    /**
+     * @param UnsortedForm $unsorted
+     * @param array $source_data
+     */
+    private function setSourceDataAndCallToAmo($unsorted, $source_data)
+    {
         $this->setSourceData($unsorted, $source_data);
         $unsorted->toAmo();
     }
@@ -176,11 +195,9 @@ final class UnsortedFormTest extends TestCase
      */
     public function testEnsureFormTypeThrowValidateException()
     {
-        $unsorted = $this->buildWithoutSourceData();
-        $source_data = self::$example['source_data'];
+        list($unsorted, $source_data) = $this->buildWithSourceData();
         unset($source_data['form_type']);
-        $this->setSourceData($unsorted, $source_data);
-        $unsorted->toAmo();
+        $this->setSourceDataAndCallToAmo($unsorted, $source_data);
     }
 
     /**
@@ -189,11 +206,9 @@ final class UnsortedFormTest extends TestCase
      */
     public function testEnsureFormTypeThrowValidateExceptionOnInvalid()
     {
-        $unsorted = $this->buildWithoutSourceData();
-        $source_data = self::$example['source_data'];
+        list($unsorted, $source_data) = $this->buildWithSourceData();
         $source_data['form_type'] = 12;
-        $this->setSourceData($unsorted, $source_data);
-        $unsorted->toAmo();
+        $this->setSourceDataAndCallToAmo($unsorted, $source_data);
     }
 
     /**
@@ -202,11 +217,9 @@ final class UnsortedFormTest extends TestCase
      */
     public function testEnsureFormTypeThrowValidateExceptionOnString()
     {
-        $unsorted = $this->buildWithoutSourceData();
-        $source_data = self::$example['source_data'];
+        list($unsorted, $source_data) = $this->buildWithSourceData();
         $source_data['form_type'] = (string)UnsortedForm::FORM_TYPE_ID_WORDPRESS;
-        $this->setSourceData($unsorted, $source_data);
-        $unsorted->toAmo();
+        $this->setSourceDataAndCallToAmo($unsorted, $source_data);
     }
 
     /**
@@ -215,11 +228,9 @@ final class UnsortedFormTest extends TestCase
      */
     public function testEnsureOriginNotEmptyArrayThrowValidateException()
     {
-        $unsorted = $this->buildWithoutSourceData();
-        $source_data = self::$example['source_data'];
+        list($unsorted, $source_data) = $this->buildWithSourceData();
         unset($source_data['origin']);
-        $this->setSourceData($unsorted, $source_data);
-        $unsorted->toAmo();
+        $this->setSourceDataAndCallToAmo($unsorted, $source_data);
     }
 
     /**
@@ -228,11 +239,9 @@ final class UnsortedFormTest extends TestCase
      */
     public function testEnsureWordPressOriginUrlThrowValidateException()
     {
-        $unsorted = $this->buildWithoutSourceData();
-        $source_data = self::$example['source_data'];
+        list($unsorted, $source_data) = $this->buildWithSourceData();
         unset($source_data['origin']['url']);
-        $this->setSourceData($unsorted, $source_data);
-        $unsorted->toAmo();
+        $this->setSourceDataAndCallToAmo($unsorted, $source_data);
     }
 
     /**
@@ -241,11 +250,9 @@ final class UnsortedFormTest extends TestCase
      */
     public function testEnsureWordPressOriginRequestIdThrowValidateException()
     {
-        $unsorted = $this->buildWithoutSourceData();
-        $source_data = self::$example['source_data'];
+        list($unsorted, $source_data) = $this->buildWithSourceData();
         unset($source_data['origin']['request_id']);
-        $this->setSourceData($unsorted, $source_data);
-        $unsorted->toAmo();
+        $this->setSourceDataAndCallToAmo($unsorted, $source_data);
     }
 
     /**
@@ -254,11 +261,9 @@ final class UnsortedFormTest extends TestCase
      */
     public function testEnsureWordPressOriginFormTypeThrowValidateException()
     {
-        $unsorted = $this->buildWithoutSourceData();
-        $source_data = self::$example['source_data'];
+        list($unsorted, $source_data) = $this->buildWithSourceData();
         unset($source_data['origin']['form_type']);
-        $this->setSourceData($unsorted, $source_data);
-        $unsorted->toAmo();
+        $this->setSourceDataAndCallToAmo($unsorted, $source_data);
     }
 
     /**
@@ -267,11 +272,9 @@ final class UnsortedFormTest extends TestCase
      */
     public function testEnsureFormRequiredThrowValidateExceptionFieldFormId()
     {
-        $unsorted = $this->buildWithoutSourceData();
-        $source_data = self::$example['source_data'];
+        list($unsorted, $source_data) = $this->buildWithSourceData();
         unset($source_data['form_id']);
-        $this->setSourceData($unsorted, $source_data);
-        $unsorted->toAmo();
+        $this->setSourceDataAndCallToAmo($unsorted, $source_data);
     }
 
     /**
@@ -280,11 +283,9 @@ final class UnsortedFormTest extends TestCase
      */
     public function testEnsureFormRequiredThrowValidateExceptionFieldFormIdType()
     {
-        $unsorted = $this->buildWithoutSourceData();
-        $source_data = self::$example['source_data'];
+        list($unsorted, $source_data) = $this->buildWithSourceData();
         $source_data['form_id'] = ['some array'];
-        $this->setSourceData($unsorted, $source_data);
-        $unsorted->toAmo();
+        $this->setSourceDataAndCallToAmo($unsorted, $source_data);
     }
 
     /**
@@ -293,11 +294,9 @@ final class UnsortedFormTest extends TestCase
      */
     public function testEnsureFormRequiredThrowValidateExceptionFieldDate()
     {
-        $unsorted = $this->buildWithoutSourceData();
-        $source_data = self::$example['source_data'];
+        list($unsorted, $source_data) = $this->buildWithSourceData();
         unset($source_data['date']);
-        $this->setSourceData($unsorted, $source_data);
-        $unsorted->toAmo();
+        $this->setSourceDataAndCallToAmo($unsorted, $source_data);
     }
 
     /**
@@ -306,11 +305,9 @@ final class UnsortedFormTest extends TestCase
      */
     public function testEnsureFormRequiredThrowValidateExceptionFieldDateType()
     {
-        $unsorted = $this->buildWithoutSourceData();
-        $source_data = self::$example['source_data'];
+        list($unsorted, $source_data) = $this->buildWithSourceData();
         $source_data['date'] = ['some array'];
-        $this->setSourceData($unsorted, $source_data);
-        $unsorted->toAmo();
+        $this->setSourceDataAndCallToAmo($unsorted, $source_data);
     }
 
     /**
@@ -319,11 +316,9 @@ final class UnsortedFormTest extends TestCase
      */
     public function testEnsureFormRequiredThrowValidateExceptionFieldFrom()
     {
-        $unsorted = $this->buildWithoutSourceData();
-        $source_data = self::$example['source_data'];
+        list($unsorted, $source_data) = $this->buildWithSourceData();
         unset($source_data['from']);
-        $this->setSourceData($unsorted, $source_data);
-        $unsorted->toAmo();
+        $this->setSourceDataAndCallToAmo($unsorted, $source_data);
     }
 
     /**
@@ -332,10 +327,8 @@ final class UnsortedFormTest extends TestCase
      */
     public function testEnsureFormRequiredThrowValidateExceptionFieldFromType()
     {
-        $unsorted = $this->buildWithoutSourceData();
-        $source_data = self::$example['source_data'];
+        list($unsorted, $source_data) = $this->buildWithSourceData();
         $source_data['from'] = ['some array'];
-        $this->setSourceData($unsorted, $source_data);
-        $unsorted->toAmo();
+        $this->setSourceDataAndCallToAmo($unsorted, $source_data);
     }
 }

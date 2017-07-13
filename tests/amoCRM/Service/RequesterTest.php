@@ -44,20 +44,8 @@ final class RequesterTest extends TestCase
     {
         list($response, $body) = $this->mockResponse();
 
-        $curl = $this->createMock(ClientInterface::class);
-        $curl->expects($this->exactly(2))
-            ->method('request')
-            ->with(
-                $this->logicalOr(
-                    $this->equalTo('get'),
-                    $this->stringContains('private/api/auth.php'),
-                    $this->equalTo('get'),
-                    $this->stringContains('/test')
-                )
-            )
-            ->willReturn($response);
+        $curl = $this->buildCurl('get', $response);
 
-        /** @var ClientInterface $curl */
         $requester = new Requester($this->account, $this->user, $curl);
 
         $result = $requester->get('test', ['type' => 'json']);
@@ -87,6 +75,29 @@ final class RequesterTest extends TestCase
         return [$response, $body];
     }
 
+    /**
+     * @param string $method
+     * @param ResponseInterface $response
+     * @return ClientInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private function buildCurl($method, ResponseInterface $response)
+    {
+        $curl = $this->createMock(ClientInterface::class);
+        $curl->expects($this->exactly(2))
+            ->method('request')
+            ->with(
+                $this->logicalOr(
+                    $this->equalTo('get'),
+                    $this->stringContains('private/api/auth.php'),
+                    $this->equalTo($method),
+                    $this->stringContains('/test')
+                )
+            )
+            ->willReturn($response);
+
+        return $curl;
+    }
+
     public function testSlowDown()
     {
         $repeats_count = 3;
@@ -114,20 +125,8 @@ final class RequesterTest extends TestCase
     {
         list($response, $body) = $this->mockResponse();
 
-        $curl = $this->createMock(ClientInterface::class);
-        $curl->expects($this->exactly(2))
-            ->method('request')
-            ->with(
-                $this->logicalOr(
-                    $this->equalTo('get'),
-                    $this->stringContains('private/api/auth.php'),
-                    $this->equalTo('post'),
-                    $this->stringContains('/test')
-                )
-            )
-            ->willReturn($response);
+        $curl = $this->buildCurl('post', $response);
 
-        /** @var ClientInterface $curl */
         $requester = new Requester($this->account, $this->user, $curl);
 
         $result = $requester->post('test', ['type' => 'json']);
@@ -151,20 +150,8 @@ final class RequesterTest extends TestCase
             ->method('getBody')
             ->willReturn($auth_success);
 
-        $curl = $this->createMock(ClientInterface::class);
-        $curl->expects($this->exactly(2))
-            ->method('request')
-            ->with(
-                $this->logicalOr(
-                    $this->equalTo('get'),
-                    $this->stringContains('private/api/auth.php'),
-                    $this->equalTo('post'),
-                    $this->stringContains('/test')
-                )
-            )
-            ->willReturn($response);
+        $curl = $this->buildCurl('post', $response);
 
-        /** @var ClientInterface $curl */
         $requester = new Requester($this->account, $this->user, $curl);
 
         // Now will return 401 and auth must be lost
@@ -173,7 +160,6 @@ final class RequesterTest extends TestCase
 
     public function testInstanceOfBaseRequester()
     {
-        /** @var ClientInterface $curl */
         $curl = $this->createMock(ClientInterface::class);
 
         $this->assertInstanceOf(

@@ -26,8 +26,15 @@ final class CustomFieldCheckboxTest extends TestCase
 
     public function testSetValueTrue()
     {
+        $this->checkSetValue(1);
+    }
+
+    /**
+     * @param integer $value
+     */
+    private function checkSetValue($value)
+    {
         $cf = new CustomFieldCheckbox($this->default_id);
-        $value = 1;
 
         $cf->setValue($value);
 
@@ -38,13 +45,6 @@ final class CustomFieldCheckboxTest extends TestCase
 
     public function testSetValueFalse()
     {
-        $cf = new CustomFieldCheckbox($this->default_id);
-        $value = 0;
-
-        $cf->setValue($value);
-
-        $data = $cf->toAmo();
-        $this->assertEquals(['id' => $this->default_id, 'values' => [['value' => $value]]], $data);
-        $this->assertInternalType('integer', $data['values'][0]['value']);
+        $this->checkSetValue(0);
     }
 }

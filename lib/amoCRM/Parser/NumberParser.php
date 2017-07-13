@@ -50,7 +50,7 @@ final class NumberParser
     }
 
     /**
-     * @param $int
+     * @param integer $int
      * @throws Exception\ValidateException
      */
     private static function ensureIsNumeric($int)

@@ -32,9 +32,9 @@ final class RequesterFactory
     }
 
     /**
-     * @param $subdomain
-     * @param $login
-     * @param $api_key
+     * @param string $subdomain
+     * @param string $login
+     * @param string $api_key
      * @return array
      * @throws \amoCRM\Exception\InvalidArgumentException
      */
