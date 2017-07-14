@@ -2,7 +2,7 @@
 
 namespace amoCRM\Entity;
 
-use amoCRM\Exception;
+use amoCRM\Parser\DateParser;
 use amoCRM\Parser\NumberParser;
 
 /**
@@ -37,7 +37,7 @@ final class CustomFieldDate extends CustomFieldSingleValue
      */
     public function setValue($value)
     {
-        $this->setTimestamp($this->parseDate($value));
+        $this->setTimestamp(DateParser::fromFormat($this->date_format, $value));
     }
 
     /**
@@ -47,22 +47,6 @@ final class CustomFieldDate extends CustomFieldSingleValue
     public function setTimestamp($timestamp)
     {
         $this->value = NumberParser::parseInteger($timestamp, true, true);
-    }
-
-    /**
-     * @param string $date
-     * @return int
-     * @throws Exception\InvalidArgumentException
-     */
-    private function parseDate($date)
-    {
-        $date_time = \DateTime::createFromFormat($this->date_format, $date);
-
-        if ($date_time === false) {
-            throw new Exception\InvalidArgumentException(sprintf('Invalid date "%s"', $date));
-        }
-
-        return $date_time->getTimestamp();
     }
 
     /**

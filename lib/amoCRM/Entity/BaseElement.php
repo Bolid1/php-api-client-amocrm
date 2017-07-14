@@ -2,7 +2,8 @@
 
 namespace amoCRM\Entity;
 
-use amoCRM\Exception;
+use amoCRM\Parser\DateParser;
+use amoCRM\Parser\NumberParser;
 
 /**
  * Class BaseElement
@@ -193,32 +194,11 @@ abstract class BaseElement
 
     /**
      * @param integer $id
-     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function setId($id)
     {
-        $this->id = $this->parseInteger($id);
-    }
-
-    /**
-     * @param integer $number
-     * @param bool $can_be_less_one
-     * @return int
-     * @throws Exception\InvalidArgumentException
-     */
-    protected function parseInteger($number, $can_be_less_one = false)
-    {
-        if (!is_numeric($number)) {
-            throw new Exception\InvalidArgumentException(sprintf('Invalid integer "%s"', $number));
-        }
-
-        $number = (int)$number;
-
-        if ($can_be_less_one !== true && $number < 1) {
-            throw new Exception\InvalidArgumentException(sprintf('Invalid integer "%s"', $number));
-        }
-
-        return $number;
+        $this->id = NumberParser::parseInteger($id);
     }
 
     /**
@@ -251,31 +231,7 @@ abstract class BaseElement
      */
     public function setDateCreate($date_create)
     {
-        $this->date_create = $this->parseDate($date_create);
-    }
-
-    /**
-     * @param integer|string $date
-     * @return int
-     * @throws Exception\InvalidArgumentException
-     */
-    private function parseDate($date)
-    {
-        if (is_numeric($date)) {
-            return (int)$date;
-        }
-
-        $result = null;
-
-        if (is_string($date)) {
-            $result = strtotime($date) ?: null;
-        }
-
-        if ($result === null) {
-            throw new Exception\InvalidArgumentException(sprintf('Invalid date "%s"', $date));
-        }
-
-        return $result;
+        $this->date_create = DateParser::parseDate($date_create);
     }
 
     /**
@@ -288,11 +244,11 @@ abstract class BaseElement
 
     /**
      * @param integer $created_by
-     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function setCreatedBy($created_by)
     {
-        $this->created_by = $this->parseInteger($created_by);
+        $this->created_by = NumberParser::parseInteger($created_by);
     }
 
     /**
@@ -309,7 +265,7 @@ abstract class BaseElement
      */
     public function setDateModify($date_modify)
     {
-        $this->date_modify = $this->parseDate($date_modify);
+        $this->date_modify = DateParser::parseDate($date_modify);
     }
 
     /**
@@ -322,11 +278,11 @@ abstract class BaseElement
 
     /**
      * @param integer $modified_by
-     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function setModifiedBy($modified_by)
     {
-        $this->modified_by = $this->parseInteger($modified_by);
+        $this->modified_by = NumberParser::parseInteger($modified_by);
     }
 
     /**
@@ -340,9 +296,10 @@ abstract class BaseElement
     /**
      * @param integer $responsible
      * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function setResponsible($responsible)
     {
-        $this->responsible = $this->parseInteger($responsible);
+        $this->responsible = NumberParser::parseInteger($responsible);
     }
 }

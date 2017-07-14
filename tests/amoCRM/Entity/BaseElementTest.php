@@ -39,9 +39,9 @@ final class BaseElementTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\ValidateException
      */
-    public function testSetIdThrowInvalidArgument()
+    public function testSetIdThrowValidateException()
     {
         $stub = $this->buildMock();
 
@@ -103,9 +103,9 @@ final class BaseElementTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\ValidateException
      */
-    public function testSetCreatedByThrowInvalidArgument()
+    public function testSetCreatedByThrowValidateException()
     {
         $this->buildMock()->setCreatedBy('some string');
     }
@@ -153,9 +153,9 @@ final class BaseElementTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\ValidateException
      */
-    public function testSetModifiedByThrowInvalidArgument()
+    public function testSetModifiedByThrowValidateException()
     {
         $this->buildMock()->setModifiedBy('some string');
     }
@@ -172,9 +172,9 @@ final class BaseElementTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\ValidateException
      */
-    public function testSetResponsibleThrowInvalidArgument()
+    public function testSetResponsibleThrowValidateException()
     {
         $this->buildMock()->setResponsible('some string');
     }

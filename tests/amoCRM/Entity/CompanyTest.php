@@ -53,9 +53,9 @@ final class CompanyTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\ValidateException
      */
-    public function testAddLeadIdThrowInvalidArgument()
+    public function testAddLeadIdThrowValidateException()
     {
         $element = new Company;
         $element->addLeadId('some string');

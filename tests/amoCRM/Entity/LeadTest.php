@@ -33,9 +33,9 @@ final class LeadTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\ValidateException
      */
-    public function testSetPriceThrowInvalidArgument()
+    public function testSetPriceThrowValidateException()
     {
         $element = new Lead;
         $element->setPrice('some string');
@@ -53,9 +53,9 @@ final class LeadTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\ValidateException
      */
-    public function testSetStatusIdThrowInvalidArgument()
+    public function testSetStatusIdThrowValidateException()
     {
         $element = new Lead;
         $element->setStatusId('some string');
@@ -73,9 +73,9 @@ final class LeadTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\ValidateException
      */
-    public function testSetPipelineIdThrowInvalidArgument()
+    public function testSetPipelineIdThrowValidateException()
     {
         $element = new Lead;
         $element->setPipelineId('some string');
@@ -93,9 +93,9 @@ final class LeadTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\ValidateException
      */
-    public function testSetCompanyIdThrowInvalidArgument()
+    public function testSetCompanyIdThrowValidateException()
     {
         $element = new Lead;
         $element->setCompanyId('some string');

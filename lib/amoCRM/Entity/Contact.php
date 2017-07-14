@@ -2,6 +2,8 @@
 
 namespace amoCRM\Entity;
 
+use amoCRM\Parser\NumberParser;
+
 /**
  * Class Lead
  * @package amoCRM\Entity
@@ -21,11 +23,11 @@ final class Contact extends BaseElement
 
     /**
      * @param integer $lead_id
-     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function addLeadId($lead_id)
     {
-        $this->leads_id[] = $this->parseInteger($lead_id);
+        $this->leads_id[] = NumberParser::parseInteger($lead_id);
     }
 
     /**
@@ -79,10 +81,10 @@ final class Contact extends BaseElement
 
     /**
      * @param integer $company_id
-     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function setCompanyId($company_id)
     {
-        $this->company_id = $this->parseInteger($company_id);
+        $this->company_id = NumberParser::parseInteger($company_id);
     }
 }

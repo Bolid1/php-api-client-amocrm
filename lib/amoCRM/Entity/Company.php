@@ -2,6 +2,8 @@
 
 namespace amoCRM\Entity;
 
+use amoCRM\Parser\NumberParser;
+
 /**
  * Class Lead
  * @package amoCRM\Entity
@@ -18,11 +20,11 @@ final class Company extends BaseElement
 
     /**
      * @param integer $lead_id
-     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function addLeadId($lead_id)
     {
-        $this->leads_id[] = $this->parseInteger($lead_id);
+        $this->leads_id[] = NumberParser::parseInteger($lead_id);
     }
 
     /**

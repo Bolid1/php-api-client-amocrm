@@ -2,6 +2,8 @@
 
 namespace amoCRM\Entity;
 
+use amoCRM\Parser\NumberParser;
+
 /**
  * Class Lead
  * @package amoCRM\Entity
@@ -64,11 +66,11 @@ final class Lead extends BaseElement
 
     /**
      * @param integer $price
-     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function setPrice($price)
     {
-        $price = $this->parseInteger($price, true);
+        $price = NumberParser::parseInteger($price, true, true);
         $this->price = $price > 0 ? $price : 0;
     }
 
@@ -82,11 +84,11 @@ final class Lead extends BaseElement
 
     /**
      * @param integer $status_id
-     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function setStatusId($status_id)
     {
-        $this->status_id = $this->parseInteger($status_id);
+        $this->status_id = NumberParser::parseInteger($status_id);
     }
 
     /**
@@ -99,11 +101,11 @@ final class Lead extends BaseElement
 
     /**
      * @param integer $pipeline_id
-     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function setPipelineId($pipeline_id)
     {
-        $this->pipeline_id = $this->parseInteger($pipeline_id);
+        $this->pipeline_id = NumberParser::parseInteger($pipeline_id);
     }
 
     /**
@@ -116,11 +118,11 @@ final class Lead extends BaseElement
 
     /**
      * @param integer $linked_company_id
-     * @throws \amoCRM\Exception\InvalidArgumentException
+     * @throws \amoCRM\Exception\ValidateException
      */
     public function setCompanyId($linked_company_id)
     {
-        $this->company_id = $this->parseInteger($linked_company_id);
+        $this->company_id = NumberParser::parseInteger($linked_company_id);
     }
 
     /**

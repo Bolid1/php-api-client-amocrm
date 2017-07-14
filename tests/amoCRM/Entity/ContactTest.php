@@ -33,9 +33,9 @@ final class ContactTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\ValidateException
      */
-    public function testSetCompanyIdThrowInvalidArgument()
+    public function testSetCompanyIdThrowValidateException()
     {
         $element = new Contact;
         $element->setCompanyId('some string');
@@ -73,9 +73,9 @@ final class ContactTest extends TestCase
     }
 
     /**
-     * @expectedException \amoCRM\Exception\InvalidArgumentException
+     * @expectedException \amoCRM\Exception\ValidateException
      */
-    public function testAddLeadIdThrowInvalidArgument()
+    public function testAddLeadIdThrowValidateException()
     {
         $element = new Contact;
         $element->addLeadId('some string');
