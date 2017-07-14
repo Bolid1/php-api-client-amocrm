@@ -118,7 +118,7 @@ final class NotesFilter implements Interfaces\SearchFilter
     public function setNotesType($notes_type)
     {
         $notes_types = (array)$notes_type;
-        array_map([Entity\Note::class, 'ensureValidType'], $notes_types);
+        array_map(['\amoCRM\Entity\Note', 'ensureValidType'], $notes_types);
         $this->notes_type = $notes_types;
     }
 
