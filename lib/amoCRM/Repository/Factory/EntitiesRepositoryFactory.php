@@ -6,6 +6,7 @@ use amoCRM\Entity;
 use amoCRM\Exception\InvalidArgumentException;
 use amoCRM\Repository\ContactsRepository;
 use amoCRM\Repository\LeadsRepository;
+use amoCRM\Repository\NotesRepository;
 use amoCRM\Service\Interfaces\RequesterService;
 
 /**
@@ -43,6 +44,10 @@ final class EntitiesRepositoryFactory
             case Entity\Contact::TYPE_SINGLE:
             case Entity\Contact::TYPE_MANY:
                 $result = new ContactsRepository($this->requester);
+                break;
+            case Entity\Note::TYPE_SINGLE:
+            case Entity\Note::TYPE_MANY:
+                $result = new NotesRepository($this->requester);
                 break;
             default:
                 throw new InvalidArgumentException(sprintf('Unknown element type "%s"', $element_type));
