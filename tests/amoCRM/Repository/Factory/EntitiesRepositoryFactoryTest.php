@@ -6,6 +6,7 @@ use amoCRM\Entity;
 use amoCRM\Repository\ContactsRepository;
 use amoCRM\Repository\Factory\EntitiesRepositoryFactory;
 use amoCRM\Repository\LeadsRepository;
+use amoCRM\Repository\NotesRepository;
 use amoCRM\Service\Interfaces\RequesterService;
 use PHPUnit\Framework\TestCase;
 
@@ -64,6 +65,24 @@ final class EntitiesRepositoryFactoryTest extends TestCase
         $this->assertInstanceOf(
             ContactsRepository::class,
             $fabric->make(Entity\Contact::TYPE_MANY)
+        );
+    }
+
+    public function testCreateNote()
+    {
+        $fabric = new EntitiesRepositoryFactory($this->requester);
+        $this->assertInstanceOf(
+            NotesRepository::class,
+            $fabric->make(Entity\Note::TYPE_SINGLE)
+        );
+    }
+
+    public function testCreateNotes()
+    {
+        $fabric = new EntitiesRepositoryFactory($this->requester);
+        $this->assertInstanceOf(
+            NotesRepository::class,
+            $fabric->make(Entity\Note::TYPE_MANY)
         );
     }
 
