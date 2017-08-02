@@ -11,7 +11,7 @@ use amoCRM\Parser\NumberParser;
  * Filters for notes list
  * @package amoCRM\Filter
  */
-final class NotesFilter implements Interfaces\SearchFilter
+final class NotesFilter implements Interfaces\NotesFilter
 {
     const ELEMENT_TYPE_CONTACT = Entity\Contact::TYPE_SINGLE;
     const ELEMENT_TYPE_LEAD = Entity\Lead::TYPE_SINGLE;

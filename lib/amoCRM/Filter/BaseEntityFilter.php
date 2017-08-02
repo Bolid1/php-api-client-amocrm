@@ -9,7 +9,7 @@ use amoCRM\Parser\NumberParser;
  * Common methods for filters
  * @package amoCRM\Filter
  */
-abstract class BaseEntityFilter implements Interfaces\SearchFilter
+abstract class BaseEntityFilter implements Interfaces\BaseEntityFilter
 {
     /** @var array */
     private $id = [];

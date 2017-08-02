@@ -11,7 +11,7 @@ use amoCRM\Parser\NumberParser;
  * Filters for tasks list
  * @package amoCRM\Filter
  */
-final class TasksFilter implements Interfaces\SearchFilter
+final class TasksFilter implements Interfaces\TasksFilter
 {
     /** @var string */
     private $element_type = Entity\Contact::TYPE_SINGLE;

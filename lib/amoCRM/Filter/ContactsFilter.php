@@ -11,7 +11,7 @@ use amoCRM\Exception\InvalidArgumentException;
  * @link https://developers.amocrm.ru/rest_api/contacts_list.php Parameters
  * @package amoCRM\Filter
  */
-final class ContactsFilter extends BaseEntityFilter
+final class ContactsFilter extends BaseEntityFilter implements Interfaces\ContactsFilter
 {
     /** @var string */
     private $type = Contact::TYPE_SINGLE;

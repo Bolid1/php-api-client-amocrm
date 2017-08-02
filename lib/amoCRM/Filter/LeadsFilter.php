@@ -9,7 +9,7 @@ use amoCRM\Parser\NumberParser;
  * @link https://developers.amocrm.ru/rest_api/leads_list.php
  * @package amoCRM\Filter
  */
-final class LeadsFilter extends BaseEntityFilter
+final class LeadsFilter extends BaseEntityFilter implements Interfaces\LeadsFilter
 {
     /** @var array */
     private $status = [];
