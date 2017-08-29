@@ -35,7 +35,7 @@ final class CompaniesRepositoryTest extends TestCase
     {
         $requester = $this->createMock(RequesterService::class);
 
-        $path = RequesterService::API_PATH.Company::TYPE_MANY.'/set';
+        $path = RequesterService::API_PATH.Company::TYPE_SINGLE.'/set';
         $elements = [
             [
                 'name' => 'Test',

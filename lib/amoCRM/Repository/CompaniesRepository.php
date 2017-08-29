@@ -18,7 +18,7 @@ class CompaniesRepository extends BaseEntityRepository
         ];
 
         $paths = [
-            'set' => Company::TYPE_MANY.'/set',
+            'set' => Company::TYPE_SINGLE.'/set',
             'list' => Company::TYPE_MANY.'/list',
         ];
 
