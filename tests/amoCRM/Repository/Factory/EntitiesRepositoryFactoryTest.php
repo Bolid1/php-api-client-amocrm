@@ -3,6 +3,7 @@
 namespace Tests\amoCRM\Repository\Factory;
 
 use amoCRM\Entity;
+use amoCRM\Repository\CompaniesRepository;
 use amoCRM\Repository\ContactsRepository;
 use amoCRM\Repository\Factory\EntitiesRepositoryFactory;
 use amoCRM\Repository\LeadsRepository;
@@ -65,6 +66,24 @@ final class EntitiesRepositoryFactoryTest extends TestCase
         $this->assertInstanceOf(
             ContactsRepository::class,
             $fabric->make(Entity\Contact::TYPE_MANY)
+        );
+    }
+
+    public function testCreateCompany()
+    {
+        $fabric = new EntitiesRepositoryFactory($this->requester);
+        $this->assertInstanceOf(
+            CompaniesRepository::class,
+            $fabric->make(Entity\Company::TYPE_SINGLE)
+        );
+    }
+
+    public function testCreateCompanies()
+    {
+        $fabric = new EntitiesRepositoryFactory($this->requester);
+        $this->assertInstanceOf(
+            CompaniesRepository::class,
+            $fabric->make(Entity\Company::TYPE_MANY)
         );
     }
 

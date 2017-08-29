@@ -4,6 +4,7 @@ namespace amoCRM\Repository\Factory;
 
 use amoCRM\Entity;
 use amoCRM\Exception\InvalidArgumentException;
+use amoCRM\Repository\CompaniesRepository;
 use amoCRM\Repository\ContactsRepository;
 use amoCRM\Repository\LeadsRepository;
 use amoCRM\Repository\NotesRepository;
@@ -44,6 +45,11 @@ final class EntitiesRepositoryFactory
             case Entity\Contact::TYPE_SINGLE:
             case Entity\Contact::TYPE_MANY:
                 $result = new ContactsRepository($this->requester);
+                break;
+            case Entity\Company::TYPE_NUMERIC:
+            case Entity\Company::TYPE_SINGLE:
+            case Entity\Company::TYPE_MANY:
+                $result = new CompaniesRepository($this->requester);
                 break;
             case Entity\Note::TYPE_SINGLE:
             case Entity\Note::TYPE_MANY:
